@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\MelonLoader\net35\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="MelonLoader">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\MelonLoader\net35\MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.Serialization">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Sirenix.Serialization.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.2D.PixelPerfect">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Unity.2D.PixelPerfect.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+          <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.UI.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Assets\APTrap.png"/>
+        <EmbeddedResource Include="Assets\APTrap.png"/>
+        <None Remove="Assets\APIcon.png"/>
+        <EmbeddedResource Include="Assets\APIcon.png"/>
+        <None Remove="Assets\APProgression.png"/>
+        <EmbeddedResource Include="Assets\APProgression.png"/>
+        <None Remove="Assets\APTrash.png"/>
+        <EmbeddedResource Include="Assets\APTrash.png"/>
+        <None Remove="Assets\APUseful.png"/>
+        <EmbeddedResource Include="Assets\APUseful.png"/>
+        <None Remove="Assets\ButtonNo.png"/>
+        <EmbeddedResource Include="Assets\ButtonNo.png"/>
+        <None Remove="Assets\ButtonNoHighlighted.png"/>
+        <EmbeddedResource Include="Assets\ButtonNoHighlighted.png"/>
+        <None Remove="Assets\ButtonYes.png"/>
+        <EmbeddedResource Include="Assets\ButtonYes.png"/>
+        <None Remove="Assets\ButtonYesHighlighted.png"/>
+        <EmbeddedResource Include="Assets\ButtonYesHighlighted.png"/>
+        <None Remove="Assets\LoginBackground.png"/>
+        <EmbeddedResource Include="Assets\LoginBackground.png"/>
+        <None Remove="Assets\APIcons.png"/>
+        <EmbeddedResource Include="Assets\APIcons.png"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Archipelago.MultiClient.Net" Version="6.6.0"/>
+    </ItemGroup>
+
+</Project>
