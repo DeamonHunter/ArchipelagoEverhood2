@@ -264,7 +264,7 @@ namespace ArchipelagoEverhood
         }
     }
 
-    [HarmonyPatch(typeof(Command), "OnEnter")]
+    [HarmonyPatch(typeof(Command), "Execute")]
     public static class CommandPatch
     {
         private static void Prefix(Command __instance)

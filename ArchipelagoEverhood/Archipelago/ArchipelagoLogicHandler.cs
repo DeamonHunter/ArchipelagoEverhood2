@@ -34,7 +34,7 @@ namespace ArchipelagoEverhood.Archipelago
             for (var i = 0; i < _itemIndex; i++)
             {
                 var item = _items.AllItemsReceived[i];
-                if (Globals.ServicesRoot!.GameData.CachedGeneralData.intVariables.TryGetValue($"Archipelago_{i}", out var itemId))
+                if (Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue($"Archipelago_{i}", out var itemId))
                 {
                     if (itemId != item.ItemId)
                     {
@@ -73,7 +73,7 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void MarkItemAdded(long itemId, int itemIndex)
         {
-            Globals.ServicesRoot!.GameData.CachedGeneralData.intVariables[$"Archipelago_{itemIndex}"] = (int)itemId;
+            Globals.ServicesRoot!.GameData.GeneralData.intVariables[$"Archipelago_{itemIndex}"] = (int)itemId;
         }
 
         public void ScoutLocations(List<long> locationsToHint) => ScoutLocationsInner(locationsToHint).ConfigureAwait(false);

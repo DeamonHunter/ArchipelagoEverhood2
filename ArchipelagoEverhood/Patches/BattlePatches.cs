@@ -40,14 +40,15 @@ namespace ArchipelagoEverhood.Patches
         {
             __state = null;
             if (!Globals.SessionHandler.LoggedIn)
-                return;
-
-            try
             {
                 Globals.Logging.Msg($"GameplayEnemyDefeated: {____activeBattleRoot.GameplayEnemy.gameObject.scene.name}. " +
                                     $"Is Replay: {____activeBattleRoot.ReplayBattle_State}. Count Left: {____battlesRoot.Count}. " +
                                     $"Xp: {Globals.ServicesRoot.InfinityProjectExperience.GetXpRewardCount(____activeBattleRoot.GameplayEnemy.gameObject)}.");
+                return;
+            }
 
+            try
+            {
                 if (____battlesRoot.Count > 1 || ____activeBattleRoot.ReplayBattle_State)
                     return;
 
@@ -61,16 +62,24 @@ namespace ArchipelagoEverhood.Patches
 
         private static void Postfix(BattleVictoryResult ___battleVictoryResult, int? __state)
         {
-            if (!Globals.SessionHandler.LoggedIn || __state == null)
-                return;
+            try
+            {
 
-            var textFields = typeof(BattleVictoryResult).GetField("enemyDefeatedLabels", BindingFlags.Instance | BindingFlags.NonPublic);
-            var texts = (TextMeshProUGUI[])textFields!.GetValue(___battleVictoryResult);
+                if (!Globals.SessionHandler.LoggedIn || __state == null)
+                    return;
 
-            texts[0].gameObject.SetActive(true);
-            texts[0].text = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(__state.Value);
-            texts[1].gameObject.SetActive(false);
-            texts[2].gameObject.SetActive(false);
+                var textFields = typeof(BattleVictoryResult).GetField("enemyDefeatedLabels", BindingFlags.Instance | BindingFlags.NonPublic);
+                var texts = (TextMeshProUGUI[])textFields!.GetValue(___battleVictoryResult);
+
+                texts[0].gameObject.SetActive(true);
+                texts[0].text = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(__state.Value);
+                texts[1].gameObject.SetActive(false);
+                texts[2].gameObject.SetActive(false);
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("Main_GameplayRoot", e);
+            }
         }
     }
 

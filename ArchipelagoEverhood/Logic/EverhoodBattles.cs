@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Archipelago.MultiClient.Net.Helpers;
 using ArchipelagoEverhood.Data;
@@ -54,31 +55,38 @@ namespace ArchipelagoEverhood.Logic
 
         public void StartedBattle(GameplayBattleRoot loadedGameplayRoot)
         {
-            CurrentBattle = null;
-            if (loadedGameplayRoot.ReplayBattle_State)
-                return;
-
-            var battleSceneName = loadedGameplayRoot.gameObject.scene.name;
-            if (BattleStorage.SkipBattles.Contains(battleSceneName))
-                return;
-
-            var relevantData = _activeBattleData!.Where(x => x.Value.SceneName == battleSceneName).Select(x => x.Value).ToList();
-            if (relevantData.Count <= 0)
+            try
             {
-                Globals.Logging.Error($"Failed to find battle: {battleSceneName}.");
-                return;
-            }
+                CurrentBattle = null;
+                if (loadedGameplayRoot.ReplayBattle_State)
+                    return;
 
-            var startedFight = relevantData.Where(battleData => !battleData.Achieved).Where(CheckIfPasses).FirstOrDefault();
-            if (startedFight == null)
+                var battleSceneName = loadedGameplayRoot.gameObject.scene.name;
+                if (BattleStorage.SkipBattles.Contains(battleSceneName))
+                    return;
+
+                var relevantData = _activeBattleData!.Where(x => x.Value.SceneName == battleSceneName).Select(x => x.Value).ToList();
+                if (relevantData.Count <= 0)
+                {
+                    Globals.Logging.Error($"Failed to find battle: {battleSceneName}.");
+                    return;
+                }
+
+                var startedFight = relevantData.Where(battleData => !battleData.Achieved).Where(CheckIfPasses).FirstOrDefault();
+                if (startedFight == null)
+                {
+                    Globals.Logging.Warning("Battles", $"Did not find any battle for the scene {battleSceneName} that wasn't already unlocked. Potential refight that was missed?");
+                    return;
+                }
+
+                Globals.Logging.Warning("Battles", $"Found fight: {startedFight.LocationId} {battleSceneName}, {startedFight.VariableName}");
+                CurrentBattle = startedFight;
+                Globals.SessionHandler.LogicHandler!.ScoutLocations(new List<long>(startedFight.LocationId));
+            }
+            catch (Exception e)
             {
-                Globals.Logging.Warning("Battles", $"Did not find any battle for the scene {battleSceneName} that wasn't already unlocked. Potential refight that was missed?");
-                return;
+                Globals.Logging.Error("BattleStart", e);
             }
-
-            Globals.Logging.Warning("Battles", $"Found fight: {startedFight.LocationId} {battleSceneName}, {startedFight.VariableName}");
-            CurrentBattle = startedFight;
-            Globals.SessionHandler.LogicHandler!.ScoutLocations(new List<long>(startedFight.LocationId));
         }
 
         public int? CompletedBattle()

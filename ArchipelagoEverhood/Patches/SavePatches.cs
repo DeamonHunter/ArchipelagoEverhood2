@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Fungus;
 using HarmonyLib;
 
 namespace ArchipelagoEverhood.Patches
@@ -11,6 +12,9 @@ namespace ArchipelagoEverhood.Patches
             if (!Globals.SessionHandler.LoggedIn)
                 return true;
 
+            if (!Directory.Exists(Path.Combine(GameData.STORAGE_DIRECTORY, "Archipelago")))
+                Directory.CreateDirectory(Path.Combine(GameData.STORAGE_DIRECTORY, "Archipelago"));
+
             __result = Path.Combine("Archipelago", $"{Globals.EverhoodOverrides.Seed}_file1");
             return false;
         }
@@ -18,6 +22,18 @@ namespace ArchipelagoEverhood.Patches
 
     [HarmonyPatch(typeof(GeneralData), nameof(GeneralData.Load))]
     public static class GeneralDataLoadPatch
+    {
+        public static void Postfix()
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return;
+
+            Globals.SessionHandler.SaveFileLoaded();
+        }
+    }
+    
+    [HarmonyPatch(typeof(GameData), "New")]
+    public static class GameDataNewPatch
     {
         public static void Postfix()
         {
