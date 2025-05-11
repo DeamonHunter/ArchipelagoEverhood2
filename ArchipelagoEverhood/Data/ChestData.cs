@@ -16,12 +16,12 @@
         {
             LocationId = locationId;
             SceneName = sceneName;
-            VariableName = variableName;
             ItemName = itemName;
+            VariableName = variableName;
             Type = type;
             ForceSayDialogue = forceSayDialogue;
         }
 
-        public ChestData Clone() => new ChestData(LocationId, SceneName, VariableName, ItemName, Type, ForceSayDialogue);
+        public ChestData Clone() => new ChestData(LocationId, SceneName, ItemName, VariableName, Type, ForceSayDialogue);
     }
 }

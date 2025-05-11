@@ -146,7 +146,7 @@ namespace ArchipelagoEverhood.Patches
 
             try
             {
-                if (!Globals.EverhoodOverrides.OriginalXpLevels.TryGetValue(___id, out var xpRewardCount))
+                if (!Globals.EverhoodOverrides.OriginalXpLevels.TryGetValue(___id.ToLower(), out var xpRewardCount))
                 {
                     Globals.Logging.Msg($"Couldn't find xp for {___id}");
                     return true;

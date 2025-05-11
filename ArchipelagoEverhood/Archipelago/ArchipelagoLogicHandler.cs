@@ -85,7 +85,11 @@ namespace ArchipelagoEverhood.Archipelago
                 Scouts[scout.Key] = scout.Value;
         }
 
-        public void CheckLocations(List<long> locationsToHint) => CheckLocationsInner(locationsToHint).ConfigureAwait(false);
+        public void CheckLocations(List<long> locationsToHint)
+        {
+            Globals.Logging.Log("CheckLocations", $"Calling for location checks {string.Join(", ", locationsToHint)}");
+            CheckLocationsInner(locationsToHint).ConfigureAwait(false);
+        }
 
         private async Task CheckLocationsInner(List<long> locationsToHint)
         {

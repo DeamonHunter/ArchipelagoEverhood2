@@ -161,7 +161,7 @@ namespace ArchipelagoEverhood.Logic
             var weaponStr = weapon.ToString();
             foreach (var chestData in _activeChestData.Values)
             {
-                if (chestData.Type != ChestType.XP)
+                if (chestData.Type != ChestType.Item)
                     continue;
 
                 if (chestData.ItemName != weaponStr)
@@ -221,7 +221,10 @@ namespace ArchipelagoEverhood.Logic
             }
 
             if (boolValue)
+            {
+                Globals.Logging.Error($"{chestData.VariableName} successfully unlocked. {boolValue}/True");
                 return true;
+            }
 
             Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked. {boolValue}/True");
             return false;

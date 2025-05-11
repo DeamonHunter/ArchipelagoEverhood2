@@ -119,7 +119,11 @@ namespace ArchipelagoEverhood.Logic
                 }
 
                 if (intValue >= battleData.IntegerCount.Value)
+                {
+                    Globals.Logging.Error($"{battleData.VariableName} successfully unlocked. {intValue}/{battleData.IntegerCount}");
                     return true;
+                }
+
                 Globals.Logging.Error($"{battleData.VariableName} not successfully unlocked. {intValue}/{battleData.IntegerCount}");
                 return false;
             }
@@ -131,7 +135,10 @@ namespace ArchipelagoEverhood.Logic
             }
 
             if (boolValue)
+            {
+                Globals.Logging.Error($"{battleData.VariableName} successfully unlocked. {boolValue}/True");
                 return true;
+            }
 
             Globals.Logging.Error($"{battleData.VariableName} not successfully unlocked. {boolValue}/True");
             return false;

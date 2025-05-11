@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Fungus;
 using HarmonyLib;
 
@@ -20,8 +21,8 @@ namespace ArchipelagoEverhood.Patches
         }
     }
 
-    [HarmonyPatch(typeof(GeneralData), nameof(GeneralData.Load))]
-    public static class GeneralDataLoadPatch
+    [HarmonyPatch(typeof(GameData), nameof(GameData.Load))]
+    public static class GameDataLoadPatch
     {
         public static void Postfix()
         {
