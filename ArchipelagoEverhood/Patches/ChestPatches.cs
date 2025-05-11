@@ -22,7 +22,72 @@ namespace ArchipelagoEverhood.Patches
             {
                 var itemInfo = Globals.ServicesRoot!.InfinityProjectExperience.GetItemRewardInfo(___id);
                 Globals.Logging.Msg($"Unlocking Item: {itemInfo.id}");
-                var data = Globals.EverhoodChests.ChestOpened(itemInfo.);
+                var data = Globals.EverhoodChests.ChestOpened(itemInfo.item);
+                if (data == null)
+                    return true;
+
+                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                if (data.ForceSayDialogue)
+                    SayOnEnterPatch.ForceShowDialogue(itemText);
+                else
+                    SayOnEnterPatch.OverrideTextValue = itemText;
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("UnlockCosmetic", e);
+            }
+
+            return true;
+        }
+    }
+    
+    [HarmonyPatch(typeof(GivePlayerArtifact), "OnEnter")]
+    public static class GivePlayerArtifactPatch
+    {
+        private static int message = 0;
+        
+        private static bool Prefix(string ___id)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return false;
+            
+            try
+            {
+                var artifactInfo = Globals.ServicesRoot!.InfinityProjectExperience.GetArtifactRewardInfo(___id);
+                Globals.Logging.Msg($"Unlocking Item: {artifactInfo.id}");
+                var data = Globals.EverhoodChests.ChestOpened(artifactInfo.artifacts);
+                if (data == null)
+                    return true;
+
+                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                if (data.ForceSayDialogue)
+                    SayOnEnterPatch.ForceShowDialogue(itemText);
+                else
+                    SayOnEnterPatch.OverrideTextValue = itemText;
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("UnlockCosmetic", e);
+            }
+
+            return true;
+        }
+    }
+    
+    [HarmonyPatch(typeof(AddWeapon), "OnEnter")]
+    public static class AddWeaponPatch
+    {
+        private static int message = 0;
+        
+        private static bool Prefix(Weapon ___playerWeapon)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return false;
+            
+            try
+            {
+                Globals.Logging.Msg($"Unlocking Item: {___playerWeapon}");
+                var data = Globals.EverhoodChests.ChestOpened(___playerWeapon);
                 if (data == null)
                     return true;
 
@@ -165,6 +230,32 @@ namespace ArchipelagoEverhood.Patches
 
             Override = false;
             __result = "-9999";
+            return true;
+        }
+    }
+    
+    [HarmonyPatch(typeof(RemoveWeapon), "OnEnter")]
+    public static class RemoveWeaponPatch
+    {
+        private static bool Prefix(Weapon ___playerWeapon)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return false;
+            
+            Globals.Logging.LogDebug("RemoveWeapon", $"Tried to remove the weapon: {___playerWeapon}");
+            return true;
+        }
+    }
+    
+    [HarmonyPatch(typeof(UseItem), "OnEnter")]
+    public static class UseItemPatch
+    {
+        private static bool Prefix(Item ___item)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return false;
+            
+            Globals.Logging.LogDebug("RemoveWeapon", $"Tried to use the item: {___item}");
             return true;
         }
     }

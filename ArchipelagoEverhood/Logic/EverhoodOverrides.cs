@@ -8,10 +8,11 @@ namespace ArchipelagoEverhood.Archipelago
     public class EverhoodOverrides
     {
         public bool Overriding;
+        public string Seed { get; private set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
-        public void ArchipelagoConnected()
+        public void ArchipelagoConnected(string seed)
         {
             if (Overriding)
             {
@@ -20,6 +21,7 @@ namespace ArchipelagoEverhood.Archipelago
             }
 
             Overriding = true;
+            Seed = seed;
             Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
 
             var infProjExperience = typeof(InfinityProjectExperience);

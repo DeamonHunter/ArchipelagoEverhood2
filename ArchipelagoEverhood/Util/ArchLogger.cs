@@ -1,4 +1,5 @@
 ﻿using System;
+using Archipelago.MultiClient.Net.MessageLog.Messages;
 //using Archipelago.MultiClient.Net.MessageLog.Messages;
 using MelonLoader;
 
@@ -40,11 +41,16 @@ namespace ArchipelagoEverhood.Util
         {
             _logger.Error($"Exception occured in: {source}.", e);
         }
+        
+        public void Error(string source, string error)
+        {
+            _logger.Error($"[{source}] {error}");
+        }
 
         public void Error(object obj) => _logger.Error(obj);
 
-        //public void LogMessage(LogMessage message) {
-        //    _logger.Msg(message.ToString());
-        //}
+        public void LogMessage(LogMessage message) {
+            _logger.Msg(message.ToString());
+        }
     }
 }

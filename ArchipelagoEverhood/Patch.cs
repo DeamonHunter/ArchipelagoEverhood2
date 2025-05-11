@@ -264,34 +264,18 @@ namespace ArchipelagoEverhood
         }
     }
 
-    [HarmonyPatch(typeof(VariableCondition), "EvaluateCondition")]
-    public static class StandardCheckPatch
+    [HarmonyPatch(typeof(Command), "OnEnter")]
+    public static class CommandPatch
     {
-        private static void Prefix(VariableCondition __instance, Variable ___variable)
+        private static void Prefix(Command __instance)
         {
             try
             {
-                Globals.Logging.Msg($"Standard If {__instance.GetType()}: {__instance.GetSummary()}");
+                Globals.Logging.Msg($"{__instance.GetSummary()}");
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("Failed during Variable Patch:", e);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(LoadScene), "OnEnter")]
-    public static class LoadScenePatch
-    {
-        private static void Prefix(StringData ____sceneName)
-        {
-            try
-            {
-                Globals.Logging.Msg($"Loading Scene: {____sceneName.Value}");
-            }
-            catch (Exception e)
-            {
-                Globals.Logging.Error("LoadScene", e);
+                Globals.Logging.Error("Command", e);
             }
         }
     }

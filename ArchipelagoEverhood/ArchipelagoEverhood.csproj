@@ -50,15 +50,10 @@
 
     <ItemGroup>
         <None Remove="Assets\APTrap.png"/>
-        <EmbeddedResource Include="Assets\APTrap.png"/>
         <None Remove="Assets\APIcon.png"/>
-        <EmbeddedResource Include="Assets\APIcon.png"/>
         <None Remove="Assets\APProgression.png"/>
-        <EmbeddedResource Include="Assets\APProgression.png"/>
         <None Remove="Assets\APTrash.png"/>
-        <EmbeddedResource Include="Assets\APTrash.png"/>
         <None Remove="Assets\APUseful.png"/>
-        <EmbeddedResource Include="Assets\APUseful.png"/>
         <None Remove="Assets\ButtonNo.png"/>
         <EmbeddedResource Include="Assets\ButtonNo.png"/>
         <None Remove="Assets\ButtonNoHighlighted.png"/>

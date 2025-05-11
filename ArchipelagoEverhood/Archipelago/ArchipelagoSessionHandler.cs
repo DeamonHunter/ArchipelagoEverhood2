@@ -11,11 +11,13 @@ namespace ArchipelagoEverhood.Archipelago
     {
         public bool LoggedIn { get; private set; }
         public ArchipelagoLogicHandler? LogicHandler;
+        public ArchipelagoItemHandler? ItemHandler;
 
         private ArchipelagoSession? _currentSession;
         public int Slot { get; private set; }
         private int _team;
         private Dictionary<string, object>? _slotData;
+        private bool _activateUpdate;
 
         public bool TryFreshLogin(string ipAddress, string username, string password, out string? reason)
         {
@@ -53,7 +55,8 @@ namespace ArchipelagoEverhood.Archipelago
             LoggedIn = true;
 
             LogicHandler = new ArchipelagoLogicHandler(_currentSession!);
-            Globals.EverhoodOverrides.ArchipelagoConnected();
+            ItemHandler = new ArchipelagoItemHandler(_currentSession!.ConnectionInfo.Slot, _currentSession!.ConnectionInfo.Team);
+            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed);
         }
 
         public void SaveFileLoaded()
@@ -62,7 +65,18 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
 
             Globals.EverhoodBattles.CompleteChecksLoadedFromSave(_currentSession.Locations);
+            Globals.EverhoodChests.CompleteChecksLoadedFromSave(_currentSession.Locations);
             LogicHandler!.SetAcceptingItems(true);
+            _activateUpdate = true;
+        }
+
+        public void Update()
+        {
+            if (!_activateUpdate || !LoggedIn)
+                return;
+            
+            LogicHandler!.Update();
+            ItemHandler!.Update();
         }
 
         public void QuitToMenu()
@@ -71,6 +85,7 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
 
             LogicHandler!.SetAcceptingItems(false);
+            _activateUpdate = false;
         }
     }
 }

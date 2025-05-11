@@ -15,6 +15,7 @@ namespace ArchipelagoEverhood.Archipelago
         private readonly ILocationCheckHelper _locations;
         private readonly IReceivedItemsHelper _items;
         private bool _acceptingItems;
+        private int _itemIndex;
 
         public ArchipelagoLogicHandler(ArchipelagoSession session)
         {
@@ -28,11 +29,34 @@ namespace ArchipelagoEverhood.Archipelago
             if (!acceptingItems)
                 return;
 
-            CheckForNewItems();
+            //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
+            _itemIndex = _items.AllItemsReceived.Count;
+            for (var i = 0; i < _itemIndex; i++)
+            {
+                var item = _items.AllItemsReceived[i];
+                if (Globals.ServicesRoot!.GameData.CachedGeneralData.intVariables.TryGetValue($"Archipelago_{i}", out var itemId))
+                {
+                    if (itemId != item.ItemId)
+                    {
+                        Globals.Logging.Error("LogicHandler", "ITEM DESYNC. CURRENTLY CANNOT HANDLE!!!!!");
+                        Globals.SessionHandler.ItemHandler!.HandleRemoteItem(item);
+                        MarkItemAdded(item.ItemId, i);
+                    }
+                }
+                else
+                {
+                    Globals.SessionHandler.ItemHandler!.HandleRemoteItem(item);
+                    MarkItemAdded(item.ItemId, i);
+                }
+            }
         }
 
         public void Update()
         {
+            if (!_acceptingItems)
+                return;
+            
+            CheckForNewItems();
         }
 
         private void CheckForNewItems()
@@ -41,13 +65,17 @@ namespace ArchipelagoEverhood.Archipelago
             while (_items.Any())
             {
                 var networkItem = _items.DequeueItem();
-                //These items should always be for the local player.
-                //var item = GetItemFromNetworkItem(networkItem, false, false);
-                //if (item != null)
-                //    Unlocker.AddItem(item);
+                Globals.SessionHandler.ItemHandler!.HandleRemoteItem(networkItem);
+                MarkItemAdded(networkItem.ItemId, _itemIndex);
+                _itemIndex++;
             }
         }
 
+        private void MarkItemAdded(long itemId, int itemIndex)
+        {
+            Globals.ServicesRoot!.GameData.CachedGeneralData.intVariables[$"Archipelago_{itemIndex}"] = (int)itemId;
+        }
+        
         public void ScoutLocations(List<long> locationsToHint) => ScoutLocationsInner(locationsToHint).ConfigureAwait(false);
 
         private async Task ScoutLocationsInner(List<long> locationsToHint)
@@ -61,6 +89,14 @@ namespace ArchipelagoEverhood.Archipelago
 
         private async Task CheckLocationsInner(List<long> locationsToHint)
         {
+            foreach (var location in locationsToHint)
+            {
+                if (!Scouts.TryGetValue(location, out var info))
+                    continue;
+
+                Globals.SessionHandler.ItemHandler!.HandleScoutedItem(info);
+            }
+            
             await _locations.CompleteLocationChecksAsync(locationsToHint.ToArray());
         }
 

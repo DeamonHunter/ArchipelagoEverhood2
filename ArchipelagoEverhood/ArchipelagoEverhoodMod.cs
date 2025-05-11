@@ -32,7 +32,8 @@ namespace ArchipelagoEverhood
         public override void OnUpdate()
         {
             base.OnUpdate();
-
+            
+            Globals.SessionHandler.Update();
             if (Input.GetKey(KeyCode.J))
             {
                 var camera = Object.FindObjectOfType<Main_TopdownRoot>().PixelPerfectCamera;

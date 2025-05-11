@@ -74,19 +74,84 @@ namespace ArchipelagoEverhood.Logic
             return null;
         }
         
-        public ChestData? ChestOpened(Item item)
+        public ChestData? ChestOpened(Dictionary<Item, int> items)
         {
             if (_activeChestData == null)
                 return null;
 
-            var itemStr = item.ToString();
+            foreach (var item in items.Keys)
+            {
+                var itemStr = item.ToString();
             
+                foreach (var chestData in _activeChestData.Values)
+                {
+                    if (chestData.Type != ChestType.Item)
+                        continue;
+
+                    if (chestData.ItemName != itemStr)
+                        continue;
+                
+                    if (chestData.Achieved)
+                        continue;
+
+                    if (!CheckIfPasses(chestData))
+                        continue;
+                
+                    chestData.Achieved = true;
+                    return chestData;
+                }
+            }
+
+
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the item {string.Join(", ", items.Keys)}. Missing?");
+            return null;
+        }
+        
+        public ChestData? ChestOpened(Artifact[] artifacts)
+        {
+            if (_activeChestData == null)
+                return null;
+
+            foreach (var artifact in artifacts)
+            {
+                var itemStr = artifact.ToString();
+            
+                foreach (var chestData in _activeChestData.Values)
+                {
+                    if (chestData.Type != ChestType.Item)
+                        continue;
+
+                    if (chestData.ItemName != itemStr)
+                        continue;
+                
+                    if (chestData.Achieved)
+                        continue;
+
+                    if (!CheckIfPasses(chestData))
+                        continue;
+                
+                    chestData.Achieved = true;
+                    return chestData;
+                }
+            }
+
+
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts.ToString())}. Missing?");
+            return null;
+        }
+        
+        public ChestData? ChestOpened(Weapon weapon)
+        {
+            if (_activeChestData == null)
+                return null;
+
+            var weaponStr = weapon.ToString();
             foreach (var chestData in _activeChestData.Values)
             {
-                if (chestData.Type != ChestType.Item)
+                if (chestData.Type != ChestType.XP)
                     continue;
 
-                if (chestData.ItemName != itemStr)
+                if (chestData.ItemName != weaponStr)
                     continue;
                 
                 if (chestData.Achieved)
@@ -99,7 +164,7 @@ namespace ArchipelagoEverhood.Logic
                 return chestData;
             }
 
-            Globals.Logging.Warning("Chests", $"Did not find any chest for the item {itemStr}. Missing?");
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the weapon {weaponStr}. Missing?");
             return null;
         }
         

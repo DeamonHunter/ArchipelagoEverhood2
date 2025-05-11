@@ -8,6 +8,9 @@ namespace ArchipelagoEverhood
     {
         //Easy Access Everhood Data
         public static ServicesRoot? ServicesRoot;
+        public static Main_TopdownRoot? TopdownRoot;
+        public static Main_GameplayRoot? GameplayRoot;
+        public static SceneManagerRoot SceneManagerRoot;
 
         //Patches
         public static readonly EverhoodBattles EverhoodBattles = new();
