@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Archipelago.MultiClient.Net.Helpers;
 using ArchipelagoEverhood.Data;
-using Fungus;
 
 namespace ArchipelagoEverhood.Logic
 {
@@ -92,12 +90,12 @@ namespace ArchipelagoEverhood.Logic
             }
 
             var id = CurrentBattle.LocationId;
-            
+
             Globals.Logging.Warning("Battles", $"Successful fight: {id} {CurrentBattle.SceneName}, {CurrentBattle.VariableName}");
-            
+
             CurrentBattle.Achieved = true;
             Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { CurrentBattle.LocationId });
-            
+
             CurrentBattle = null;
             return id;
         }

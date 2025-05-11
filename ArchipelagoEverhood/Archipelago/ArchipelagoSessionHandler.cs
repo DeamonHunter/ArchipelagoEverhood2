@@ -74,7 +74,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (!_activateUpdate || !LoggedIn)
                 return;
-            
+
             LogicHandler!.Update();
             ItemHandler!.Update();
         }

@@ -15,7 +15,7 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    
+
     [HarmonyPatch(typeof(GeneralData), nameof(GeneralData.Load))]
     public static class GeneralDataLoadPatch
     {
@@ -27,7 +27,7 @@ namespace ArchipelagoEverhood.Patches
             Globals.SessionHandler.SaveFileLoaded();
         }
     }
-    
+
     [HarmonyPatch(typeof(SceneManagerRoot), nameof(SceneManagerRoot.LoadMainMenuFromBattleScene))]
     public static class SceneManagerBattleLoadPatch
     {
@@ -39,7 +39,7 @@ namespace ArchipelagoEverhood.Patches
             Globals.SessionHandler.QuitToMenu();
         }
     }
-    
+
     [HarmonyPatch(typeof(SceneManagerRoot), nameof(SceneManagerRoot.LoadMainMenuFromTopdownScene))]
     public static class SceneManagerTopdownLoadPatch
     {

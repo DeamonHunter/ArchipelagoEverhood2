@@ -25,7 +25,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             _currentSlot = currentSlot;
             _currentTeam = team;
-            
+
             if (!Globals.GameplayRoot)
             {
                 Globals.Logging.Error("ItemHandler", "Gameplay root not loaded yet?");
@@ -42,7 +42,7 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.GameplayRoot!.OnBattleStart += OnBattleStart;
             Globals.GameplayRoot!.OnBattleFinish += OnBattleEnd;
         }
-        
+
         public void HandleScoutedItem(ScoutedItemInfo info)
         {
             if (!_blockedItems.Add(info))
@@ -50,7 +50,7 @@ namespace ArchipelagoEverhood.Archipelago
                 Globals.Logging.Error("ItemHandler", $"Scouted Item has been handled twice? {info.LocationId}:{info.ItemId}");
                 return;
             }
-            
+
             if (info.Player.Slot == _currentSlot && info.Player.Team == _currentTeam)
                 _itemsToAdd.Enqueue((info, false));
         }
@@ -75,13 +75,13 @@ namespace ArchipelagoEverhood.Archipelago
             _inBattle = true;
             Globals.Logging.Log("ItemHandler", "Battle Ended");
         }
-        
+
         public void Update()
         {
             //Don't reward items during battle or loading.
             if (!_inBattle || SceneManagerRoot.sceneIsLoading)
                 return;
-            
+
             while (_itemsToAdd.TryDequeue(out var item))
                 UnlockItem(item.Item1, item.Item2);
 
@@ -90,13 +90,12 @@ namespace ArchipelagoEverhood.Archipelago
 
             if (!_queuedSays.TryDequeue(out var sayItem))
                 return;
-            
+
             if (sayItem.Player.Slot != _currentSlot && sayItem.Player.Team != _currentTeam)
                 SayOnEnterPatch.ForceShowDialogue($"Received {sayItem.ItemDisplayName} from {sayItem.Player.Name}");
             else
                 SayOnEnterPatch.ForceShowDialogue($"You found your {sayItem.ItemDisplayName}!");
         }
-
 
         private void UnlockItem(global::Archipelago.MultiClient.Net.Models.ItemInfo itemInfo, bool remote)
         {
@@ -130,16 +129,16 @@ namespace ArchipelagoEverhood.Archipelago
                 if (Globals.GameplayRoot!.ActiveBattleRoot)
                 {
                     var victory = (BattleVictoryResult)(typeof(Main_GameplayRoot).GetField("battleVictoryResult", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.GameplayRoot));
-                    
+
                     var xpLevel_player = (GeneralData.XpLevelInfo)(typeof(BattleVictoryResult).GetMethod("AddPlayerXp", BindingFlags.Instance | BindingFlags.NonPublic)
-                        !.Invoke(victory, new object[] {Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp}));
+                        !.Invoke(victory, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp }));
 
                     var text = (TextMeshProUGUI)(typeof(BattleVictoryResult).GetField("playerXpLeftLabel", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(victory));
                     text.text = (xpLevel_player.xpRequiredForNextLevel - xpLevel_player.lastXp).ToString();
                     Globals.ServicesRoot.GameData.GeneralData.playerJustLeveledUp = xpLevel_player.leveledUp;
-                    
+
                     var coRoutine = (IEnumerator)(typeof(BattleVictoryResult).GetMethod("DoPlayerLevelSliderUpdate", BindingFlags.Instance | BindingFlags.NonPublic)
-                        !.Invoke(victory, new object[] {xpLevel_player}));
+                        !.Invoke(victory, new object[] { xpLevel_player }));
                     victory.StartCoroutine(coRoutine);
                 }
                 else

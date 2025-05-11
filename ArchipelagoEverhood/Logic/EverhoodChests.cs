@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Archipelago.MultiClient.Net.Helpers;
 using ArchipelagoEverhood.Data;
 using Fungus;
@@ -51,7 +50,7 @@ namespace ArchipelagoEverhood.Logic
                 return null;
 
             var cosmeticStr = cosmetic.ToString();
-            
+
             foreach (var chestData in _activeChestData.Values)
             {
                 if (chestData.Type != ChestType.Cosmetic)
@@ -73,7 +72,7 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Warning("Chests", $"Did not find any chest for the cosmetic {cosmeticStr}. Missing?");
             return null;
         }
-        
+
         public ChestData? ChestOpened(Dictionary<Item, int> items)
         {
             if (_activeChestData == null)
@@ -82,7 +81,7 @@ namespace ArchipelagoEverhood.Logic
             foreach (var item in items.Keys)
             {
                 var itemStr = item.ToString();
-            
+
                 foreach (var chestData in _activeChestData.Values)
                 {
                     if (chestData.Type != ChestType.Item)
@@ -90,13 +89,13 @@ namespace ArchipelagoEverhood.Logic
 
                     if (chestData.ItemName != itemStr)
                         continue;
-                
+
                     if (chestData.Achieved)
                         continue;
 
                     if (!CheckIfPasses(chestData))
                         continue;
-                
+
                     chestData.Achieved = true;
                     return chestData;
                 }
@@ -106,7 +105,7 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Warning("Chests", $"Did not find any chest for the item {string.Join(", ", items.Keys)}. Missing?");
             return null;
         }
-        
+
         public ChestData? ChestOpened(Artifact[] artifacts)
         {
             if (_activeChestData == null)
@@ -115,7 +114,7 @@ namespace ArchipelagoEverhood.Logic
             foreach (var artifact in artifacts)
             {
                 var itemStr = artifact.ToString();
-            
+
                 foreach (var chestData in _activeChestData.Values)
                 {
                     if (chestData.Type != ChestType.Item)
@@ -123,13 +122,13 @@ namespace ArchipelagoEverhood.Logic
 
                     if (chestData.ItemName != itemStr)
                         continue;
-                
+
                     if (chestData.Achieved)
                         continue;
 
                     if (!CheckIfPasses(chestData))
                         continue;
-                
+
                     chestData.Achieved = true;
                     return chestData;
                 }
@@ -139,7 +138,7 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts.ToString())}. Missing?");
             return null;
         }
-        
+
         public ChestData? ChestOpened(Weapon weapon)
         {
             if (_activeChestData == null)
@@ -153,13 +152,13 @@ namespace ArchipelagoEverhood.Logic
 
                 if (chestData.ItemName != weaponStr)
                     continue;
-                
+
                 if (chestData.Achieved)
                     continue;
 
                 if (!CheckIfPasses(chestData))
                     continue;
-                
+
                 chestData.Achieved = true;
                 return chestData;
             }
@@ -167,7 +166,7 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Warning("Chests", $"Did not find any chest for the weapon {weaponStr}. Missing?");
             return null;
         }
-        
+
         public ChestData? ChestOpened(int xp)
         {
             if (_activeChestData == null)
@@ -181,13 +180,13 @@ namespace ArchipelagoEverhood.Logic
 
                 if (chestData.ItemName != xpStr)
                     continue;
-                
+
                 if (chestData.Achieved)
                     continue;
 
                 if (!CheckIfPasses(chestData))
                     continue;
-                
+
                 chestData.Achieved = true;
                 return chestData;
             }
@@ -200,7 +199,7 @@ namespace ArchipelagoEverhood.Logic
         {
             if (chestData.VariableName == null)
                 return false;
-            
+
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(chestData.VariableName, out var boolValue))
             {
                 Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
@@ -213,7 +212,7 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked. {boolValue}/True");
             return false;
         }
-        
+
         private void SetVariable(ChestData battleData)
         {
             /*
@@ -222,7 +221,7 @@ namespace ArchipelagoEverhood.Logic
                 int value = battleData.IntegerCount.Value;
                 if (Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue(battleData.VariableName, out var intValue))
                     value = Math.Max(battleData.IntegerCount.Value, intValue);
-                
+
                 Globals.ServicesRoot!.GameData.GeneralData.intVariables[battleData.VariableName] = value;
 
                 var intVar = FungusManager.Instance.GlobalVariables.GetVariable(battleData.VariableName) as IntegerVariable;
@@ -231,7 +230,7 @@ namespace ArchipelagoEverhood.Logic
                 return;
             }
             */
-                
+
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables[battleData.VariableName] = true;
             var boolVar = FungusManager.Instance.GlobalVariables.GetVariable(battleData.VariableName) as BooleanVariable;
             if (boolVar != null)

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Reflection;
 using Fungus;
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -12,7 +10,7 @@ namespace ArchipelagoEverhood.Patches
     public static class GivePlayerItemPatch
     {
         private static int message = 0;
-        
+
         private static bool Prefix(string ___id)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -40,12 +38,12 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    
+
     [HarmonyPatch(typeof(GivePlayerArtifact), "OnEnter")]
     public static class GivePlayerArtifactPatch
     {
         private static int message = 0;
-        
+
         private static bool Prefix(string ___id)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -73,12 +71,12 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    
+
     [HarmonyPatch(typeof(AddWeapon), "OnEnter")]
     public static class AddWeaponPatch
     {
         private static int message = 0;
-        
+
         private static bool Prefix(Weapon ___playerWeapon)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -105,12 +103,12 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    
+
     [HarmonyPatch(typeof(UnlockCosmetic), "OnEnter")]
     public static class UnlockCosmeticPatch
     {
         private static int message = 0;
-        
+
         private static bool Prefix(Cosmetics ___cosmetic)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -153,7 +151,7 @@ namespace ArchipelagoEverhood.Patches
                     Globals.Logging.Msg($"Couldn't find xp for {___id}");
                     return true;
                 }
-                
+
                 Globals.Logging.Msg($"Unlocking Xp: {xpRewardCount}");
                 var data = Globals.EverhoodChests.ChestOpened(xpRewardCount);
                 if (data == null)
@@ -178,12 +176,12 @@ namespace ArchipelagoEverhood.Patches
     public static class SayOnEnterPatch
     {
         public static string? OverrideTextValue;
-        
+
         private static void Prefix(Say __instance, ref string ___overridingName)
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return;
-            
+
             if (OverrideTextValue == null)
                 return;
 
@@ -202,24 +200,25 @@ namespace ArchipelagoEverhood.Patches
             dialog.NameText.text = "Archipelago";
             SayDialog.ActiveSayDialog = dialog;
             dialog.Say(text, true, true, true, true, false, null, () =>
-            { 
+            {
                 Globals.Logging.Warning("Cosmetic Patch", "Unlocking Movement");
                 topDown.Player.SetTopDownPlayerMovementState(true);
             });
-                
+
             //The flowchart of many of these cosmetics automatically unlock movement
-            MelonEvents.OnUpdate.Subscribe(( )=>
+            MelonEvents.OnUpdate.Subscribe(() =>
             {
                 Globals.Logging.Warning("Cosmetic Patch", "Locking Movement");
                 topDown.Player.SetTopDownPlayerMovementState(false);
             }, 0, true);
         }
     }
+
     [HarmonyPatch(typeof(Say), "GetStringId")]
     public static class SayGetStringIdPatch
     {
         public static bool Override;
-        
+
         private static bool Prefix(Say __instance, ref string __result)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -233,7 +232,7 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    
+
     [HarmonyPatch(typeof(RemoveWeapon), "OnEnter")]
     public static class RemoveWeaponPatch
     {
@@ -246,7 +245,7 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    
+
     [HarmonyPatch(typeof(UseItem), "OnEnter")]
     public static class UseItemPatch
     {

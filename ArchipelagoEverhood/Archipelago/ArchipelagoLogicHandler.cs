@@ -55,7 +55,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (!_acceptingItems)
                 return;
-            
+
             CheckForNewItems();
         }
 
@@ -75,7 +75,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             Globals.ServicesRoot!.GameData.CachedGeneralData.intVariables[$"Archipelago_{itemIndex}"] = (int)itemId;
         }
-        
+
         public void ScoutLocations(List<long> locationsToHint) => ScoutLocationsInner(locationsToHint).ConfigureAwait(false);
 
         private async Task ScoutLocationsInner(List<long> locationsToHint)
@@ -96,7 +96,7 @@ namespace ArchipelagoEverhood.Archipelago
 
                 Globals.SessionHandler.ItemHandler!.HandleScoutedItem(info);
             }
-            
+
             await _locations.CompleteLocationChecksAsync(locationsToHint.ToArray());
         }
 

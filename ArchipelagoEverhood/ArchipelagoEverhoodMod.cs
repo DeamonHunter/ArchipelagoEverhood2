@@ -32,7 +32,7 @@ namespace ArchipelagoEverhood
         public override void OnUpdate()
         {
             base.OnUpdate();
-            
+
             Globals.SessionHandler.Update();
             if (Input.GetKey(KeyCode.J))
             {
