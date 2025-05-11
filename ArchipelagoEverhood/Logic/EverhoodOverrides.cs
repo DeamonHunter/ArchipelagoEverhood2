@@ -29,6 +29,9 @@ namespace ArchipelagoEverhood.Archipelago
             OriginalXpLevels = (Dictionary<string, int>)xpRewardInfo.GetValue(Globals.ServicesRoot.InfinityProjectExperience);
 
             var overrideDict = new Dictionary<string, int>();
+            foreach (var pair in OriginalXpLevels)
+                overrideDict[pair.Key] = 0;
+            
             xpRewardInfo.SetValue(Globals.ServicesRoot.InfinityProjectExperience, overrideDict);
         }
 
