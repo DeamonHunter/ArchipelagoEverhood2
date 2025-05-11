@@ -14,8 +14,8 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(string ___id)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             try
             {
                 var itemInfo = Globals.ServicesRoot!.InfinityProjectExperience.GetItemRewardInfo(___id);
@@ -35,7 +35,7 @@ namespace ArchipelagoEverhood.Patches
                 Globals.Logging.Error("UnlockCosmetic", e);
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -47,8 +47,8 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(string ___id)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             try
             {
                 var artifactInfo = Globals.ServicesRoot!.InfinityProjectExperience.GetArtifactRewardInfo(___id);
@@ -68,7 +68,7 @@ namespace ArchipelagoEverhood.Patches
                 Globals.Logging.Error("UnlockCosmetic", e);
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -80,8 +80,8 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(Weapon ___playerWeapon)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             try
             {
                 Globals.Logging.Msg($"Unlocking Item: {___playerWeapon}");
@@ -100,7 +100,7 @@ namespace ArchipelagoEverhood.Patches
                 Globals.Logging.Error("UnlockCosmetic", e);
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -112,8 +112,8 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(Cosmetics ___cosmetic)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             try
             {
                 Globals.Logging.Msg($"Unlocking Cosmetic: {___cosmetic}");
@@ -131,8 +131,8 @@ namespace ArchipelagoEverhood.Patches
             {
                 Globals.Logging.Error("UnlockCosmetic", e);
             }
-            
-            return true;
+
+            return false;
         }
     }
 
@@ -142,8 +142,8 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(GivePlayerXP __instance, string ___id)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             try
             {
                 if (!Globals.EverhoodOverrides.OriginalXpLevels.TryGetValue(___id, out var xpRewardCount))
@@ -168,7 +168,7 @@ namespace ArchipelagoEverhood.Patches
                 Globals.Logging.Error("UnlockCosmetic", e);
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -222,14 +222,14 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(Say __instance, ref string __result)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             if (!Override)
-                return false;
+                return true;
 
             Override = false;
             __result = "-9999";
-            return true;
+            return false;
         }
     }
 
@@ -239,10 +239,10 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(Weapon ___playerWeapon)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             Globals.Logging.LogDebug("RemoveWeapon", $"Tried to remove the weapon: {___playerWeapon}");
-            return true;
+            return false;
         }
     }
 
@@ -252,10 +252,10 @@ namespace ArchipelagoEverhood.Patches
         private static bool Prefix(Item ___item)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
-            
+                return true;
+
             Globals.Logging.LogDebug("RemoveWeapon", $"Tried to use the item: {___item}");
-            return true;
+            return false;
         }
     }
 }

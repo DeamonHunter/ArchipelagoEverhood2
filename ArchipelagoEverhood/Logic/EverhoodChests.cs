@@ -44,6 +44,20 @@ namespace ArchipelagoEverhood.Logic
             Globals.SessionHandler.LogicHandler!.CheckLocations(locationsToCheck);
         }
 
+        public void ScoutForScene(string sceneName)
+        {
+            var locationsToScout = new List<long>();
+            foreach (var chest in ChestStorage.Chests)
+            {
+                if (chest.SceneName != sceneName)
+                    continue;
+                locationsToScout.Add(chest.LocationId);
+            }
+            
+            if (locationsToScout.Count > 0)
+                Globals.SessionHandler.LogicHandler!.ScoutLocations(locationsToScout);
+        }
+        
         public ChestData? ChestOpened(Cosmetics cosmetic)
         {
             if (_activeChestData == null)

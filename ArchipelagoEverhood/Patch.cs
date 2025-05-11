@@ -271,7 +271,7 @@ namespace ArchipelagoEverhood
         {
             try
             {
-                Globals.Logging.Msg($"{__instance.GetSummary()}");
+                Globals.Logging.Log("Command", $"{__instance.GetSummary()}");
             }
             catch (Exception e)
             {

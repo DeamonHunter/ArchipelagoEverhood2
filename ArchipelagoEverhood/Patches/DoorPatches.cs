@@ -3,7 +3,7 @@ using HarmonyLib;
 
 namespace ArchipelagoEverhood.Patches
 {
-    [HarmonyPatch(typeof(MoveLean), "Execute")]
+    [HarmonyPatch(typeof(MoveLean), "ExecuteTween")]
     public class MoveLeanPatch
     {
         private static bool Prefix(TransformData ____toTransform)
@@ -18,7 +18,8 @@ namespace ArchipelagoEverhood.Patches
             return true;
         }
     }
-    [HarmonyPatch(typeof(SetActive), "Execute")]
+
+    [HarmonyPatch(typeof(SetActive), "OnEnter")]
     public class SetActivePatch
     {
         private static bool Prefix(GameObjectData ____targetGameObject)

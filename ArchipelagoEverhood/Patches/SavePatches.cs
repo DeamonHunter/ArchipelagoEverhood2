@@ -6,13 +6,13 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(GeneralData), nameof(GeneralData.GetFileName))]
     public static class GeneralDataFilenamePatch
     {
-        public static bool Prefix(ref string result)
+        public static bool Prefix(ref string __result)
         {
             if (!Globals.SessionHandler.LoggedIn)
-                return false;
+                return true;
 
-            result = Path.Combine("Archipelago", $"{Globals.EverhoodOverrides.Seed}_file1");
-            return true;
+            __result = Path.Combine("Archipelago", $"{Globals.EverhoodOverrides.Seed}_file1");
+            return false;
         }
     }
 

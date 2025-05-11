@@ -52,6 +52,8 @@ namespace ArchipelagoEverhood
             //This game loads scenes from other mods. Don't want to conflict with one named "MenuRoot" for some reason.
             if (buildIndex == 1)
                 Globals.LoginHandler.MainMenuLoaded(buildIndex);
+            else if (Globals.SessionHandler.LoggedIn)
+                Globals.EverhoodChests.ScoutForScene(sceneName);
         }
     }
 }

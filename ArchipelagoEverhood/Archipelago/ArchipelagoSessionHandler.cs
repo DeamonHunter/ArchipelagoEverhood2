@@ -27,7 +27,7 @@ namespace ArchipelagoEverhood.Archipelago
             var session = ArchipelagoSessionFactory.CreateSession(ipAddress);
             session.Socket.ErrorReceived += (exception, message) => { Globals.Logging.Log("[ArchError]", $"{message} : {exception}"); };
 
-            var loginResult = session.TryConnectAndLogin("Everhood2", username, ItemsHandlingFlags.AllItems, password: password);
+            var loginResult = session.TryConnectAndLogin("Everhood 2", username, ItemsHandlingFlags.AllItems, password: password);
 
             if (!loginResult.Successful)
             {
@@ -52,6 +52,10 @@ namespace ArchipelagoEverhood.Archipelago
         public void StartSession()
         {
             Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            Globals.TopdownRoot = GameObject.FindObjectsByType<Main_TopdownRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            Globals.GameplayRoot = GameObject.FindObjectsByType<Main_GameplayRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            Globals.SceneManagerRoot = GameObject.FindObjectsByType<SceneManagerRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            
             LoggedIn = true;
 
             LogicHandler = new ArchipelagoLogicHandler(_currentSession!);
