@@ -92,9 +92,9 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
 
             if (sayItem.Player.Slot != _currentSlot && sayItem.Player.Team != _currentTeam)
-                SayOnEnterPatch.ForceShowDialogue($"Received {sayItem.ItemDisplayName} from {sayItem.Player.Name}");
+                SayOnEnterPatch.ForceShowDialogue($"Received {sayItem.ItemDisplayName} from {sayItem.Player.Name}", null);
             else
-                SayOnEnterPatch.ForceShowDialogue($"You found your {sayItem.ItemDisplayName}!");
+                SayOnEnterPatch.ForceShowDialogue($"You found your {sayItem.ItemDisplayName}!", null);
         }
 
         private void UnlockItem(global::Archipelago.MultiClient.Net.Models.ItemInfo itemInfo, bool remote)
