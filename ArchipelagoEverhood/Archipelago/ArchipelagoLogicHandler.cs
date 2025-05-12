@@ -122,8 +122,8 @@ namespace ArchipelagoEverhood.Archipelago
             //Somewhat janky setup so that it looks nice in all texts.
             var itemText = $"<voffset=5><cspace=-10>{sprite}</voffset>{info.ItemName.FirstOrDefault()}</cspace>{info.ItemName[1..]}";
             return info.Player.Slot == Globals.SessionHandler.Slot
-                ? $"Got your {itemText}."
-                : $"Got {info.Player.Alias}'s {itemText}";
+                ? $"You found your {itemText}!"
+                : $"You found {info.Player.Alias}'s {itemText}";
         }
     }
 }
