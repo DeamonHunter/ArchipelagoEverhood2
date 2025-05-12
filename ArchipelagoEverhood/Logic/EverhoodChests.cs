@@ -79,7 +79,7 @@ namespace ArchipelagoEverhood.Logic
                     return null;
                 }
 
-                chestData.Achieved = true;
+                CheckLocation(chestData);
                 return chestData;
             }
 
@@ -110,11 +110,10 @@ namespace ArchipelagoEverhood.Logic
                     if (!CheckIfPasses(chestData))
                         continue;
 
-                    chestData.Achieved = true;
+                    CheckLocation(chestData);
                     return chestData;
                 }
             }
-
 
             Globals.Logging.Warning("Chests", $"Did not find any chest for the item {string.Join(", ", items.Keys)}. Missing?");
             return null;
@@ -143,11 +142,10 @@ namespace ArchipelagoEverhood.Logic
                     if (!CheckIfPasses(chestData))
                         continue;
 
-                    chestData.Achieved = true;
+                    CheckLocation(chestData);
                     return chestData;
                 }
             }
-
 
             Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts.ToString())}. Missing?");
             return null;
@@ -173,7 +171,7 @@ namespace ArchipelagoEverhood.Logic
                 if (!CheckIfPasses(chestData))
                     continue;
 
-                chestData.Achieved = true;
+                CheckLocation(chestData);
                 return chestData;
             }
 
@@ -201,7 +199,7 @@ namespace ArchipelagoEverhood.Logic
                 if (!CheckIfPasses(chestData))
                     continue;
 
-                chestData.Achieved = true;
+                CheckLocation(chestData);
                 return chestData;
             }
 
@@ -252,6 +250,12 @@ namespace ArchipelagoEverhood.Logic
             var boolVar = FungusManager.Instance.GlobalVariables.GetVariable(battleData.VariableName) as BooleanVariable;
             if (boolVar != null)
                 boolVar.Value = true;
+        }
+
+        private void CheckLocation(ChestData chestData)
+        {
+            chestData.Achieved = true;
+            Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { chestData.LocationId });
         }
     }
 }
