@@ -46,6 +46,7 @@ namespace ArchipelagoEverhood.Logic
 
         public void ScoutForScene(string sceneName)
         {
+            Globals.Logging.Log("EverhoodChests", $"Scout for Scene: {sceneName}");
             var locationsToScout = new List<long>();
             foreach (var chest in ChestStorage.Chests)
             {

@@ -3,6 +3,7 @@ using Fungus;
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -11,7 +12,7 @@ namespace ArchipelagoEverhood.Patches
     {
         private static int message = 0;
 
-        private static bool Prefix(GivePlayerItem __instance, string ___id)
+        private static bool Prefix(GivePlayerItem __instance, string ___id, bool ___showDialogue)
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return true;
@@ -25,10 +26,13 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
-                if (data.ForceSayDialogue)
+                if (___showDialogue || data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
+                {
                     SayOnEnterPatch.OverrideTextValue = itemText;
+                    __instance.Continue();
+                }
             }
             catch (Exception e)
             {
@@ -44,7 +48,7 @@ namespace ArchipelagoEverhood.Patches
     {
         private static int message = 0;
 
-        private static bool Prefix(GivePlayerArtifact __instance, string ___id)
+        private static bool Prefix(GivePlayerArtifact __instance, string ___id, bool ___showDialogue)
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return true;
@@ -58,10 +62,13 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
-                if (data.ForceSayDialogue)
+                if (___showDialogue || data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
+                {
                     SayOnEnterPatch.OverrideTextValue = itemText;
+                    __instance.Continue();
+                }
             }
             catch (Exception e)
             {
@@ -93,7 +100,10 @@ namespace ArchipelagoEverhood.Patches
                 if (data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
+                {
                     SayOnEnterPatch.OverrideTextValue = itemText;
+                    __instance.Continue();
+                }
             }
             catch (Exception e)
             {
@@ -120,12 +130,16 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(___cosmetic);
                 if (data == null)
                     return true;
+                
 
                 var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
                 if (data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
+                {
                     SayOnEnterPatch.OverrideTextValue = itemText;
+                    __instance.Continue();
+                }
             }
             catch (Exception e)
             {
@@ -201,7 +215,7 @@ namespace ArchipelagoEverhood.Patches
             SayGetStringIdPatch.Override = true;
         }
 
-        public static void ForceShowDialogue(string text, Command? callingCommand)
+        public static void ForceShowDialogue(string text, Command? callingCommand, bool unlockMovement = true)
         {
             var topDown = GameObject.FindFirstObjectByType<Main_TopdownRoot>(FindObjectsInactive.Include);
             var dialog = topDown.GetSayDialogue(DialogueBoxType.Topdown_NoPortrait);
@@ -213,7 +227,8 @@ namespace ArchipelagoEverhood.Patches
             dialog.Say(text, true, true, true, false, false, null, () =>
             {
                 Globals.Logging.Warning("Cosmetic Patch", "Unlocking Movement");
-                topDown.Player.SetTopDownPlayerMovementState(true);
+                if (unlockMovement)
+                    topDown.Player.SetTopDownPlayerMovementState(true);
                 callingCommand?.Continue();
             });
 
