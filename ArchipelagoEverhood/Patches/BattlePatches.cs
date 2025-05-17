@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ArchipelagoEverhood.Data;
 using Fungus;
 using HarmonyLib;
 using TMPro;
@@ -36,7 +37,7 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(Main_GameplayRoot), "GameplayEnemyDefeated")]
     public static class Main_GameplayRootGameplayEnemyDefeatedPatch
     {
-        private static void Prefix(Main_GameplayRoot __instance, GameplayBattleRoot ____activeBattleRoot, List<GameplayBattleRoot> ____battlesRoot, ref int? __state)
+        private static void Prefix(Main_GameplayRoot __instance, GameplayBattleRoot ____activeBattleRoot, List<GameplayBattleRoot> ____battlesRoot, ref BattleData? __state)
         {
             __state = null;
             if (!Globals.SessionHandler.LoggedIn)
@@ -60,7 +61,7 @@ namespace ArchipelagoEverhood.Patches
             }
         }
 
-        private static void Postfix(BattleVictoryResult ___battleVictoryResult, int? __state)
+        private static void Postfix(BattleVictoryResult ___battleVictoryResult, BattleData? __state)
         {
             try
             {
@@ -72,7 +73,9 @@ namespace ArchipelagoEverhood.Patches
                 var texts = (TextMeshProUGUI[])textFields!.GetValue(___battleVictoryResult);
 
                 texts[0].gameObject.SetActive(true);
-                texts[0].text = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(__state.Value);
+                texts[0].text = __state.InLogic 
+                    ? Globals.SessionHandler.LogicHandler!.GetScoutedItemText(__state.LocationId) 
+                    : $"You found your <voffset=5><cspace=-10><sprite=250></voffset>{__state.DefaultXp.ToString()[0]}</cspace>{(__state.DefaultXp >= 10 ? __state.DefaultXp.ToString()[1..] : "")}xp";
                 texts[1].gameObject.SetActive(false);
                 texts[2].gameObject.SetActive(false);
             }

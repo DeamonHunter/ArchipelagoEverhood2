@@ -89,7 +89,7 @@ namespace ArchipelagoEverhood.Logic
             }
         }
 
-        public int? CompletedBattle()
+        public BattleData? CompletedBattle()
         {
             if (CurrentBattle == null)
             {
@@ -97,15 +97,18 @@ namespace ArchipelagoEverhood.Logic
                 return null;
             }
 
-            var id = CurrentBattle.LocationId;
-
-            Globals.Logging.Warning("Battles", $"Successful fight: {id} {CurrentBattle.SceneName}, {CurrentBattle.VariableName}");
-
+            Globals.Logging.Warning("Battles", $"Successful fight: {CurrentBattle.LocationId} {CurrentBattle.SceneName}, {CurrentBattle.VariableName}");
+            if (CurrentBattle.Achieved)
+                return CurrentBattle;
+            
             CurrentBattle.Achieved = true;
-            Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { CurrentBattle.LocationId });
+            if (CurrentBattle.InLogic)
+                Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { CurrentBattle.LocationId });
+            else
+                Globals.SessionHandler.ItemHandler!.HandleOfflineItem(CurrentBattle.DefaultXp + "xp");
 
             CurrentBattle = null;
-            return id;
+            return CurrentBattle;
         }
 
         private bool CheckIfPasses(BattleData battleData)
