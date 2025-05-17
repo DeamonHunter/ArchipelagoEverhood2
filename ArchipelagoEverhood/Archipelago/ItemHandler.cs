@@ -81,6 +81,7 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             }
 
+            Globals.Logging.Log("ItemHandler", $"Received scouted item: {info.ItemId}");
             if (info.Player.Slot == _currentSlot && info.Player.Team == _currentTeam)
                 _itemsToAdd.Enqueue(new ItemUnlock(info, false));
         }
@@ -88,9 +89,10 @@ namespace ArchipelagoEverhood.Archipelago
         public void HandleRemoteItem(global::Archipelago.MultiClient.Net.Models.ItemInfo info)
         {
             //Todo: Does this always work?
-            if (!_blockedItems.Any(x => x.ItemId == info.ItemId && x.LocationId == info.LocationId && x.Player.Slot == info.Player.Slot))
+            if (_blockedItems.Any(x => x.ItemId == info.ItemId && x.LocationId == info.LocationId && x.Player.Slot == info.Player.Slot))
                 return;
 
+            Globals.Logging.Log("ItemHandler", $"Received remote item: {info.ItemId}");
             _itemsToAdd.Enqueue(new ItemUnlock(info, true));
         }
 
@@ -102,6 +104,7 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             }
             
+            Globals.Logging.Log("ItemHandler", $"Received offline item: {id}");
             _itemsToAdd.Enqueue(new ItemUnlock(id, chestDataItemName, _currentSlot, _currentTeam));
         }
 
