@@ -21,6 +21,10 @@ namespace ArchipelagoEverhood.Archipelago
         {
             _locations = session.Locations;
             _items = session.Items;
+            
+            //Auto scout this item as it gets awarded in a new save immediately.
+            if (!_locations.AllLocationsChecked.Contains(107))
+                ScoutLocations(new List<long>() {107});
         }
 
         public void SetAcceptingItems(bool acceptingItems)
@@ -76,7 +80,11 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.intVariables[$"Archipelago_{itemIndex}"] = (int)itemId;
         }
 
-        public void ScoutLocations(List<long> locationsToHint) => ScoutLocationsInner(locationsToHint).ConfigureAwait(false);
+        public void ScoutLocations(List<long> locationsToHint)
+        {
+            Globals.Logging.Log("ScoutLocations", $"Calling for location scouts {string.Join(", ", locationsToHint)}");
+            ScoutLocationsInner(locationsToHint).ConfigureAwait(false);
+        }
 
         private async Task ScoutLocationsInner(List<long> locationsToHint)
         {
