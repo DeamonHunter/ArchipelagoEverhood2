@@ -122,13 +122,24 @@ namespace ArchipelagoEverhood.Archipelago
 
         public void Update()
         {
-            //Don't reward items during battle or loading.
             //Globals.Logging.Log("ItemHandler", $"Update: {_inBattle}, {SceneManagerRoot.sceneIsLoading}, {Globals.TopdownRoot!.Player.MovementState} {_itemsToAdd.Count}");
-            if (_inBattle || SceneManagerRoot.sceneIsLoading || !Globals.TopdownRoot!.Player.MovementState)
-            {
-                if (_itemsToAdd.Any())
-                    Globals.Logging.Log("ItemHandler", $"Failed Check: {_inBattle}, {SceneManagerRoot.sceneIsLoading}, {!Globals.TopdownRoot!.Player.MovementState}.");
+            //Don't reward items while loading.
+            if (SceneManagerRoot.sceneIsLoading)
                 return;
+            
+            //Don't reward items in battle unless we are on the victory screen.
+            if (_inBattle && !Globals.BattleVictoryResult!.Executing)
+                return;
+            
+            //Don't reward items if the player can't move (likely cutscene or dialogue)
+            if (!Globals.TopdownRoot!.Player.MovementState)
+            {
+                if (!_itemsToAdd.TryPeek(out var nextItem))
+                    return;
+                
+                //Make a special exception for xp items in this case as it doesn't block dialogue.
+                if (!ItemData.XpsById.ContainsKey(nextItem.ItemId))
+                    return;
             }
 
             if (_itemsToAdd.Any())
@@ -179,20 +190,18 @@ namespace ArchipelagoEverhood.Archipelago
             }
             else if (ItemData.XpsById.TryGetValue(itemUnlock.ItemId, out var xp))
             {
-                if (Globals.GameplayRoot!.ActiveBattleRoot)
+                if (Globals.GameplayRoot!.ActiveBattleRoot && Globals.BattleVictoryResult!.Executing)
                 {
-                    var victory = (BattleVictoryResult)(typeof(Main_GameplayRoot).GetField("battleVictoryResult", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.GameplayRoot));
-
                     var xpLevel_player = (GeneralData.XpLevelInfo)(typeof(BattleVictoryResult).GetMethod("AddPlayerXp", BindingFlags.Instance | BindingFlags.NonPublic)
-                        !.Invoke(victory, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp }));
+                        !.Invoke(Globals.BattleVictoryResult, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp }));
 
-                    var text = (TextMeshProUGUI)(typeof(BattleVictoryResult).GetField("playerXpLeftLabel", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(victory));
+                    var text = (TextMeshProUGUI)(typeof(BattleVictoryResult).GetField("playerXpLeftLabel", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.BattleVictoryResult));
                     text.text = (xpLevel_player.xpRequiredForNextLevel - xpLevel_player.lastXp).ToString();
                     Globals.ServicesRoot.GameData.GeneralData.playerJustLeveledUp = xpLevel_player.leveledUp;
 
                     var coRoutine = (IEnumerator)(typeof(BattleVictoryResult).GetMethod("DoPlayerLevelSliderUpdate", BindingFlags.Instance | BindingFlags.NonPublic)
-                        !.Invoke(victory, new object[] { xpLevel_player }));
-                    victory.StartCoroutine(coRoutine);
+                        !.Invoke(Globals.BattleVictoryResult, new object[] { xpLevel_player }));
+                    Globals.BattleVictoryResult!.StartCoroutine(coRoutine);
                 }
                 else
                 {

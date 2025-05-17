@@ -10,6 +10,7 @@ namespace ArchipelagoEverhood
         public static ServicesRoot? ServicesRoot;
         public static Main_TopdownRoot? TopdownRoot;
         public static Main_GameplayRoot? GameplayRoot;
+        public static BattleVictoryResult? BattleVictoryResult;
         public static SceneManagerRoot SceneManagerRoot;
 
         //Patches
