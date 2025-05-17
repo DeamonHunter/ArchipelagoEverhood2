@@ -255,7 +255,10 @@ namespace ArchipelagoEverhood.Logic
         private void CheckLocation(ChestData chestData)
         {
             chestData.Achieved = true;
-            Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { chestData.LocationId });
+            if (chestData.InLogic)
+                Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { chestData.LocationId });
+            else if (chestData.ItemName != null)
+                Globals.SessionHandler.ItemHandler!.HandleOfflineItem(chestData.ItemName);
         }
     }
 }

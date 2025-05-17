@@ -107,5 +107,26 @@ namespace ArchipelagoEverhood.Data
             { 409, Cosmetics.Red_Bandana },
             { 410, Cosmetics.Hairstyle7_OingoBoingo },
         };
+
+        public static Dictionary<string, long> ItemIdsByName;
+
+        static ItemData()
+        {
+            ItemIdsByName = new Dictionary<string, long>();
+            foreach (var item in ItemsById)
+                ItemIdsByName.Add(item.Value.ToString(), item.Key);
+            foreach (var gemPack in GemPacks)
+                ItemIdsByName.Add(gemPack.Value.ToString(), gemPack.Key);
+            foreach (var weapon in WeaponsById)
+                ItemIdsByName.Add(weapon.Value.ToString(), weapon.Key);
+            foreach (var artifact in ArtifactsById)
+                ItemIdsByName.Add(artifact.Value.ToString(), artifact.Key);
+            foreach (var xp in XpsById)
+                ItemIdsByName.Add(xp.Value + "xp", xp.Key);
+            foreach (var cosmetic in CosmeticsById)
+                ItemIdsByName.Add(cosmetic.Value.ToString(), cosmetic.Key);
+        }
+
+
     }
 }

@@ -14,13 +14,43 @@ namespace ArchipelagoEverhood.Archipelago
     public class ArchipelagoItemHandler
     {
         private HashSet<ScoutedItemInfo> _blockedItems = new();
-        private ConcurrentQueue<(global::Archipelago.MultiClient.Net.Models.ItemInfo, bool)> _itemsToAdd = new();
+        private ConcurrentQueue<ItemUnlock> _itemsToAdd = new();
         private bool _inBattle;
         private readonly int _currentSlot;
         private readonly int _currentTeam;
 
-        private Queue<global::Archipelago.MultiClient.Net.Models.ItemInfo> _queuedSays = new();
+        private Queue<ItemUnlock> _queuedSays = new();
+        
+        private struct ItemUnlock
+        {
+            public long ItemId;
+            public string DisplayName;
+            public string? PlayerName;
+            public int PlayerSlot;
+            public int PlayerTeam;
+            public bool Remote;
 
+            public ItemUnlock(global::Archipelago.MultiClient.Net.Models.ItemInfo info, bool remote)
+            {
+                ItemId = info.ItemId;
+                DisplayName = info.ItemDisplayName;
+                PlayerName = remote ? info.Player.Alias : null;
+                PlayerSlot = info.Player.Slot;
+                PlayerTeam = info.Player.Team;
+                Remote = remote;
+            }
+
+            public ItemUnlock(long itemId, string itemName, int playerSlot, int playerTeam)
+            {
+                ItemId = itemId;
+                DisplayName = itemName;
+                PlayerName = null;
+                PlayerSlot = playerSlot;
+                PlayerTeam = playerTeam;
+                Remote = false;
+            }
+        }
+        
         public ArchipelagoItemHandler(int currentSlot, int team)
         {
             _currentSlot = currentSlot;
@@ -52,7 +82,7 @@ namespace ArchipelagoEverhood.Archipelago
             }
 
             if (info.Player.Slot == _currentSlot && info.Player.Team == _currentTeam)
-                _itemsToAdd.Enqueue((info, false));
+                _itemsToAdd.Enqueue(new ItemUnlock(info, false));
         }
 
         public void HandleRemoteItem(global::Archipelago.MultiClient.Net.Models.ItemInfo info)
@@ -61,7 +91,18 @@ namespace ArchipelagoEverhood.Archipelago
             if (!_blockedItems.Any(x => x.ItemId == info.ItemId && x.LocationId == info.LocationId && x.Player.Slot == info.Player.Slot))
                 return;
 
-            _itemsToAdd.Enqueue((info, true));
+            _itemsToAdd.Enqueue(new ItemUnlock(info, true));
+        }
+
+        public void HandleOfflineItem(string chestDataItemName)
+        {
+            if (!ItemData.ItemIdsByName.TryGetValue(chestDataItemName, out var id))
+            {
+                Globals.Logging.Error("Item Handler", $"Tried to unlock a standard item without an id: {id}");
+                return;
+            }
+            
+            _itemsToAdd.Enqueue(new ItemUnlock(id, chestDataItemName, _currentSlot, _currentTeam));
         }
 
         private void OnBattleStart()
@@ -72,18 +113,26 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnBattleEnd()
         {
-            _inBattle = true;
+            _inBattle = false;
             Globals.Logging.Log("ItemHandler", "Battle Ended");
         }
 
         public void Update()
         {
             //Don't reward items during battle or loading.
-            if (!_inBattle || SceneManagerRoot.sceneIsLoading)
+            //Globals.Logging.Log("ItemHandler", $"Update: {_inBattle}, {SceneManagerRoot.sceneIsLoading}, {Globals.TopdownRoot!.Player.MovementState} {_itemsToAdd.Count}");
+            if (_inBattle || SceneManagerRoot.sceneIsLoading || !Globals.TopdownRoot!.Player.MovementState)
+            {
+                if (_itemsToAdd.Any())
+                    Globals.Logging.Log("ItemHandler", $"Failed Check: {_inBattle}, {SceneManagerRoot.sceneIsLoading}, {!Globals.TopdownRoot!.Player.MovementState}.");
                 return;
+            }
+
+            if (_itemsToAdd.Any())
+                Globals.Logging.Log("ItemHandler", "Passed Check.");
 
             while (_itemsToAdd.TryDequeue(out var item))
-                UnlockItem(item.Item1, item.Item2);
+                UnlockItem(item);
 
             if (Globals.GameplayRoot!.ActiveBattleRoot || (SayDialog.ActiveSayDialog && (SayDialog.ActiveSayDialog.enabled || SayDialog.ActiveSayDialog.gameObject.activeInHierarchy)))
                 return;
@@ -91,40 +140,41 @@ namespace ArchipelagoEverhood.Archipelago
             if (!_queuedSays.TryDequeue(out var sayItem))
                 return;
 
-            if (sayItem.Player.Slot != _currentSlot && sayItem.Player.Team != _currentTeam)
-                SayOnEnterPatch.ForceShowDialogue($"Received {sayItem.ItemDisplayName} from {sayItem.Player.Name}", null);
+            if (sayItem.PlayerSlot != _currentSlot && sayItem.PlayerTeam != _currentTeam)
+                SayOnEnterPatch.ForceShowDialogue($"Received {sayItem.DisplayName} from {sayItem.PlayerName}", null);
             else
-                SayOnEnterPatch.ForceShowDialogue($"You found your {sayItem.ItemDisplayName}!", null);
+                SayOnEnterPatch.ForceShowDialogue($"You found your {sayItem.DisplayName}!", null);
         }
 
-        private void UnlockItem(global::Archipelago.MultiClient.Net.Models.ItemInfo itemInfo, bool remote)
+        private void UnlockItem(ItemUnlock itemUnlock)
         {
-            if (_currentSlot == itemInfo.Player.Slot)
+            Globals.Logging.Log("ItemHandler", $"Looking to unlock: {itemUnlock.DisplayName}");
+            if (_currentSlot == itemUnlock.PlayerSlot)
             {
                 Globals.Logging.Log("ItemHandler", "Tried to Unlock");
                 return;
             }
 
             //Todo: Item Sprites?
-            if (ItemData.ItemsById.TryGetValue(itemInfo.ItemId, out var item))
+            if (ItemData.ItemsById.TryGetValue(itemUnlock.ItemId, out var item))
             {
                 Globals.ServicesRoot!.GameData.CachedGeneralData.AddCollectedItem(item.ToString(), 1);
-                if (remote)
-                    _queuedSays.Enqueue(itemInfo);
+                if (itemUnlock.Remote)
+                    _queuedSays.Enqueue(itemUnlock);
             }
-            else if (ItemData.WeaponsById.TryGetValue(itemInfo.ItemId, out var weapon))
+            else if (ItemData.WeaponsById.TryGetValue(itemUnlock.ItemId, out var weapon))
             {
                 Globals.ServicesRoot!.GameData.CachedGeneralData.AddWeapon(weapon);
-                if (remote)
-                    _queuedSays.Enqueue(itemInfo);
+                if (itemUnlock.Remote)
+                    _queuedSays.Enqueue(itemUnlock);
             }
-            else if (ItemData.ArtifactsById.TryGetValue(itemInfo.ItemId, out var artifact))
+            else if (ItemData.ArtifactsById.TryGetValue(itemUnlock.ItemId, out var artifact))
             {
                 Globals.ServicesRoot!.GameData.CachedGeneralData.AddArtifactItem(artifact.ToString(), 1);
-                if (remote)
-                    _queuedSays.Enqueue(itemInfo);
+                if (itemUnlock.Remote)
+                    _queuedSays.Enqueue(itemUnlock);
             }
-            else if (ItemData.XpsById.TryGetValue(itemInfo.ItemId, out var xp))
+            else if (ItemData.XpsById.TryGetValue(itemUnlock.ItemId, out var xp))
             {
                 if (Globals.GameplayRoot!.ActiveBattleRoot)
                 {
@@ -148,11 +198,11 @@ namespace ArchipelagoEverhood.Archipelago
                     Globals.TopdownRoot!.PlayerXpGainUI.GainXP(xpLevel.AddXp(xp, playerLevelXpRequired));
                 }
             }
-            else if (ItemData.CosmeticsById.TryGetValue(itemInfo.ItemId, out var cosmetic))
+            else if (ItemData.CosmeticsById.TryGetValue(itemUnlock.ItemId, out var cosmetic))
             {
                 Globals.ServicesRoot!.GameData.CachedGeneralData.AddCosmectic(cosmetic);
-                if (remote)
-                    _queuedSays.Enqueue(itemInfo);
+                if (itemUnlock.Remote)
+                    _queuedSays.Enqueue(itemUnlock);
             }
         }
     }
