@@ -21,24 +21,25 @@ namespace ArchipelagoEverhood.Logic
             foreach (var battle in BattleStorage.Battles)
             {
                 var clone = battle.Clone();
-                clone.InLogic = true; //Todo: Slot Data
-                if (!_activeBattleData.TryAdd(battle.LocationId, battle.Clone()))
+                clone.InLogic = locations.AllLocations.Contains(clone.LocationId);
+                if (!_activeBattleData.TryAdd(clone.LocationId, clone))
                 {
-                    Globals.Logging.Error($"Multiple battles have the id: {battle.LocationId}");
+                    Globals.Logging.Error($"Multiple battles have the id: {clone.LocationId}");
                     continue;
                 }
 
-                if (_locations.AllLocationsChecked.Contains(battle.LocationId))
+                if (_locations.AllLocationsChecked.Contains(clone.LocationId))
                 {
-                    battle.Achieved = true;
+                    Globals.Logging.Log("EverhoodBattles", $"Achieved: {clone.LocationId}");
+                    clone.Achieved = true;
                     continue;
                 }
 
-                battle.Achieved = CheckIfPasses(battle);
-                if (!battle.Achieved)
+                clone.Achieved = CheckIfPasses(clone);
+                if (!clone.Achieved)
                     continue;
 
-                locationsToCheck.Add(battle.LocationId);
+                locationsToCheck.Add(clone.LocationId);
             }
 
             Globals.SessionHandler.LogicHandler!.CheckLocations(locationsToCheck);

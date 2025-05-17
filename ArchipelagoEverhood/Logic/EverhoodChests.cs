@@ -20,25 +20,25 @@ namespace ArchipelagoEverhood.Logic
             foreach (var chest in ChestStorage.Chests)
             {
                 var clone = chest.Clone();
-                clone.InLogic = true; //Todo: Slot Data
-                if (!_activeChestData.TryAdd(chest.LocationId, chest.Clone()))
+                clone.InLogic = locations.AllLocations.Contains(clone.LocationId);
+                if (!_activeChestData.TryAdd(clone.LocationId, clone.Clone()))
                 {
-                    Globals.Logging.Error($"Multiple chests have the id: {chest.LocationId}");
+                    Globals.Logging.Error($"Multiple chests have the id: {clone.LocationId}");
                     continue;
                 }
 
-                if (_locations.AllLocationsChecked.Contains(chest.LocationId))
+                if (_locations.AllLocationsChecked.Contains(clone.LocationId))
                 {
-                    chest.Achieved = true;
-                    SetVariable(chest);
+                    clone.Achieved = true;
+                    SetVariable(clone);
                     continue;
                 }
 
-                chest.Achieved = CheckIfPasses(chest);
-                if (!chest.Achieved)
+                clone.Achieved = CheckIfPasses(clone);
+                if (!clone.Achieved)
                     continue;
 
-                locationsToCheck.Add(chest.LocationId);
+                locationsToCheck.Add(clone.LocationId);
             }
 
             Globals.SessionHandler.LogicHandler!.CheckLocations(locationsToCheck);
@@ -77,7 +77,7 @@ namespace ArchipelagoEverhood.Logic
                 if (chestData.Achieved)
                 {
                     Globals.Logging.Log("Chests", "Chest Already Opened");
-                    return null;
+                    return chestData;
                 }
 
                 CheckLocation(chestData);
