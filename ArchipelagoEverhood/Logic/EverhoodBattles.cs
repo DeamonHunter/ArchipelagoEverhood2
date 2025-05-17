@@ -81,7 +81,7 @@ namespace ArchipelagoEverhood.Logic
 
                 Globals.Logging.Warning("Battles", $"Found fight: {startedFight.LocationId} {battleSceneName}, {startedFight.VariableName}");
                 CurrentBattle = startedFight;
-                Globals.SessionHandler.LogicHandler!.ScoutLocations(new List<long>(startedFight.LocationId));
+                Globals.SessionHandler.LogicHandler!.ScoutLocations(new List<long>{startedFight.LocationId});
             }
             catch (Exception e)
             {
