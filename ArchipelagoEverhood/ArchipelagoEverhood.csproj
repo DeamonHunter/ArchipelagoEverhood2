@@ -46,6 +46,9 @@
         <Reference Include="UnityEngine.UI">
             <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.UIModule">
+          <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>

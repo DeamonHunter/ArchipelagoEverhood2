@@ -52,17 +52,24 @@ namespace ArchipelagoEverhood.Archipelago
 
         public void StartSession()
         {
-            Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
-            Globals.TopdownRoot = GameObject.FindObjectsByType<Main_TopdownRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
-            Globals.GameplayRoot = GameObject.FindObjectsByType<Main_GameplayRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
-            Globals.BattleVictoryResult = (BattleVictoryResult)(typeof(Main_GameplayRoot).GetField("battleVictoryResult", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.GameplayRoot));
-            Globals.SceneManagerRoot = GameObject.FindObjectsByType<SceneManagerRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
-            
+            FindObjects();
             LoggedIn = true;
 
             LogicHandler = new ArchipelagoLogicHandler(_currentSession!);
             ItemHandler = new ArchipelagoItemHandler(_currentSession!.ConnectionInfo.Slot, _currentSession!.ConnectionInfo.Team);
             Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed);
+        }
+
+        private void FindObjects()
+        {
+            Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            Globals.TopdownRoot = GameObject.FindObjectsByType<Main_TopdownRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            Globals.GameplayRoot = GameObject.FindObjectsByType<Main_GameplayRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            Globals.SceneManagerRoot = GameObject.FindObjectsByType<SceneManagerRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+            
+            //Cache Victory objects so its easier to check.
+            Globals.BattleVictoryResult = (BattleVictoryResult)(typeof(Main_GameplayRoot).GetField("battleVictoryResult", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.GameplayRoot));
+            Globals.VictoryScreenCanvas = (Canvas)(typeof(BattleVictoryResult).GetField("victoryCanvas", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.BattleVictoryResult));
         }
 
         public void SaveFileLoaded()

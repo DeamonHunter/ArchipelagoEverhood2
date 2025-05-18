@@ -15,7 +15,6 @@ namespace ArchipelagoEverhood.Archipelago
     {
         private HashSet<ScoutedItemInfo> _blockedItems = new();
         private ConcurrentQueue<ItemUnlock> _itemsToAdd = new();
-        private bool _inBattle;
         private readonly int _currentSlot;
         private readonly int _currentTeam;
 
@@ -61,16 +60,6 @@ namespace ArchipelagoEverhood.Archipelago
                 Globals.Logging.Error("ItemHandler", "Gameplay root not loaded yet?");
                 return;
             }
-
-            //Todo: Do these always work?
-            Globals.GameplayRoot!.OnBattleStart += OnBattleStart;
-            Globals.GameplayRoot!.OnBattleFinish += OnBattleEnd;
-        }
-
-        public void OnDestroy()
-        {
-            Globals.GameplayRoot!.OnBattleStart += OnBattleStart;
-            Globals.GameplayRoot!.OnBattleFinish += OnBattleEnd;
         }
 
         public void HandleScoutedItem(ScoutedItemInfo info)
@@ -108,18 +97,6 @@ namespace ArchipelagoEverhood.Archipelago
             _itemsToAdd.Enqueue(new ItemUnlock(id, chestDataItemName, _currentSlot, _currentTeam));
         }
 
-        private void OnBattleStart()
-        {
-            _inBattle = true;
-            Globals.Logging.Log("ItemHandler", "Battle Started");
-        }
-
-        private void OnBattleEnd()
-        {
-            _inBattle = false;
-            Globals.Logging.Log("ItemHandler", "Battle Ended");
-        }
-
         public void Update()
         {
             //Globals.Logging.Log("ItemHandler", $"Update: {_inBattle}, {SceneManagerRoot.sceneIsLoading}, {Globals.TopdownRoot!.Player.MovementState} {_itemsToAdd.Count}");
@@ -128,7 +105,7 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             
             //Don't reward items in battle unless we are on the victory screen.
-            if (_inBattle && !Globals.BattleVictoryResult!.Executing)
+            if (Globals.GameplayRoot!.IsRootAvailable() && !(Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf))
                 return;
             
             //Don't reward items if the player can't move (likely cutscene or dialogue)
@@ -148,7 +125,7 @@ namespace ArchipelagoEverhood.Archipelago
             while (_itemsToAdd.TryDequeue(out var item))
                 UnlockItem(item);
 
-            if (Globals.GameplayRoot!.ActiveBattleRoot || (SayDialog.ActiveSayDialog && (SayDialog.ActiveSayDialog.enabled || SayDialog.ActiveSayDialog.gameObject.activeInHierarchy)))
+            if (Globals.GameplayRoot.IsRootAvailable() || (SayDialog.ActiveSayDialog && (SayDialog.ActiveSayDialog.enabled || SayDialog.ActiveSayDialog.gameObject.activeInHierarchy)))
                 return;
 
             if (!_queuedSays.TryDequeue(out var sayItem))
@@ -190,7 +167,7 @@ namespace ArchipelagoEverhood.Archipelago
             }
             else if (ItemData.XpsById.TryGetValue(itemUnlock.ItemId, out var xp))
             {
-                if (Globals.GameplayRoot!.ActiveBattleRoot && Globals.BattleVictoryResult!.Executing)
+                if (Globals.GameplayRoot!.IsRootAvailable() && Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf)
                 {
                     var xpLevel_player = (GeneralData.XpLevelInfo)(typeof(BattleVictoryResult).GetMethod("AddPlayerXp", BindingFlags.Instance | BindingFlags.NonPublic)
                         !.Invoke(Globals.BattleVictoryResult, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp }));

@@ -1,6 +1,7 @@
 ﻿using ArchipelagoEverhood.Archipelago;
 using ArchipelagoEverhood.Logic;
 using ArchipelagoEverhood.Util;
+using UnityEngine;
 
 namespace ArchipelagoEverhood
 {
@@ -10,9 +11,12 @@ namespace ArchipelagoEverhood
         public static ServicesRoot? ServicesRoot;
         public static Main_TopdownRoot? TopdownRoot;
         public static Main_GameplayRoot? GameplayRoot;
+        public static SceneManagerRoot? SceneManagerRoot;
+        
+        //Victory Screen Stuff
         public static BattleVictoryResult? BattleVictoryResult;
-        public static SceneManagerRoot SceneManagerRoot;
-
+        public static Canvas? VictoryScreenCanvas;
+        
         //Patches
         public static readonly EverhoodBattles EverhoodBattles = new();
         public static readonly EverhoodChests EverhoodChests = new();
