@@ -107,8 +107,6 @@ namespace ArchipelagoEverhood.Logic
                 Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { CurrentBattle.LocationId });
             else
                 Globals.SessionHandler.ItemHandler!.HandleOfflineItem(CurrentBattle.DefaultXp + "xp");
-
-            CurrentBattle = null;
             return CurrentBattle;
         }
 

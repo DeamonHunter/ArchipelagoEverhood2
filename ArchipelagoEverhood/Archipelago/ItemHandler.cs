@@ -214,7 +214,9 @@ namespace ArchipelagoEverhood.Archipelago
                         else if (property.Name.Contains("servicesRoot"))
                             property.SetValue(nestedClass, Globals.ServicesRoot);
                         else if (property.Name.Contains("xpLevel_player"))
-                            property.SetValue(nestedClass, xpLevelPlayer); //They did an oopsie and local captured their func parameter?
+                            property.SetValue(nestedClass, xpLevelPlayer);
+                        else if (property.Name.Contains("lastDefeatedBattleRoot"))
+                            property.SetValue(nestedClass, null); //Todo: Hopefully this doesn't cause issues.
                         else
                             Globals.Logging.Log("ItemHandler", $"Unknown property in Level Up Animation {property.Name}");
                     }
