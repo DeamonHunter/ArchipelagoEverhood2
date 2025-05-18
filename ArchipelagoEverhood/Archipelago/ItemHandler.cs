@@ -151,19 +151,19 @@ namespace ArchipelagoEverhood.Archipelago
             //Todo: Item Sprites?
             if (ItemData.ItemsById.TryGetValue(itemUnlock.ItemId, out var item))
             {
-                Globals.ServicesRoot!.GameData.CachedGeneralData.AddCollectedItem(item.ToString(), 1);
+                Globals.ServicesRoot!.GameData.GeneralData.AddCollectedItem(item.Item.ToString(), 1);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
             else if (ItemData.WeaponsById.TryGetValue(itemUnlock.ItemId, out var weapon))
             {
-                Globals.ServicesRoot!.GameData.CachedGeneralData.AddWeapon(weapon);
+                Globals.ServicesRoot!.GameData.GeneralData.AddWeapon(weapon.Weapon);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
             else if (ItemData.ArtifactsById.TryGetValue(itemUnlock.ItemId, out var artifact))
             {
-                Globals.ServicesRoot!.GameData.CachedGeneralData.AddArtifactItem(artifact.ToString(), 1);
+                Globals.ServicesRoot!.GameData.GeneralData.AddArtifactItem(artifact.Artifact.ToString(), 1);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
@@ -172,7 +172,7 @@ namespace ArchipelagoEverhood.Archipelago
                 if (Globals.GameplayRoot!.IsRootAvailable() && Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf)
                 {
                     var xpLevelPlayer = (GeneralData.XpLevelInfo)(typeof(BattleVictoryResult).GetMethod("AddPlayerXp", BindingFlags.Instance | BindingFlags.NonPublic)
-                        !.Invoke(Globals.BattleVictoryResult, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp }));
+                        !.Invoke(Globals.BattleVictoryResult, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp.Xp }));
                     var text = (TextMeshProUGUI)(typeof(BattleVictoryResult).GetField("playerXpLeftLabel", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.BattleVictoryResult));
                     text.text = (xpLevelPlayer.xpRequiredForNextLevel - xpLevelPlayer.lastXp).ToString();
                     Globals.ServicesRoot.GameData.GeneralData.playerJustLeveledUp = xpLevelPlayer.leveledUp;
@@ -182,12 +182,12 @@ namespace ArchipelagoEverhood.Archipelago
                 {
                     var xpLevel = Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player;
                     var playerLevelXpRequired = Globals.ServicesRoot!.InfinityProjectExperience.GetPlayerLevelXpRequired(xpLevel.level);
-                    Globals.TopdownRoot!.PlayerXpGainUI.GainXP(xpLevel.AddXp(xp, playerLevelXpRequired));
+                    Globals.TopdownRoot!.PlayerXpGainUI.GainXP(xpLevel.AddXp(xp.Xp, playerLevelXpRequired));
                 }
             }
             else if (ItemData.CosmeticsById.TryGetValue(itemUnlock.ItemId, out var cosmetic))
             {
-                Globals.ServicesRoot!.GameData.CachedGeneralData.AddCosmectic(cosmetic);
+                Globals.ServicesRoot!.GameData.GeneralData.AddCosmectic(cosmetic.Cosmetic);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
