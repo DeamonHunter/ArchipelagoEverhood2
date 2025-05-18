@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Archipelago.MultiClient.Net.Helpers;
 using ArchipelagoEverhood.Data;
+using ArchipelagoEverhood.Util;
 using Fungus;
 
 namespace ArchipelagoEverhood.Logic
@@ -54,11 +54,11 @@ namespace ArchipelagoEverhood.Logic
                     continue;
                 locationsToScout.Add(chest.LocationId);
             }
-            
+
             if (locationsToScout.Count > 0)
                 Globals.SessionHandler.LogicHandler!.ScoutLocations(locationsToScout);
         }
-        
+
         public ChestData? ChestOpened(Cosmetics cosmetic)
         {
             if (_activeChestData == null)
@@ -148,7 +148,7 @@ namespace ArchipelagoEverhood.Logic
                 }
             }
 
-            Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts.ToString())}. Missing?");
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts)}. Missing?");
             return null;
         }
 
@@ -260,6 +260,19 @@ namespace ArchipelagoEverhood.Logic
                 Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { chestData.LocationId });
             else if (chestData.ItemName != null)
                 Globals.SessionHandler.ItemHandler!.HandleOfflineItem(chestData.ItemName);
+        }
+
+        public string GetItemName(ChestData chestData)
+        {
+            if (chestData.InLogic)
+                return Globals.SessionHandler.LogicHandler!.GetScoutedItemText(chestData.LocationId, true);
+
+            string itemName;
+            if (ItemData.ItemIdsByName.TryGetValue(chestData.ItemName, out var id) && ItemData.AllItemsByID.TryGetValue(id, out var itemInfo))
+                return Globals.SessionHandler.LogicHandler!.ConstructItemText(itemInfo.ItemName, itemInfo.ItemFlags, null, true);
+
+            itemName = AssetHelpers.NicifyName(chestData.ItemName);
+            return $"You found your <voffset=5><cspace=-10><sprite=250></voffset>{itemName[0]}</cspace>{(itemName.Length > 1 ? itemName[1..] : "")}";
         }
     }
 }

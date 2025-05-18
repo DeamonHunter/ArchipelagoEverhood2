@@ -112,26 +112,33 @@ namespace ArchipelagoEverhood.Archipelago
             await _locations.CompleteLocationChecksAsync(locationsToHint.ToArray());
         }
 
-        public string GetScoutedItemText(long location)
+        public string GetScoutedItemText(long location, bool withTags)
         {
             if (!Globals.SessionHandler.LogicHandler!.Scouts.TryGetValue(location, out var info))
                 return $"Failed to scout location: {location}";
 
+            return ConstructItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, withTags);
+        }
+
+        public string ConstructItemText(string itemName, ItemFlags flags, string? otherPlayer, bool withTags)
+        {
             string sprite;
-            if (info.Flags.HasFlag(ItemFlags.Advancement))
+            if (flags.HasFlag(ItemFlags.Advancement))
                 sprite = "<sprite=248>";
-            else if (info.Flags.HasFlag(ItemFlags.NeverExclude))
+            else if (flags.HasFlag(ItemFlags.NeverExclude))
                 sprite = "<sprite=249>";
-            else if (info.Flags.HasFlag(ItemFlags.Trap))
+            else if (flags.HasFlag(ItemFlags.Trap))
                 sprite = "<sprite=251>";
             else
                 sprite = "<sprite=250>";
 
             //Somewhat janky setup so that it looks nice in all texts.
-            var itemText = $"<voffset=5><cspace=-10>{sprite}</voffset>{info.ItemName.FirstOrDefault()}</cspace>{info.ItemName[1..]}";
-            return info.Player.Slot == Globals.SessionHandler.Slot
+            var itemText = withTags 
+                ? $"<voffset=5><cspace=-10>{sprite}</voffset>{itemName.FirstOrDefault()}</cspace>{itemName[1..]}"
+                : $"{sprite}{itemName}";
+            return otherPlayer == null
                 ? $"You found your {itemText}!"
-                : $"You found {info.Player.Alias}'s {itemText}";
+                : $"You found {otherPlayer}'s {itemText}";
         }
     }
 }

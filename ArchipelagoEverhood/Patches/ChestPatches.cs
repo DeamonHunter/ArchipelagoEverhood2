@@ -3,7 +3,6 @@ using Fungus;
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -25,12 +24,12 @@ namespace ArchipelagoEverhood.Patches
                 if (data == null)
                     return true;
 
-                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (___showDialogue || data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
                 {
-                    SayOnEnterPatch.OverrideTextValue = itemText;
+                    SayOnEnterPatch.SetOverrideText(itemText);
                     __instance.Continue();
                 }
             }
@@ -61,12 +60,12 @@ namespace ArchipelagoEverhood.Patches
                 if (data == null)
                     return true;
 
-                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (___showDialogue || data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
                 {
-                    SayOnEnterPatch.OverrideTextValue = itemText;
+                    SayOnEnterPatch.SetOverrideText(itemText);
                     __instance.Continue();
                 }
             }
@@ -96,12 +95,12 @@ namespace ArchipelagoEverhood.Patches
                 if (data == null)
                     return true;
 
-                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
                 {
-                    SayOnEnterPatch.OverrideTextValue = itemText;
+                    SayOnEnterPatch.SetOverrideText(itemText);
                     __instance.Continue();
                 }
             }
@@ -130,14 +129,13 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(___cosmetic);
                 if (data == null)
                     return true;
-                
 
-                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.ForceSayDialogue)
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
                 {
-                    SayOnEnterPatch.OverrideTextValue = itemText;
+                    SayOnEnterPatch.SetOverrideText(itemText);
                     __instance.Continue();
                 }
             }
@@ -171,7 +169,7 @@ namespace ArchipelagoEverhood.Patches
                 if (data == null)
                     return true;
 
-                var itemText = Globals.SessionHandler.LogicHandler!.GetScoutedItemText(data.LocationId);
+                var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.ForceSayDialogue || ___showDialogue)
                 {
                     Globals.Logging.Log("XP Patch", $"Force Show Dialogue: {itemText}");
@@ -180,7 +178,7 @@ namespace ArchipelagoEverhood.Patches
                 else
                 {
                     Globals.Logging.Log("XP Patch", $"Setting override text: {itemText}");
-                    SayOnEnterPatch.OverrideTextValue = itemText;
+                    SayOnEnterPatch.SetOverrideText(itemText);
                 }
             }
             catch (Exception e)
@@ -195,24 +193,32 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(Say), "OnEnter")]
     public static class SayOnEnterPatch
     {
-        public static string? OverrideTextValue;
+        private static string? _overrideTextValue;
 
         private static void Prefix(Say __instance, ref string ___overridingName)
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return;
-            
+
             Globals.Logging.Log("Say", "Triggered");
 
-            if (OverrideTextValue == null)
+            if (_overrideTextValue == null)
                 return;
-            
-            Globals.Logging.Log("Say", $"Had Override Text: {OverrideTextValue}");
+
+            Globals.Logging.Log("Say", $"Had Override Text: {_overrideTextValue}");
 
             ___overridingName = "Archipelago";
-            __instance.SetStoryText(OverrideTextValue);
-            OverrideTextValue = null;
+            __instance.SetStoryText(_overrideTextValue);
+            _overrideTextValue = null;
             SayGetStringIdPatch.Override = true;
+        }
+
+        public static void SetOverrideText(string text)
+        {
+            if (string.IsNullOrEmpty(_overrideTextValue))
+                _overrideTextValue = text;
+            else
+                _overrideTextValue += "\n" + text;
         }
 
         public static void ForceShowDialogue(string text, Command? callingCommand, bool unlockMovement = true)
@@ -223,7 +229,7 @@ namespace ArchipelagoEverhood.Patches
             dialog.Writer.SetDisableInstanteComplete(true);
             dialog.NameText.text = "Archipelago";
             SayDialog.ActiveSayDialog = dialog;
-            
+
             dialog.Say(text, true, true, true, false, false, null, () =>
             {
                 Globals.Logging.Warning("Cosmetic Patch", "Unlocking Movement");

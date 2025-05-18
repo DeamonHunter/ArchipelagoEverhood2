@@ -82,7 +82,7 @@ namespace ArchipelagoEverhood.Logic
 
                 Globals.Logging.Warning("Battles", $"Found fight: {startedFight.LocationId} {battleSceneName}, {startedFight.VariableName}");
                 CurrentBattle = startedFight;
-                Globals.SessionHandler.LogicHandler!.ScoutLocations(new List<long>{startedFight.LocationId});
+                Globals.SessionHandler.LogicHandler!.ScoutLocations(new List<long> { startedFight.LocationId });
             }
             catch (Exception e)
             {
@@ -101,7 +101,7 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Warning("Battles", $"Successful fight: {CurrentBattle.LocationId} {CurrentBattle.SceneName}, {CurrentBattle.VariableName}");
             if (CurrentBattle.Achieved)
                 return CurrentBattle;
-            
+
             CurrentBattle.Achieved = true;
             if (CurrentBattle.InLogic)
                 Globals.SessionHandler.LogicHandler!.CheckLocations(new List<long> { CurrentBattle.LocationId });
