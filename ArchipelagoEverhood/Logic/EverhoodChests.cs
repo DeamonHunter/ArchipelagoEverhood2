@@ -21,7 +21,8 @@ namespace ArchipelagoEverhood.Logic
             {
                 var clone = chest.Clone();
                 clone.InLogic = locations.AllLocations.Contains(clone.LocationId);
-                if (!_activeChestData.TryAdd(clone.LocationId, clone.Clone()))
+                //Globals.Logging.Log("InLogic", $"{clone.LocationId} : {clone.InLogic}");
+                if (!_activeChestData.TryAdd(clone.LocationId, clone))
                 {
                     Globals.Logging.Error($"Multiple chests have the id: {clone.LocationId}");
                     continue;
