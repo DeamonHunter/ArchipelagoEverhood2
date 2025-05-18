@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Archipelago.MultiClient.Net.Models;
 using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Patches;
@@ -19,7 +21,7 @@ namespace ArchipelagoEverhood.Archipelago
         private readonly int _currentTeam;
 
         private Queue<ItemUnlock> _queuedSays = new();
-        
+
         private struct ItemUnlock
         {
             public long ItemId;
@@ -49,7 +51,7 @@ namespace ArchipelagoEverhood.Archipelago
                 Remote = false;
             }
         }
-        
+
         public ArchipelagoItemHandler(int currentSlot, int team)
         {
             _currentSlot = currentSlot;
@@ -92,7 +94,7 @@ namespace ArchipelagoEverhood.Archipelago
                 Globals.Logging.Error("Item Handler", $"Tried to unlock a standard item without an id: {id}");
                 return;
             }
-            
+
             Globals.Logging.Log("ItemHandler", $"Received offline item: {id}");
             _itemsToAdd.Enqueue(new ItemUnlock(id, chestDataItemName, _currentSlot, _currentTeam));
         }
@@ -103,17 +105,17 @@ namespace ArchipelagoEverhood.Archipelago
             //Don't reward items while loading.
             if (SceneManagerRoot.sceneIsLoading)
                 return;
-            
+
             //Don't reward items in battle unless we are on the victory screen.
             if (Globals.GameplayRoot!.IsRootAvailable() && !(Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf))
                 return;
-            
+
             //Don't reward items if the player can't move (likely cutscene or dialogue)
             if (!Globals.TopdownRoot!.Player.MovementState)
             {
                 if (!_itemsToAdd.TryPeek(out var nextItem))
                     return;
-                
+
                 //Make a special exception for xp items in this case as it doesn't block dialogue.
                 if (!ItemData.XpsById.ContainsKey(nextItem.ItemId))
                     return;
@@ -169,16 +171,12 @@ namespace ArchipelagoEverhood.Archipelago
             {
                 if (Globals.GameplayRoot!.IsRootAvailable() && Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf)
                 {
-                    var xpLevel_player = (GeneralData.XpLevelInfo)(typeof(BattleVictoryResult).GetMethod("AddPlayerXp", BindingFlags.Instance | BindingFlags.NonPublic)
+                    var xpLevelPlayer = (GeneralData.XpLevelInfo)(typeof(BattleVictoryResult).GetMethod("AddPlayerXp", BindingFlags.Instance | BindingFlags.NonPublic)
                         !.Invoke(Globals.BattleVictoryResult, new object[] { Globals.ServicesRoot!, Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player, xp }));
-
                     var text = (TextMeshProUGUI)(typeof(BattleVictoryResult).GetField("playerXpLeftLabel", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.BattleVictoryResult));
-                    text.text = (xpLevel_player.xpRequiredForNextLevel - xpLevel_player.lastXp).ToString();
-                    Globals.ServicesRoot.GameData.GeneralData.playerJustLeveledUp = xpLevel_player.leveledUp;
-
-                    var coRoutine = (IEnumerator)(typeof(BattleVictoryResult).GetMethod("DoPlayerLevelSliderUpdate", BindingFlags.Instance | BindingFlags.NonPublic)
-                        !.Invoke(Globals.BattleVictoryResult, new object[] { xpLevel_player }));
-                    Globals.BattleVictoryResult!.StartCoroutine(coRoutine);
+                    text.text = (xpLevelPlayer.xpRequiredForNextLevel - xpLevelPlayer.lastXp).ToString();
+                    Globals.ServicesRoot.GameData.GeneralData.playerJustLeveledUp = xpLevelPlayer.leveledUp;
+                    FindAndActivateBattleVictoryXpAnimation(xpLevelPlayer);
                 }
                 else
                 {
@@ -193,6 +191,46 @@ namespace ArchipelagoEverhood.Archipelago
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
+        }
+
+        private void FindAndActivateBattleVictoryXpAnimation(GeneralData.XpLevelInfo xpLevelPlayer)
+        {
+            bool foundMethod = false;
+            //The animation function is a local function of Victory. Which means getting it by name is hard and even more prone to failure
+            foreach (var methodSet in typeof(BattleVictoryResult).GetNestedTypes(BindingFlags.NonPublic)
+                         .Where(x => x.GetCustomAttribute<CompilerGeneratedAttribute>() != null)
+                         .Select(x => (x, x.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))))
+            {
+                foreach (var method in methodSet.Item2)
+                {
+                    if (!method.Name.Contains("<Victory>g__DoPlayerLevelSliderUpdate"))
+                        continue;
+
+                    var nestedClass = Activator.CreateInstance(methodSet.x);
+                    foreach (var property in methodSet.x.GetFields(BindingFlags.Instance | BindingFlags.Public))
+                    {
+                        if (property.Name.Contains("this"))
+                            property.SetValue(nestedClass, Globals.BattleVictoryResult);
+                        else if (property.Name.Contains("servicesRoot"))
+                            property.SetValue(nestedClass, Globals.ServicesRoot);
+                        else if (property.Name.Contains("xpLevel_player"))
+                            property.SetValue(nestedClass, xpLevelPlayer); //They did an oopsie and local captured their func parameter?
+                        else
+                            Globals.Logging.Log("ItemHandler", $"Unknown property in Level Up Animation {property.Name}");
+                    }
+
+                    var coRoutine = (IEnumerator)method!.Invoke(nestedClass, new object[] { xpLevelPlayer });
+                    Globals.BattleVictoryResult!.StartCoroutine(coRoutine);
+                    foundMethod = true;
+                    break;
+                }
+
+                if (foundMethod)
+                    break;
+            }
+
+            if (!foundMethod)
+                throw new Exception("Failed to find the right method");
         }
     }
 }

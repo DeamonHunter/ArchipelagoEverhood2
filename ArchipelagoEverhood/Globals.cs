@@ -12,11 +12,11 @@ namespace ArchipelagoEverhood
         public static Main_TopdownRoot? TopdownRoot;
         public static Main_GameplayRoot? GameplayRoot;
         public static SceneManagerRoot? SceneManagerRoot;
-        
+
         //Victory Screen Stuff
         public static BattleVictoryResult? BattleVictoryResult;
         public static Canvas? VictoryScreenCanvas;
-        
+
         //Patches
         public static readonly EverhoodBattles EverhoodBattles = new();
         public static readonly EverhoodChests EverhoodChests = new();
