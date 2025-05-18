@@ -21,10 +21,10 @@ namespace ArchipelagoEverhood.Archipelago
         {
             _locations = session.Locations;
             _items = session.Items;
-            
+
             //Auto scout this item as it gets awarded in a new save immediately.
             if (!_locations.AllLocationsChecked.Contains(107))
-                ScoutLocations(new List<long>() {107});
+                ScoutLocations(new List<long>() { 107 });
         }
 
         public void SetAcceptingItems(bool acceptingItems)
@@ -37,12 +37,12 @@ namespace ArchipelagoEverhood.Archipelago
             _itemIndex = _items.AllItemsReceived.Count;
             for (var i = 0; i < _itemIndex; i++)
             {
-                var item = _items.AllItemsReceived[i];
+                var item = _items.DequeueItem();
                 if (Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue($"Archipelago_{i}", out var itemId))
                 {
                     if (itemId != item.ItemId)
                     {
-                        Globals.Logging.Error("LogicHandler", "ITEM DESYNC. CURRENTLY CANNOT HANDLE!!!!!");
+                        Globals.Logging.Error("LogicHandler", $"ITEM DESYNC AT INDEX {i}. Was: {itemId} Is: {item.ItemId} CURRENTLY CANNOT HANDLE!!!!!");
                         Globals.SessionHandler.ItemHandler!.HandleRemoteItem(item);
                         MarkItemAdded(item.ItemId, i);
                     }
