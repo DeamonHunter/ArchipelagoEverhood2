@@ -40,9 +40,9 @@ namespace ArchipelagoEverhood.Patches
     {
         private static void Prefix(Main_GameplayRoot __instance, GameplayBattleRoot ____activeBattleRoot, List<GameplayBattleRoot> ____battlesRoot, out BattleData? __state)
         {
+            __state = null;
             try
             {
-                __state = null;
                 if (!Globals.SessionHandler.LoggedIn)
                 {
                     //When not logged in, this doesn't get set. So handle this now.
