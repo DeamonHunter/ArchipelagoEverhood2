@@ -6,6 +6,7 @@ using ArchipelagoEverhood.Data;
 using Fungus;
 using HarmonyLib;
 using TMPro;
+using UnityEngine;
 
 //Disable these warnings due to
 // ReSharper disable InconsistentNaming 
@@ -39,17 +40,21 @@ namespace ArchipelagoEverhood.Patches
     {
         private static void Prefix(Main_GameplayRoot __instance, GameplayBattleRoot ____activeBattleRoot, List<GameplayBattleRoot> ____battlesRoot, out BattleData? __state)
         {
-            __state = null;
-            if (!Globals.SessionHandler.LoggedIn)
-            {
-                Globals.Logging.Msg($"GameplayEnemyDefeated: {____activeBattleRoot.GameplayEnemy.gameObject.scene.name}. " +
-                                    $"Is Replay: {____activeBattleRoot.ReplayBattle_State}. Count Left: {____battlesRoot.Count}. " +
-                                    $"Xp: {Globals.ServicesRoot.InfinityProjectExperience.GetXpRewardCount(____activeBattleRoot.GameplayEnemy.gameObject)}.");
-                return;
-            }
-
             try
             {
+                __state = null;
+                if (!Globals.SessionHandler.LoggedIn)
+                {
+                    //When not logged in, this doesn't get set. So handle this now.
+                    if (!Globals.ServicesRoot)
+                        Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
+                    
+                    Globals.Logging.Msg($"GameplayEnemyDefeated: {____activeBattleRoot.GameplayEnemy.gameObject.scene.name}. " +
+                                        $"Is Replay: {____activeBattleRoot.ReplayBattle_State}. Count Left: {____battlesRoot.Count}. " +
+                                        $"Xp: {Globals.ServicesRoot!.InfinityProjectExperience.GetXpRewardCount(____activeBattleRoot.GameplayEnemy.gameObject)}.");
+                    return;
+                }
+
                 if (____battlesRoot.Count > 1 || ____activeBattleRoot.ReplayBattle_State)
                     return;
 
