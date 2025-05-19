@@ -75,7 +75,7 @@ namespace ArchipelagoEverhood.Data
         public static Dictionary<long, EverhoodItemInfo> XpsById = new()
         {
             { 200, new EverhoodItemInfo { Xp = 0, ItemFlags = ItemFlags.None, ItemName = "0xp" } },
-            { 201, new EverhoodItemInfo { Xp = 0, ItemFlags = ItemFlags.None, ItemName = "2xp" } },
+            { 201, new EverhoodItemInfo { Xp = 2, ItemFlags = ItemFlags.None, ItemName = "2xp" } },
             //{ 201, new EverhoodItemInfo { Xp = 5, ItemFlags = ItemFlags.None, ItemName = "5xp" } },
             { 202, new EverhoodItemInfo { Xp = 15, ItemFlags = ItemFlags.None, ItemName = "15xp" } },
             { 203, new EverhoodItemInfo { Xp = 20, ItemFlags = ItemFlags.None, ItemName = "20xp" } },
