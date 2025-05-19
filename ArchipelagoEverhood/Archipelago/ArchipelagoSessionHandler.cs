@@ -100,5 +100,7 @@ namespace ArchipelagoEverhood.Archipelago
             LogicHandler!.SetAcceptingItems(false);
             _activateUpdate = false;
         }
+
+        public void SendCompletion() => _currentSession!.SetGoalAchieved();
     }
 }

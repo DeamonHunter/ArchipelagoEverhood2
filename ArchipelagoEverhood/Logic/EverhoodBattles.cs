@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Archipelago.MultiClient.Net.Helpers;
 using ArchipelagoEverhood.Data;
+using ArchipelagoEverhood.Patches;
 
 namespace ArchipelagoEverhood.Logic
 {
     public class EverhoodBattles
     {
         private BattleData? CurrentBattle;
+        private bool InVictoryBattle;
         private ILocationCheckHelper? _locations;
         private Dictionary<long, BattleData>? _activeBattleData;
 
@@ -59,12 +61,20 @@ namespace ArchipelagoEverhood.Logic
             try
             {
                 CurrentBattle = null;
+                InVictoryBattle = false;
                 if (loadedGameplayRoot.ReplayBattle_State)
                     return;
 
                 var battleSceneName = loadedGameplayRoot.gameObject.scene.name;
                 if (BattleStorage.SkipBattles.Contains(battleSceneName))
                     return;
+
+                if (BattleStorage.VictoryBattles.Contains(battleSceneName))
+                {
+                    Globals.Logging.Warning("Battles", $"Starting Victory fight!");
+                    InVictoryBattle = true;
+                    return;
+                }
 
                 var relevantData = _activeBattleData!.Where(x => x.Value.SceneName == battleSceneName).Select(x => x.Value).ToList();
                 if (relevantData.Count <= 0)
@@ -92,6 +102,13 @@ namespace ArchipelagoEverhood.Logic
 
         public BattleData? CompletedBattle()
         {
+            if (InVictoryBattle)
+            {
+                Globals.SessionHandler.SendCompletion();
+                SayOnEnterPatch.SetOverrideText("{rcolor}Congrats you've won!\nThanks for Testing!");
+                return null;
+            }
+            
             if (CurrentBattle == null)
             {
                 Globals.Logging.Warning("Battles", "No active battle loaded. Not unlocking anything.");

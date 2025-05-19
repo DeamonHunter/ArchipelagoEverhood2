@@ -237,12 +237,11 @@ namespace ArchipelagoEverhood.Patches
                     Globals.Logging.Warning("ForceShowDialogue", "Unlocking Movement");
                     if (unlockMovement)
                         topDown.Player.SetTopDownPlayerMovementState(true);
-                
+
                     if (!callingCommand)
                         return;
-                
-                    callingCommand!.Continue();
 
+                    callingCommand!.Continue();
                 }
                 catch (Exception e)
                 {

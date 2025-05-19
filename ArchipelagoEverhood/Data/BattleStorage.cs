@@ -82,6 +82,13 @@ namespace ArchipelagoEverhood.Data
         {
             "Tutorial1-Battle", //Second fight immediately
             "SamFake-Battle", //Not really a battle
+            "DragonPart1-Battle"
+        };
+
+        //Todo: Determine Goal
+        public static readonly HashSet<string> VictoryBattles = new()
+        {
+            "DragonPart2-Battle"
         };
     }
 }
