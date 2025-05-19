@@ -232,16 +232,29 @@ namespace ArchipelagoEverhood.Patches
 
             dialog.Say(text, true, true, true, false, false, null, () =>
             {
-                Globals.Logging.Warning("Cosmetic Patch", "Unlocking Movement");
-                if (unlockMovement)
-                    topDown.Player.SetTopDownPlayerMovementState(true);
-                callingCommand?.Continue();
+                try
+                {
+                    Globals.Logging.Warning("ForceShowDialogue", "Unlocking Movement");
+                    if (unlockMovement)
+                        topDown.Player.SetTopDownPlayerMovementState(true);
+                
+                    if (!callingCommand)
+                        return;
+                
+                    callingCommand!.Continue();
+
+                }
+                catch (Exception e)
+                {
+                    Globals.Logging.Error("ForceShowDialogue (Inner)", e);
+                    throw;
+                }
             });
 
             //The flowchart of many of these cosmetics automatically unlock movement
             MelonEvents.OnUpdate.Subscribe(() =>
             {
-                Globals.Logging.Warning("Cosmetic Patch", "Locking Movement");
+                Globals.Logging.Warning("ForceShowDialogue", "Locking Movement");
                 topDown.Player.SetTopDownPlayerMovementState(false);
             }, 0, true);
         }
