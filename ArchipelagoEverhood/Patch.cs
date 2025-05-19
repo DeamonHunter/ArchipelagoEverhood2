@@ -271,11 +271,11 @@ namespace ArchipelagoEverhood
         {
             try
             {
-                Globals.Logging.Log("Command", $"{__instance.GetSummary()}");
+                Globals.Logging.Log($"Command {__instance.GetType()}", $"{__instance.GetSummary()}");
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("Command", e);
+                Globals.Logging.Error($"Command {__instance.GetType()}", e);
             }
         }
     }
