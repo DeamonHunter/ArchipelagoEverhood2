@@ -6,6 +6,7 @@ using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.Models;
+using ArchipelagoEverhood.Util;
 
 namespace ArchipelagoEverhood.Archipelago
 {
@@ -34,18 +35,24 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
 
             //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
+            var originalCount = _itemIndex;
             _itemIndex = _items.AllItemsReceived.Count;
             for (var i = 0; i < _itemIndex; i++)
             {
-                var item = _items.DequeueItem();
+                var item = i < originalCount ? _items.AllItemsReceived[i] : _items.DequeueItem();
+                if (item == null)
+                {
+                    Globals.Logging.Error("LogicHandler", $"Failed to find item at index: {i}");
+                    continue;
+                }
+
                 if (Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue($"Archipelago_{i}", out var itemId))
                 {
-                    if (itemId != item.ItemId)
-                    {
-                        Globals.Logging.Error("LogicHandler", $"ITEM DESYNC AT INDEX {i}. Was: {itemId} Is: {item.ItemId} CURRENTLY CANNOT HANDLE!!!!!");
-                        Globals.SessionHandler.ItemHandler!.HandleRemoteItem(item);
-                        MarkItemAdded(item.ItemId, i);
-                    }
+                    if (itemId == item.ItemId)
+                        continue;
+                    Globals.Logging.Error("LogicHandler", $"ITEM DESYNC AT INDEX {i}. Was: {itemId} Is: {item.ItemId} CURRENTLY CANNOT HANDLE!!!!!");
+                    Globals.SessionHandler.ItemHandler!.HandleRemoteItem(item);
+                    MarkItemAdded(item.ItemId, i);
                 }
                 else
                 {
@@ -117,33 +124,7 @@ namespace ArchipelagoEverhood.Archipelago
             if (!Globals.SessionHandler.LogicHandler!.Scouts.TryGetValue(location, out var info))
                 return $"Failed to scout location: {location}";
 
-            return ConstructCollectedItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, withTags);
-        }
-
-        public static string ConstructCollectedItemText(string itemName, ItemFlags flags, string? otherPlayer, bool withTags)
-        {
-            var itemText = ConstructItemText(itemName, flags, withTags);
-            return otherPlayer == null
-                ? $"You found your {itemText}!"
-                : $"You found {otherPlayer}'s {itemText}";
-        }
-
-        public static string ConstructItemText(string itemName, ItemFlags flags, bool withTags)
-        {
-            //Somewhat janky setup so that it looks nice in all texts.
-            string sprite;
-            if (flags.HasFlag(ItemFlags.Advancement))
-                sprite = "<sprite=248>";
-            else if (flags.HasFlag(ItemFlags.NeverExclude))
-                sprite = "<sprite=249>";
-            else if (flags.HasFlag(ItemFlags.Trap))
-                sprite = "<sprite=251>";
-            else
-                sprite = "<sprite=250>";
-            
-            return withTags 
-                ? $"<voffset=5><cspace=-10>{sprite}</voffset>{itemName.FirstOrDefault()}</cspace>{itemName[1..]}"
-                : $"{sprite}{itemName}";
+            return EverhoodHelpers.ConstructCollectedItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, withTags);
         }
     }
 }

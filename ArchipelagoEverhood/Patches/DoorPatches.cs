@@ -1,9 +1,9 @@
 ﻿using System;
 using Archipelago.MultiClient.Net.Enums;
 using ArchipelagoEverhood.Archipelago;
+using ArchipelagoEverhood.Util;
 using Fungus;
 using HarmonyLib;
-using UnityEngine;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -20,16 +20,15 @@ namespace ArchipelagoEverhood.Patches
                 switch (____targetObject.Value.name)
                 {
                     case "HallOfCon_Door":
-                        if (Globals.ServicesRoot!.GameData.GeneralData.GetCollectItemCount(nameof(Item.WeaponToken)) >= 3)
+                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= 3)
                             return true;
 
                         __instance.IsExecuting = true;
-                        SayOnEnterPatch.ForceShowDialogue($"You need 3 {ArchipelagoLogicHandler.ConstructItemText("Power Gems", ItemFlags.Advancement, true)} fight the dragon!", __instance);
+                        SayOnEnterPatch.ForceShowDialogue($"You need 3 {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, true)} fight the dragon!", __instance);
                         return false;
                 }
 
                 return true;
-
             }
             catch (Exception e)
             {
@@ -56,9 +55,9 @@ namespace ArchipelagoEverhood.Patches
                     case "LevelLoad-HallOfCon-Mirror":
                     case "LevelLoad-HallOfCon-PostDragon":
                     case "PortalEffect_HallOfCon":
-                        if (Globals.ServicesRoot!.GameData.GeneralData.GetCollectItemCount(nameof(Item.WeaponToken)) >= 3)
+                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= 3)
                             return true;
-                    
+
                         __instance.Continue();
                         return false;
                     default:
