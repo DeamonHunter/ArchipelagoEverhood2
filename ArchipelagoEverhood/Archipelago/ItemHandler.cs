@@ -142,7 +142,7 @@ namespace ArchipelagoEverhood.Archipelago
         private void UnlockItem(ItemUnlock itemUnlock)
         {
             Globals.Logging.Log("ItemHandler", $"Looking to unlock: {itemUnlock.DisplayName}");
-            if (_currentSlot != itemUnlock.PlayerSlot || _currentTeam != itemUnlock.PlayerTeam)
+            if (!itemUnlock.Remote && (_currentSlot != itemUnlock.PlayerSlot || _currentTeam != itemUnlock.PlayerTeam))
             {
                 Globals.Logging.Log("ItemHandler", $"Tried to Unlock someone else's item. {itemUnlock.DisplayName} : {itemUnlock.ItemId} : {itemUnlock.PlayerSlot}");
                 return;
