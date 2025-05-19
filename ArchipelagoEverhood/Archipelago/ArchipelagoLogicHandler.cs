@@ -117,11 +117,20 @@ namespace ArchipelagoEverhood.Archipelago
             if (!Globals.SessionHandler.LogicHandler!.Scouts.TryGetValue(location, out var info))
                 return $"Failed to scout location: {location}";
 
-            return ConstructItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, withTags);
+            return ConstructCollectedItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, withTags);
         }
 
-        public string ConstructItemText(string itemName, ItemFlags flags, string? otherPlayer, bool withTags)
+        public static string ConstructCollectedItemText(string itemName, ItemFlags flags, string? otherPlayer, bool withTags)
         {
+            var itemText = ConstructItemText(itemName, flags, withTags);
+            return otherPlayer == null
+                ? $"You found your {itemText}!"
+                : $"You found {otherPlayer}'s {itemText}";
+        }
+
+        public static string ConstructItemText(string itemName, ItemFlags flags, bool withTags)
+        {
+            //Somewhat janky setup so that it looks nice in all texts.
             string sprite;
             if (flags.HasFlag(ItemFlags.Advancement))
                 sprite = "<sprite=248>";
@@ -131,14 +140,10 @@ namespace ArchipelagoEverhood.Archipelago
                 sprite = "<sprite=251>";
             else
                 sprite = "<sprite=250>";
-
-            //Somewhat janky setup so that it looks nice in all texts.
-            var itemText = withTags 
+            
+            return withTags 
                 ? $"<voffset=5><cspace=-10>{sprite}</voffset>{itemName.FirstOrDefault()}</cspace>{itemName[1..]}"
                 : $"{sprite}{itemName}";
-            return otherPlayer == null
-                ? $"You found your {itemText}!"
-                : $"You found {otherPlayer}'s {itemText}";
         }
     }
 }

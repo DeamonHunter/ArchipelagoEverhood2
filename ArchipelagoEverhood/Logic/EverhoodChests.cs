@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Archipelago.MultiClient.Net.Helpers;
+using ArchipelagoEverhood.Archipelago;
 using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Util;
 using Fungus;
@@ -270,7 +271,7 @@ namespace ArchipelagoEverhood.Logic
 
             string itemName;
             if (ItemData.ItemIdsByName.TryGetValue(chestData.ItemName, out var id) && ItemData.AllItemsByID.TryGetValue(id, out var itemInfo))
-                return Globals.SessionHandler.LogicHandler!.ConstructItemText(itemInfo.ItemName, itemInfo.ItemFlags, null, true);
+                return ArchipelagoLogicHandler.ConstructCollectedItemText(itemInfo.ItemName, itemInfo.ItemFlags, null, true);
 
             itemName = AssetHelpers.NicifyName(chestData.ItemName);
             return $"You found your <voffset=5><cspace=-10><sprite=250></voffset>{itemName[0]}</cspace>{(itemName.Length > 1 ? itemName[1..] : "")}";
