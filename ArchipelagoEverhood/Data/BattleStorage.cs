@@ -41,10 +41,10 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 22, "LaTigre-Battle", "GL_M1m_ElTigreStart", BattleType.MajorBattle, 100), //100xp (Feugo)
             //Green Route - Year 0 Hallway
             new BattleData(_battleStartId + 23, "AntMachine-Battle", "GL_B1_M1Chasers", BattleType.MajorBattle, 50), //50xp 
-            new BattleData(_battleStartId + 24, "ChameleonBad-Battle", "GL_B1_M1_EncounterDead", BattleType.MajorBattle, 3), //3xp (Chase)
+            new BattleData(_battleStartId + 24, "ChameleonBad-Battle", "GL_B1_M1_EncounterDead", BattleType.MajorBattle, 2), //2xp (Chase)
             //Todo: Remove Trigger on Marzian_Part1Hero_MinesHallway/GAMEPLAY/EastGate/EastDoor-Interact/TopDownFlowchartTrigger Or Allow re-entry into this zone.
             new BattleData(_battleStartId + 25, "SharkJailor-Battle", "GL_B2_M1_EncounterDead", BattleType.Trash, 75), //Triple Battle. 75xp (Howler & Razor & Maggot) //Todo: Trash battle? This one is required.
-            new BattleData(_battleStartId + 26, "Gorilla-Battle", "GL_M1_GorillaDefeated", BattleType.MajorBattle, 75), //75xp (Howler & Razor & Maggot)
+            new BattleData(_battleStartId + 26, "Gorilla-Battle", "GL_M1_GorillaDefeated", BattleType.MajorBattle, 200), //200xp (The Dimension Master)
             //Green Route - Year 1000 
             new BattleData(_battleStartId + 27, "Portal-Battle", "GL_PortalBattleFinished", BattleType.MajorBattle, 400), //400xp (Portal)
             //Green Route - Year 2000 
