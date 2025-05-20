@@ -87,7 +87,7 @@ namespace ArchipelagoEverhood.Data
             { 209, new EverhoodItemInfo { Xp = 50, ItemFlags = ItemFlags.None, ItemName = "50xp" } },
             { 210, new EverhoodItemInfo { Xp = 60, ItemFlags = ItemFlags.None, ItemName = "60xp" } },
             { 211, new EverhoodItemInfo { Xp = 64, ItemFlags = ItemFlags.None, ItemName = "64xp" } },
-            { 212, new EverhoodItemInfo { Xp = 64, ItemFlags = ItemFlags.None, ItemName = "70xp" } },
+            { 212, new EverhoodItemInfo { Xp = 70, ItemFlags = ItemFlags.None, ItemName = "70xp" } },
             { 213, new EverhoodItemInfo { Xp = 75, ItemFlags = ItemFlags.None, ItemName = "75xp" } },
             { 214, new EverhoodItemInfo { Xp = 76, ItemFlags = ItemFlags.None, ItemName = "76xp" } },
             { 215, new EverhoodItemInfo { Xp = 80, ItemFlags = ItemFlags.None, ItemName = "80xp" } },
