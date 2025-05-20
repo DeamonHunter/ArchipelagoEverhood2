@@ -32,7 +32,7 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 15, "DarkPiranha-Battle", "GL_1C_NJ_DarkPiranhaDead", BattleType.Trash, 60), //Double Battle. 60xp
             new BattleData(_battleStartId + 16, "NeonString-Battle", "GL_1C_NJ_NeonStringDead", BattleType.Trash, 50), //50xp
             //Blue Route - Misc
-            new BattleData(_battleStartId + 17, "TODO: DOESN'T END NORMALLY", "GL_NTJ_TunnelBattle", BattleType.MajorBattle, 0),
+            new BattleData(_battleStartId + 17, "TODO: DOESN'T END NORMALLY", "GL_NTJ_TunnelBattle", BattleType.MajorBattle, 0), // [Dot]Use GL_ND_WokeUpAfterBattle as the end of the battle?
             //Green Route - Year 0 Starting Area
             new BattleData(_battleStartId + 18, "Hyena-Battle", "GL_0A_M1m_HyenaDead", BattleType.Trash, 25), //25xp (Screech) //Todo: Trash battle? This one is required.
             new BattleData(_battleStartId + 19, "Hyena-Battle", "GL_1A_M1m_HyenaDead", BattleType.Trash, 25), //25xp (Warcry)
@@ -41,7 +41,7 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 22, "LaTigre-Battle", "GL_M1m_ElTigreStart", BattleType.MajorBattle, 100), //100xp (Feugo)
             //Green Route - Year 0 Hallway
             new BattleData(_battleStartId + 23, "AntMachine-Battle", "GL_B1_M1Chasers", BattleType.MajorBattle, 50), //50xp 
-            new BattleData(_battleStartId + 24, "ChameleonBad-Battle", "GL_B1_M1_EncounterDead", BattleType.MajorBattle, 2), //2xp (Chase)
+            new BattleData(_battleStartId + 24, "ChameleonBad-Battle", "GL_B1_M1_EncounterDead", BattleType.MajorBattle, 2), //2xp (Anxious Chase)
             //Todo: Remove Trigger on Marzian_Part1Hero_MinesHallway/GAMEPLAY/EastGate/EastDoor-Interact/TopDownFlowchartTrigger Or Allow re-entry into this zone.
             new BattleData(_battleStartId + 25, "SharkJailor-Battle", "GL_B2_M1_EncounterDead", BattleType.Trash, 75), //Triple Battle. 75xp (Howler & Razor & Maggot) //Todo: Trash battle? This one is required.
             new BattleData(_battleStartId + 26, "Gorilla-Battle", "GL_M1_GorillaDefeated", BattleType.MajorBattle, 200), //200xp (The Dimension Master)
@@ -60,20 +60,20 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 36, "TomatoRush-Battle", "GL_4A_EWb_TomatoRampageDead", BattleType.Trash, 25), //25xp + Tomato Seed (Tomato Rush Upper Left)
             new BattleData(_battleStartId + 37, "TomatoRush-Battle", "GL_5A_EWb_TomatoRampageDead", BattleType.Trash, 25), //25xp + Tomato Seed (Tomato Rush Upper Middle)
             new BattleData(_battleStartId + 38, "TomatoRush-Battle", "GL_6A_EWb_TomatoRampageDead", BattleType.Trash, 25), //25xp + Tomato Seed (Tomato Rush Upper Right)
-            new BattleData(_battleStartId + 39, "Melon-Battle", "GL_01_EWb_MelonEncounterStart", BattleType.MajorBattle, 100), //100xp (Melon) //Todo: Does this actually give the xp?
+            new BattleData(_battleStartId + 39, "Melon-Battle", "GL_01_EWb_MelonEncounterStart", BattleType.MajorBattle, 100), //100xp (Melon) //Todo: Does this actually give the xp? [Dot] Said it gave xp in the log but need to test.
             new BattleData(_battleStartId + 40, "Chili-Battle", "GL_1A_EWb_Chili_Dead", BattleType.Trash, 15), //15xp (Chili)
             //Red Route - Castle
-            new BattleData(_battleStartId + 41, "Capsicum-Battle", "GL_EWcd_FirstBattleStart", BattleType.MajorBattle, 15), //15xp (Capsicum)
-            new BattleData(_battleStartId + 42, "Carrot-Battle", "GL_EWcd_SecondBattleStart", BattleType.MajorBattle, 15), //15xp (Carrot Mage)
-            new BattleData(_battleStartId + 43, "JuiceMaster-Battle", "GL_EW_TomatoKingBattleStart", BattleType.MajorBattle, 15), //15xp (Juice Master#4671)
+            new BattleData(_battleStartId + 41, "Capsicum-Battle", "GL_EWcd_FirstBattleStart", BattleType.MajorBattle, 70), //70xp (Capsicum)
+            new BattleData(_battleStartId + 42, "Carrot-Battle", "GL_EWcd_SecondBattleStart", BattleType.MajorBattle, 45), //45xp (Carrot Mage)
+            new BattleData(_battleStartId + 43, "JuiceMaster-Battle", "GL_EW_TomatoKingBattleStart", BattleType.MajorBattle, 150), //150xp (Juice Master #4671)
             //Floor 23 - Human Party
-            new BattleData(_battleStartId + 44, "TODO: DOESN'T END NORMALLY", "GL_HH1_AngryWizardDead", BattleType.HillbertHotel, 0), //??xp (Yellow God?)
-            new BattleData(_battleStartId + 45, "Processor_INT-Battle", "GL_1A_SSApr_DataDead", BattleType.HillbertHotel, 64), //64xp (INT Bug) //Todo: Is this really trash
+            new BattleData(_battleStartId + 44, "TODO: DOESN'T END NORMALLY", "GL_HH1_AngryWizardDead", BattleType.HillbertHotel, 0), //??xp (Yellow Toad) [Dot] Use GL_HH1_SmegaFinished as the end of battle?
+            new BattleData(_battleStartId + 45, "Processor_INT-Battle", "GL_1A_SSApr_DataDead", BattleType.HillbertHotel, 64), //64xp (INT Bug) //Todo: Is this really trash. [Dot] I believe this is skippable, need to test.
             new BattleData(_battleStartId + 46, "Rasputin-Battle", "GL_RasputinDead", BattleType.HillbertHotel, 100), //100xp (Rasputin)
             //Floor Gold - The VIP Area
             new BattleData(_battleStartId + 47, "Bobo_Toxicated-Battle", "GL_HH2_BoboDefeated", BattleType.HillbertHotel, 80), //80xp (Drunk Bobo)
             //Floor Pinecone - The Simple Life
-            new BattleData(_battleStartId + 48, "Squirrel-Battle", "GL_1A_HH4_SquirrelDead", BattleType.HillbertHotel, 80), //80xp (A lot of Squirrels)
+            new BattleData(_battleStartId + 48, "Squirrel-Battle", "GL_1A_HH4_SquirrelDead", BattleType.HillbertHotel, 400), //400xp (A lot of Squirrels)
             //Colloseum
             new BattleData(_battleStartId + 49, "JeanDArc-Battle", "GauntletQuest1count", BattleType.Colloseum, 0, 1) //"GL_GauntletQuest_Refresh"
         };
