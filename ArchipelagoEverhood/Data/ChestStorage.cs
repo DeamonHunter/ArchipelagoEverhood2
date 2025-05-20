@@ -56,12 +56,13 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 36, "Neon_Hillbert_Room2Bobo", "50xp", "GL_1A_HH2_ChestOpen", ChestType.XP),
         };
         /*
-            "GL_3RoomKeyInventory", //Based on map progression, Possibly Green 2? (Green Key)
-            "GL_3A_HHe_ChestOpen", //Power Gem? Complete Green Floor
-            "GL_4RoomKeyInventory", //Based on map progression, Possibly Green 3? (Pinecone Key)
-            "GL_4A_HHe_ChestOpen", //Power Gem + Reindeer Skull. Based on map progression, Possibly Green 3? (Pinecone Key)
+            new ChestData(_itemStartId + X, "GL_3RoomKeyInventory", "Green Key", "GL_3RoomKeyInventory", ChestType.Item),  //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "Power Gem", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
+            new ChestData(_itemStartId + X, "GL_4RoomKeyInventory", "Pinecone Key", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (Pinecone Key)
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "Power Gem", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (Pinecone Key)
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "ReindeerSkull", "GL_4A_HHe_ChestOpen", ChestType.Cosmetic), // Reindeer Skull. Requires Green 3/Year 2000 completed (Pinecone Key)
             //Floor Pinecone - The Simple Life
-            "GL_1A_HH4_ChestOpen", //50xp
+            new ChestData(_itemStartId + X, "Neon_Hillbert_Room4", "50xp", "GL_1A_HH4_ChestOpen", ChestType.XP), //50xp
         */
     }
 }

@@ -87,13 +87,14 @@ namespace ArchipelagoEverhood.Data
             { 209, new EverhoodItemInfo { Xp = 50, ItemFlags = ItemFlags.None, ItemName = "50xp" } },
             { 210, new EverhoodItemInfo { Xp = 60, ItemFlags = ItemFlags.None, ItemName = "60xp" } },
             { 211, new EverhoodItemInfo { Xp = 64, ItemFlags = ItemFlags.None, ItemName = "64xp" } },
-            { 212, new EverhoodItemInfo { Xp = 75, ItemFlags = ItemFlags.None, ItemName = "75xp" } },
-            { 213, new EverhoodItemInfo { Xp = 76, ItemFlags = ItemFlags.None, ItemName = "76xp" } },
-            { 214, new EverhoodItemInfo { Xp = 80, ItemFlags = ItemFlags.None, ItemName = "80xp" } },
-            { 215, new EverhoodItemInfo { Xp = 100, ItemFlags = ItemFlags.None, ItemName = "100xp" } },
-            { 216, new EverhoodItemInfo { Xp = 150, ItemFlags = ItemFlags.None, ItemName = "150xp" } },
-            { 217, new EverhoodItemInfo { Xp = 200, ItemFlags = ItemFlags.None, ItemName = "200xp" } },
-            { 218, new EverhoodItemInfo { Xp = 400, ItemFlags = ItemFlags.None, ItemName = "400xp" } },
+            { 212, new EverhoodItemInfo { Xp = 70, ItemFlags = ItemFlags.None, ItemName = "70xp" } },
+            { 213, new EverhoodItemInfo { Xp = 75, ItemFlags = ItemFlags.None, ItemName = "75xp" } },
+            { 214, new EverhoodItemInfo { Xp = 76, ItemFlags = ItemFlags.None, ItemName = "76xp" } },
+            { 215, new EverhoodItemInfo { Xp = 80, ItemFlags = ItemFlags.None, ItemName = "80xp" } },
+            { 216, new EverhoodItemInfo { Xp = 100, ItemFlags = ItemFlags.None, ItemName = "100xp" } },
+            { 217, new EverhoodItemInfo { Xp = 150, ItemFlags = ItemFlags.None, ItemName = "150xp" } },
+            { 218, new EverhoodItemInfo { Xp = 200, ItemFlags = ItemFlags.None, ItemName = "200xp" } },
+            { 219, new EverhoodItemInfo { Xp = 400, ItemFlags = ItemFlags.None, ItemName = "400xp" } },
         };
 
         public static Dictionary<long, EverhoodItemInfo> CosmeticsById = new()
