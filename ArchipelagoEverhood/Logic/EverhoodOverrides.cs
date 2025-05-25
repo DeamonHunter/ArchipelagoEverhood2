@@ -68,6 +68,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "Marzian_Part1Hero_MinesHallway":
                     OnEnterMarzianHallway(scene);
                     break;
+                case "Neon_NeonDistrict":
+                    OnEnterNeonDistrict(scene);
+                    break;
             }
         }
 
@@ -143,6 +146,24 @@ namespace ArchipelagoEverhood.Archipelago
             gate.gameObject.SetActive(false);
         }
 
+        private void OnEnterNeonDistrict(Scene scene)
+        {
+            Globals.Logging.Error("EverhoodOverride", "Entered Neon District");
+            if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
+                throw new Exception("Failed to edit Neon District: Could not find 'GAMEPLAY'.");
+
+            if (EverhoodHelpers.TryGetChildWithName("FirstTime", gameplay, out var firstTime))
+                firstTime.gameObject.SetActive(false);
+
+            if (!EverhoodHelpers.TryGetChildWithName("InifinteTown", gameplay, out var infiniteTown))
+                return;
+
+            if (EverhoodHelpers.TryGetChildWithName("X1", infiniteTown, out var x1Minus))
+                x1Minus.gameObject.SetActive(false);
+        }
+
+#region Main Menu
+
         private void AddExitToHubButton()
         {
             var scene = SceneManager.GetSceneByName("ServicesRoot");
@@ -184,5 +205,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             Globals.SceneManagerRoot!.LoadTopdownScene("FadeInBasic", "FadeOutBasic", Globals.CurrentTopdownLevel, 10, new Vector3(2.938f, -3.7142f, 0), Direction.South, true);
         }
+
+#endregion
     }
 }
