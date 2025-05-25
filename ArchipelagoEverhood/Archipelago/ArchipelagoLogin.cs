@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -9,6 +10,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace ArchipelagoEverhood.Archipelago
 {
@@ -90,6 +92,7 @@ namespace ArchipelagoEverhood.Archipelago
             _showLoginScreen = false;
             Cursor.visible = false;
             _mainMenuObject.gameObject.SetActive(true);
+            EditUndertitle();
         }
 
         private void AttemptLogin()
@@ -307,10 +310,39 @@ namespace ArchipelagoEverhood.Archipelago
                 throw new Exception("Failed to edit Main Menu: Could not find 'Canvas'.");
 
             if (!EverhoodHelpers.TryGetChildWithName("The Home - Rect", canvas, out var mainMenu))
-                throw new Exception("Failed to edit Main Menu: Could not find 'The Home'.");
+                throw new Exception("Failed to edit Main Menu: Could not find 'The Home - Rect'.");
 
             CreateMainMenuButton(mainMenu);
             _mainMenuObject = mainMenu;
+        }
+
+        public void EditUndertitle()
+        {
+            var underTitleList = new List<string>()
+            {
+                "Islands of Possibilities",
+                "BK Mode Activated"
+            };
+            
+            var scene = SceneManager.GetSceneByName("MenuRoot");
+            if (!EverhoodHelpers.TryGetGameObjectWithName("Base", scene.GetRootGameObjects(), out var baseObj))
+                throw new Exception("Failed to edit Main Menu: Could not find 'Base'.");
+
+            if (!EverhoodHelpers.TryGetChildWithName("Canvas Base", baseObj, out var canvas))
+                throw new Exception("Failed to edit Main Menu: Could not find 'Canvas Base'.");
+
+            if (!EverhoodHelpers.TryGetChildWithName("Logo - Rect", canvas, out var logo))
+                throw new Exception("Failed to edit Main Menu: Could not find 'Logo - Rect'.");
+
+            if (!EverhoodHelpers.TryGetChildWithName("Undertitles", logo, out var undertitles))
+                throw new Exception("Failed to edit Main Menu: Could not find 'Undertitles'.");
+
+            foreach (Transform child in undertitles)
+                child.gameObject.SetActive(false);
+
+            var first = undertitles.GetChild(0);
+            first.GetComponent<TextMeshProUGUI>().text = underTitleList[Random.Range(0, underTitleList.Count)];
+            first.gameObject.SetActive(true);
         }
 
         private void CreateMainMenuButton(Transform mainMenu)
