@@ -300,43 +300,13 @@ namespace ArchipelagoEverhood.Archipelago
             if (scene.buildIndex != buildIndex)
                 throw new Exception("Failed to edit Main Menu: Main Menu wasn't what we expected?");
 
-            GameObject? baseObj = null;
-            foreach (var obj in scene.GetRootGameObjects())
-            {
-                if (obj.name != "Root PC")
-                    continue;
-
-                baseObj = obj;
-                break;
-            }
-
-            if (baseObj == null)
+            if (!EverhoodHelpers.TryGetGameObjectWithName("Root PC", scene.GetRootGameObjects(), out var baseObj))
                 throw new Exception("Failed to edit Main Menu: Could not find 'Root PC'.");
 
-            Transform? canvas = null;
-            foreach (Transform obj in baseObj.transform)
-            {
-                if (obj.gameObject.name != "Canvas")
-                    continue;
-
-                canvas = obj;
-                break;
-            }
-
-            if (canvas == null)
+            if (!EverhoodHelpers.TryGetChildWithName("Canvas", baseObj, out var canvas))
                 throw new Exception("Failed to edit Main Menu: Could not find 'Canvas'.");
 
-            Transform? mainMenu = null;
-            foreach (Transform child in canvas)
-            {
-                if (!child.name.StartsWith("The Home"))
-                    continue;
-
-                mainMenu = child;
-                break;
-            }
-
-            if (mainMenu == null)
+            if (!EverhoodHelpers.TryGetChildWithName("The Home - Rect", canvas, out var mainMenu))
                 throw new Exception("Failed to edit Main Menu: Could not find 'The Home'.");
 
             CreateMainMenuButton(mainMenu);
