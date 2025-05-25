@@ -4,6 +4,7 @@ using ArchipelagoEverhood.Util;
 using MelonLoader;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [assembly: MelonInfo(typeof(ArchipelagoEverhoodMod), "Archipelago Everhood 2", "0.1.0", "DeamonHunter")]
 [assembly: MelonGame("Foreign Gnomes", "Everhood 2")]
@@ -52,8 +53,11 @@ namespace ArchipelagoEverhood
             //This game loads scenes from other mods. Don't want to conflict with one named "MenuRoot" for some reason.
             if (buildIndex == 1)
                 Globals.LoginHandler.MainMenuLoaded(buildIndex);
-            else if (Globals.SessionHandler.LoggedIn)
-                Globals.EverhoodChests.ScoutForScene(sceneName);
+            if (!Globals.SessionHandler.LoggedIn)
+                return;
+
+            Globals.EverhoodChests.ScoutForScene(sceneName);
+            Globals.EverhoodOverrides.OnSceneChange(sceneName, SceneManager.GetSceneByName(sceneName));
         }
     }
 }

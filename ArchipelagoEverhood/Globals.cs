@@ -13,6 +13,10 @@ namespace ArchipelagoEverhood
         public static Main_GameplayRoot? GameplayRoot;
         public static SceneManagerRoot? SceneManagerRoot;
 
+        //Easy Access Everhood Stuff
+        public static GameObject ExitToHubButton;
+        public static int CurrentTopdownLevel;
+
         //Victory Screen Stuff
         public static BattleVictoryResult? BattleVictoryResult;
         public static Canvas? VictoryScreenCanvas;
