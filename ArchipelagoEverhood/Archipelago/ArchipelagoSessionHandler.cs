@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
 using UnityEngine;
@@ -20,23 +21,20 @@ namespace ArchipelagoEverhood.Archipelago
         private Dictionary<string, object>? _slotData;
         private bool _activateUpdate;
 
-        public bool TryFreshLogin(string ipAddress, string username, string password, out string? reason)
+        public async Task<string?> TryFreshLogin(string ipAddress, string username, string password)
         {
             if (_currentSession != null)
-                throw new NotImplementedException("Changing sessions is not implemented atm.");
+                throw new Exception("Already Connected!");
 
             var session = ArchipelagoSessionFactory.CreateSession(ipAddress);
             session.Socket.ErrorReceived += (exception, message) => { Globals.Logging.Log("[ArchError]", $"{message} : {exception}"); };
-
-            var loginResult = session.TryConnectAndLogin("Everhood 2", username, ItemsHandlingFlags.AllItems, password: password);
-
+            await session.ConnectAsync();
+            var loginResult = await session.LoginAsync("Everhood 2", username, ItemsHandlingFlags.AllItems, null, null, null, password);
             if (!loginResult.Successful)
             {
                 var failed = (LoginFailure)loginResult;
-
                 //Todo: When does multiple errors show up? And should we handle that case here.
-                reason = failed.Errors[0];
-                return false;
+                return failed.Errors[0];
             }
 
             var successful = (LoginSuccessful)loginResult;
@@ -46,8 +44,7 @@ namespace ArchipelagoEverhood.Archipelago
             _slotData = successful.SlotData;
             _currentSession = session;
 
-            reason = null;
-            return true;
+            return null;
         }
 
         public void StartSession()
@@ -75,7 +72,7 @@ namespace ArchipelagoEverhood.Archipelago
         public void SaveFileLoaded()
         {
             if (_currentSession == null)
-                return;
+                throw new Exception("Not Connected!");
 
             Globals.EverhoodBattles.CompleteChecksLoadedFromSave(_currentSession.Locations);
             Globals.EverhoodChests.CompleteChecksLoadedFromSave(_currentSession.Locations);
@@ -102,5 +99,26 @@ namespace ArchipelagoEverhood.Archipelago
         }
 
         public void SendCompletion() => _currentSession!.SetGoalAchieved();
+
+        public async Task Disconnect()
+        {
+            try
+            {
+                if (_currentSession == null)
+                    throw new Exception("Trying to disconnect from a non-existent connection?");
+
+                await _currentSession.Socket.DisconnectAsync();
+                Globals.EverhoodOverrides.ArchipelagoDisconnected();
+                LoggedIn = false;
+                LogicHandler = null;
+                ItemHandler = null;
+                _currentSession = null;
+                Globals.LoginHandler.StopWaiting(null);
+            }
+            catch (Exception e)
+            {
+                Globals.LoginHandler.StopWaiting(e);
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace ArchipelagoEverhood.Archipelago
         private GUIStyle? _buttonYesStyle;
         private GUIStyle? _buttonNoStyle;
         private GUIStyle? _labelStyle;
+        private GUIStyle? _labelCenterStyle;
         private GUIStyle? _textFieldStyle;
         private GUIStyle? _toggleStyle;
         private readonly GUILayoutOption[] _defaultInputHeight = { GUILayout.Height(25f) };
@@ -46,6 +47,7 @@ namespace ArchipelagoEverhood.Archipelago
 
         private VersionCheckState _checkVersionState;
         private string? _newVersionValue;
+        private bool _waiting;
 
         private Transform? _mainMenuObject;
 
@@ -59,7 +61,7 @@ namespace ArchipelagoEverhood.Archipelago
             _noTextureHighlighted = AssetHelpers.LoadTexture("ArchipelagoEverhood.Assets.ButtonNoHighlighted.png") ?? throw new Exception("Failed to load  Button No Highlighted.");
             _versionNumber = versionNumber;
             _trueVersion = trueVersion;
-            MelonEvents.OnGUI.Subscribe(DrawArchLogin);
+            MelonEvents.OnGUI.Subscribe(DrawArchipelagoScreen);
         }
 
         private void OnArchipelagoClick()
@@ -84,11 +86,12 @@ namespace ArchipelagoEverhood.Archipelago
             }
         }
 
-        private void HideArchipelago()
+        public void HideArchipelago()
         {
             if (_mainMenuObject == null)
                 throw new Exception("Woah, menu object should not be null here.");
 
+            _waiting = false;
             _showLoginScreen = false;
             Cursor.visible = false;
             _mainMenuObject.gameObject.SetActive(true);
@@ -97,15 +100,23 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void AttemptLogin()
         {
+            _waiting = true;
+            AttemptLoginAsync().ConfigureAwait(false);
+        }
+        
+        private async Task AttemptLoginAsync()
+        {
             try
             {
                 var ipAddress = _ipAddress.Trim();
                 if (ipAddress.StartsWith("/connect"))
                     ipAddress = ipAddress.Remove(0, 8).Trim();
 
-                if (!Globals.SessionHandler.TryFreshLogin(ipAddress, _username.Trim(), _password.Trim(), out var reason))
+                var reason = await Globals.SessionHandler.TryFreshLogin(ipAddress, _username.Trim(), _password.Trim());
+                if (reason != null)
                 {
                     _error = reason;
+                    _waiting = false;
                     return;
                 }
 
@@ -118,23 +129,36 @@ namespace ArchipelagoEverhood.Archipelago
                     var sb = new StringBuilder();
                     sb.AppendLine(_ipAddress);
                     sb.AppendLine(_username);
-                    File.WriteAllText(_lastLoginPath, sb.ToString());
+                    await File.WriteAllTextAsync(_lastLoginPath, sb.ToString());
                 }
 
                 Globals.SessionHandler.StartSession();
-
                 HideArchipelago();
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("Login", e);
-                _error = e.Message;
+                StopWaiting(e);
             }
+        }
+
+        private void Disconnect()
+        {
+            _waiting = true;
+            Globals.SessionHandler.Disconnect().ConfigureAwait(false);
+        }
+
+        public void StopWaiting(Exception? e)
+        {
+            if (e != null)
+                Globals.Logging.Error("Login", e);
+            
+            _error = e?.Message;
+            _waiting = false;
         }
 
 #region Draw Login GUI
 
-        private void DrawArchLogin()
+        private void DrawArchipelagoScreen()
         {
             try
             {
@@ -150,18 +174,27 @@ namespace ArchipelagoEverhood.Archipelago
                     //    BackupSaveData();
                     return;
                 }
-
-                GUI.ModalWindow(0, new Rect(Screen.width / 2.0f - 250, Screen.height / 2.0f - 215, 500, 430), (GUI.WindowFunction)DrawArchWindow, "Connect to an Archipelago Server", _windowStyle);
+                
+                
+                if (Globals.SessionHandler.LoggedIn)
+                    GUI.ModalWindow(0, new Rect(Screen.width / 2.0f - 175, Screen.height / 2.0f - 90, 350, 180), (GUI.WindowFunction)DrawDisconnectWindow, "Disconnect from Archipelago", _windowStyle);
+                else
+                    GUI.ModalWindow(0, new Rect(Screen.width / 2.0f - 250, Screen.height / 2.0f - 215, 500, 430), (GUI.WindowFunction)DrawMainWindow, "Connect to an Archipelago Server", _windowStyle);
+                
+                GUI.enabled = true;
             }
             catch (Exception e)
             {
                 Globals.Logging.Error("DrawArchLogin", e);
-                MelonEvents.OnGUI.Unsubscribe(DrawArchLogin);
+                MelonEvents.OnGUI.Unsubscribe(DrawArchipelagoScreen);
             }
         }
 
-        private void DrawArchWindow(int windowID)
+        private void DrawMainWindow(int windowID)
         {
+            if (_waiting)
+                GUI.enabled = false;
+            
             GUILayout.Label("", _labelStyle, GUILayout.Height(40f));
 
             GUILayout.Label("IP Address And Port:", _labelStyle);
@@ -180,7 +213,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             GUILayout.Label("Version: " + _versionNumber, _labelStyle);
 
-            GUILayout.Label(_error ?? "", _labelStyle, GUILayout.Height(40f));
+            GUILayout.Label(_error ?? "", _labelCenterStyle, GUILayout.Height(40f));
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Back Out", _buttonNoStyle, GUILayout.Height(40f)))
@@ -207,20 +240,40 @@ namespace ArchipelagoEverhood.Archipelago
                     break;
                 }
                 case VersionCheckState.Checking:
-                    GUILayout.Label("Checking for update. Please wait...", _labelStyle);
+                    GUILayout.Label("Checking for update. Please wait...", _labelCenterStyle);
                     break;
                 case VersionCheckState.NewVersion:
-                    GUILayout.Label($"New Version Available: {_newVersionValue}", _labelStyle);
+                    GUILayout.Label($"New Version Available: {_newVersionValue}", _labelCenterStyle);
                     break;
                 case VersionCheckState.UpToDate:
-                    GUILayout.Label("Up to date!", _labelStyle);
+                    GUILayout.Label("Up to date!", _labelCenterStyle);
                     break;
                 case VersionCheckState.Errored:
-                    GUILayout.Label($"An error has occured: {_newVersionValue}", _labelStyle);
+                    GUILayout.Label($"An error has occured: {_newVersionValue}", _labelCenterStyle);
                     break;
             }
 
             GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+        }
+        
+        private void DrawDisconnectWindow(int windowID)
+        {
+            if (_waiting)
+                GUI.enabled = false;
+            
+            GUILayout.Label("", _labelStyle, GUILayout.Height(10f));
+            
+            GUILayout.Label("Are you sure you want to disconnect from Archipelago?", _labelCenterStyle, GUILayout.Height(40f));
+            GUILayout.Label(!string.IsNullOrEmpty(_error) ? _error : "", _labelCenterStyle, GUILayout.Height(40f));
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Back Out", _buttonNoStyle, GUILayout.Height(40f)))
+                HideArchipelago();
+
+            if (GUILayout.Button("Disconnect", _buttonYesStyle, GUILayout.Height(40f)))
+                Disconnect();
+
             GUILayout.EndHorizontal();
         }
 
@@ -281,6 +334,11 @@ namespace ArchipelagoEverhood.Archipelago
             _labelStyle = new GUIStyle(GUI.skin.label)
             {
                 fontSize = 16
+            };
+            _labelCenterStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 16,
+                alignment = TextAnchor.UpperCenter
             };
             _textFieldStyle = new GUIStyle(GUI.skin.textField)
             {
@@ -379,6 +437,7 @@ namespace ArchipelagoEverhood.Archipelago
         //Todo: Use Proper API
         private async Task CheckForNewVersion()
         {
+            _waiting = true;
             try
             {
                 //This is a very dumb, and likely to not work forever method to check updates.
@@ -409,6 +468,10 @@ namespace ArchipelagoEverhood.Archipelago
                 Globals.Logging.Error("GithubCheck", e);
                 _checkVersionState = VersionCheckState.Errored;
                 _newVersionValue = e.Message;
+            }
+            finally
+            {
+                _waiting = false;
             }
         }
 
