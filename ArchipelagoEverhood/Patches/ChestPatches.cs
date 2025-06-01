@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Fungus;
 using HarmonyLib;
 using MelonLoader;
@@ -48,7 +49,34 @@ namespace ArchipelagoEverhood.Patches
             return false;
         }
     }
+
+    [HarmonyPatch(typeof(PickItem), "OnEnter")]
+    public static class PickItemPatch
+    {
+        private static bool Prefix(PickItem __instance, Item ___item)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return true;
+
+            try
+            {
+                Globals.Logging.Msg($"Unlocking Item: {___item}");
+                var data = Globals.EverhoodChests.ChestOpened(new Dictionary<Item, int>() { { ___item, 1 } });
+                if (data == null)
+                    return true;
+
+                var itemText = Globals.EverhoodChests.GetItemName(data);
+                if (data.ForceSayDialogue)
+                {
+                    if (data.ForceSayDialogue && data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
                 else
                 {
                     SayOnEnterPatch.SetOverrideText(itemText);
@@ -106,6 +134,76 @@ namespace ArchipelagoEverhood.Patches
             return false;
         }
     }
+
+    [HarmonyPatch(typeof(PickArtifact), "OnEnter")]
+    public static class PickArtifactPatch
+    {
+        private static bool Prefix(PickArtifact __instance, Artifact ___artifact)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return true;
+
+            try
+            {
+                Globals.Logging.Msg($"Unlocking Artifact: {___artifact}");
+                var data = Globals.EverhoodChests.ChestOpened(new[] { ___artifact });
+                if (data == null)
+                    return true;
+
+                var itemText = Globals.EverhoodChests.GetItemName(data);
+                if (data.ForceSayDialogue)
+                {
+                    if (data.ForceSayDialogue && data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
+                    SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
+                else
+                {
+                    SayOnEnterPatch.SetOverrideText(itemText);
+                    __instance.Continue();
+                }
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("UnlockCosmetic", e);
+            }
+
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(PickArtifactAndEquip), "OnEnter")]
+    public static class PickArtifactAndEquipPatch
+    {
+        private static bool Prefix(PickArtifactAndEquip __instance, Artifact ___artifact)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return true;
+
+            try
+            {
+                Globals.Logging.Msg($"Unlocking Artifact: {___artifact}");
+                var data = Globals.EverhoodChests.ChestOpened(new[] { ___artifact });
+                if (data == null)
+                    return true;
+
+                var itemText = Globals.EverhoodChests.GetItemName(data);
+                if (data.ForceSayDialogue)
+                {
+                    if (data.ForceSayDialogue && data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
+                    SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
                 else
                 {
                     SayOnEnterPatch.SetOverrideText(itemText);
