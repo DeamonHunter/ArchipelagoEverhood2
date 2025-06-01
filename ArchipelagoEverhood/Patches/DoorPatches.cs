@@ -24,7 +24,7 @@ namespace ArchipelagoEverhood.Patches
                             return true;
 
                         __instance.IsExecuting = true;
-                        SayOnEnterPatch.ForceShowDialogue($"You need 3 {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, true)} fight the dragon!", __instance);
+                        SayOnEnterPatch.ForceShowDialogue($"You need 3 {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, false)} fight the dragon!", __instance);
                         return false;
                 }
 

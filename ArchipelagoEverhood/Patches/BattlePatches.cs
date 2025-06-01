@@ -48,7 +48,7 @@ namespace ArchipelagoEverhood.Patches
                     //When not logged in, this doesn't get set. So handle this now.
                     if (!Globals.ServicesRoot)
                         Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
-                    
+
                     Globals.Logging.Msg($"GameplayEnemyDefeated: {____activeBattleRoot.GameplayEnemy.gameObject.scene.name}. " +
                                         $"Is Replay: {____activeBattleRoot.ReplayBattle_State}. Count Left: {____battlesRoot.Count}. " +
                                         $"Xp: {Globals.ServicesRoot!.InfinityProjectExperience.GetXpRewardCount(____activeBattleRoot.GameplayEnemy.gameObject)}.");
@@ -78,8 +78,8 @@ namespace ArchipelagoEverhood.Patches
 
                 texts[0].gameObject.SetActive(true);
                 texts[0].text = __state.InLogic
-                    ? Globals.SessionHandler.LogicHandler!.GetScoutedItemText(__state.LocationId, false)
-                    : $"You found your <voffset=5><cspace=-10><sprite=250></voffset>{__state.DefaultXp.ToString()[0]}</cspace>{(__state.DefaultXp >= 10 ? __state.DefaultXp.ToString()[1..] : "")}xp";
+                    ? Globals.SessionHandler.LogicHandler!.GetScoutedItemText(__state.LocationId, true)
+                    : $"You found your <voffset=3><cspace=-4><sprite=250></voffset>{__state.DefaultXp.ToString()[0]}</cspace>{(__state.DefaultXp >= 10 ? __state.DefaultXp.ToString()[1..] : "")}xp";
                 texts[1].gameObject.SetActive(false);
                 texts[2].gameObject.SetActive(false);
             }
