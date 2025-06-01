@@ -303,6 +303,18 @@ namespace ArchipelagoEverhood.Patches
         }
     }
 
+    [HarmonyPatch(typeof(SetPlayerCosmetic), "OnEnter")]
+    public static class SetPlayerCosmeticPatch
+    {
+        private static bool Prefix(SetPlayerCosmetic __instance)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return true;
+            Globals.Logging.LogDebug("SetPlayerCosmetic", "Ignoring Set.");
+            return false;
+        }
+    }
+
     [HarmonyPatch(typeof(GivePlayerXP), "OnEnter")]
     public static class GivePlayerXPPatch
     {
