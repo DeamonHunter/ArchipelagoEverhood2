@@ -111,9 +111,8 @@ namespace ArchipelagoEverhood.Data
             { 408, new EverhoodItemInfo { Cosmetic = Cosmetics.Hotdog, ItemFlags = ItemFlags.None, ItemName = "Hotdog Cosmetic" } },
             { 409, new EverhoodItemInfo { Cosmetic = Cosmetics.Red_Bandana, ItemFlags = ItemFlags.None, ItemName = "Red Bandana Cosmetic" } },
             { 410, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Oingo Boingo Cosmetic" } },
-            { 411, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Mage Hat Cosmetic" } },
-            { 412, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Afro Cosmetic" } },
-            { 413, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Red Bandana Cosmetic" } },
+            { 411, new EverhoodItemInfo { Cosmetic = Cosmetics.Mage_Hat, ItemFlags = ItemFlags.None, ItemName = "Mage Hat Cosmetic" } },
+            { 412, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle6_Afro, ItemFlags = ItemFlags.None, ItemName = "Afro Cosmetic" } },
         };
 
         public static Dictionary<string, long> ItemIdsByName;
