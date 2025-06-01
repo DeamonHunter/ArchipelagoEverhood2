@@ -40,7 +40,7 @@ namespace ArchipelagoEverhood.Archipelago
                 loginResult = new LoginFailure("Timed out. Please check connection info.");
                 Globals.Logging.Error(e);
             }
-            
+
             if (!loginResult.Successful)
             {
                 var failed = (LoginFailure)loginResult;

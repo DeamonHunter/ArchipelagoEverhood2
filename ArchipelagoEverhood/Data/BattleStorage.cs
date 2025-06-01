@@ -20,7 +20,7 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 5, "DarkPiranha-Battle", "GL_1A_NJ_DarkPiranhaDead", BattleType.Trash, 30), //30xp
             new BattleData(_battleStartId + 6, "DarkPiranha-Battle", "GL_2A_NJ_DarkPiranhaDead", BattleType.Trash, 30), //30xp
             //Blue Route - Neon Jungle Room 2
-            new BattleData(_battleStartId + 7, "Homonculus-Battle", "GL_1A_NJ_HomonculusEncounter ", BattleType.MajorBattle, 35), //35xp
+            new BattleData(_battleStartId + 7, "Homonculus-Battle", "GL_1A_NJ_HomonculusEncounter", BattleType.MajorBattle, 35), //35xp
             new BattleData(_battleStartId + 8, "SpringHead-Battle", "GL_1B_NJ_SpringHeadDead", BattleType.Trash, 20), //20xp + Druffle
             new BattleData(_battleStartId + 9, "SpringHead-Battle", "GL_2B_NJ_SpringHeadDead", BattleType.Trash, 20), //20xp + Druffle
             new BattleData(_battleStartId + 10, "SpringHead-Battle", "GL_3B_NJ_SpringHeadDead", BattleType.Trash, 20), //20xp + Druffle
