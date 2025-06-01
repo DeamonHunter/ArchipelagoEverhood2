@@ -85,10 +85,17 @@ namespace ArchipelagoEverhood.Archipelago
             if (_currentSession == null)
                 throw new Exception("Not Connected!");
 
-            Globals.EverhoodBattles.CompleteChecksLoadedFromSave(_currentSession.Locations);
-            Globals.EverhoodChests.CompleteChecksLoadedFromSave(_currentSession.Locations);
-            LogicHandler!.SetAcceptingItems(true);
-            _activateUpdate = true;
+            try
+            {
+                Globals.EverhoodBattles.CompleteChecksLoadedFromSave(_currentSession.Locations);
+                Globals.EverhoodChests.CompleteChecksLoadedFromSave(_currentSession.Locations);
+                LogicHandler!.SetAcceptingItems(true);
+                _activateUpdate = true;
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error(e);
+            }
         }
 
         public void Update()
