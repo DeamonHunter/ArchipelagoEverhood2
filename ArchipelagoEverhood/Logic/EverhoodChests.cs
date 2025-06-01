@@ -233,6 +233,9 @@ namespace ArchipelagoEverhood.Logic
 
         private void SetVariable(ChestData battleData)
         {
+            if (battleData.VariableName == null)
+                return;
+
             /*
             if (battleData.IntegerCount.HasValue)
             {
