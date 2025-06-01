@@ -8,15 +8,15 @@ namespace ArchipelagoEverhood.Util
 {
     public static class EverhoodHelpers
     {
-        public static string ConstructCollectedItemText(string itemName, ItemFlags flags, string? otherPlayer, bool withTags)
+        public static string ConstructCollectedItemText(string itemName, ItemFlags flags, string? otherPlayer, bool inVictory)
         {
-            var itemText = ConstructItemText(itemName, flags, withTags);
+            var itemText = ConstructItemText(itemName, flags, inVictory);
             return otherPlayer == null
                 ? $"You found your {itemText}!"
                 : $"You found {otherPlayer}'s {itemText}";
         }
 
-        public static string ConstructItemText(string itemName, ItemFlags flags, bool withTags)
+        public static string ConstructItemText(string itemName, ItemFlags flags, bool inVictory)
         {
             //Somewhat janky setup so that it looks nice in all texts.
             string sprite;
@@ -29,9 +29,9 @@ namespace ArchipelagoEverhood.Util
             else
                 sprite = "<sprite=250>";
 
-            return withTags
-                ? $"<voffset=5><cspace=-10>{sprite}</voffset>{itemName.FirstOrDefault()}</cspace>{itemName[1..]}"
-                : $"{sprite}{itemName}";
+            return inVictory
+                ? $"<voffset=3><cspace=-4>{sprite}</voffset>{itemName.FirstOrDefault()}</cspace>{itemName[1..]}"
+                : $"<voffset=5><cspace=-10>{sprite}</voffset>{itemName.FirstOrDefault()}</cspace>{itemName[1..]}";
         }
 
         public static int GetItemCount(string itemName)

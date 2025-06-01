@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
@@ -119,12 +118,12 @@ namespace ArchipelagoEverhood.Archipelago
             await _locations.CompleteLocationChecksAsync(locationsToHint.ToArray());
         }
 
-        public string GetScoutedItemText(long location, bool withTags)
+        public string GetScoutedItemText(long location, bool inVictory)
         {
             if (!Globals.SessionHandler.LogicHandler!.Scouts.TryGetValue(location, out var info))
                 return $"Failed to scout location: {location}";
 
-            return EverhoodHelpers.ConstructCollectedItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, withTags);
+            return EverhoodHelpers.ConstructCollectedItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, inVictory);
         }
     }
 }
