@@ -444,30 +444,4 @@ namespace ArchipelagoEverhood.Patches
             return false;
         }
     }
-
-    [HarmonyPatch(typeof(RemoveWeapon), "OnEnter")]
-    public static class RemoveWeaponPatch
-    {
-        private static bool Prefix(Weapon ___playerWeapon)
-        {
-            if (!Globals.SessionHandler.LoggedIn)
-                return true;
-
-            Globals.Logging.LogDebug("RemoveWeapon", $"Tried to remove the weapon: {___playerWeapon}");
-            return false;
-        }
-    }
-
-    [HarmonyPatch(typeof(UseItem), "OnEnter")]
-    public static class UseItemPatch
-    {
-        private static bool Prefix(Item ___item)
-        {
-            if (!Globals.SessionHandler.LoggedIn)
-                return true;
-
-            Globals.Logging.LogDebug("RemoveWeapon", $"Tried to use the item: {___item}");
-            return false;
-        }
-    }
 }
