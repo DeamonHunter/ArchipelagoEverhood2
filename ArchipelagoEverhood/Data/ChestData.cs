@@ -11,6 +11,7 @@
 
         public bool InLogic = true; //Todo: Set when connecting.
         public bool Achieved;
+        public bool Shown;
 
         public ChestData(int locationId, string sceneName, string itemName, string variableName, ChestType type, bool forceSayDialogue = false)
         {

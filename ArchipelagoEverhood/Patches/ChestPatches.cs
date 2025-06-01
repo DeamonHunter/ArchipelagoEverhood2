@@ -9,8 +9,6 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(GivePlayerItem), "OnEnter")]
     public static class GivePlayerItemPatch
     {
-        private static int message = 0;
-
         private static bool Prefix(GivePlayerItem __instance, string ___id, bool ___showDialogue)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -26,6 +24,30 @@ namespace ArchipelagoEverhood.Patches
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (___showDialogue || data.ForceSayDialogue)
+                {
+                    if (data.ForceSayDialogue && data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
+                    SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
+                else
+                {
+                    SayOnEnterPatch.SetOverrideText(itemText);
+                    __instance.Continue();
+                }
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("UnlockCosmetic", e);
+            }
+
+            return false;
+        }
+    }
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 else
                 {
@@ -45,8 +67,6 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(GivePlayerArtifact), "OnEnter")]
     public static class GivePlayerArtifactPatch
     {
-        private static int message = 0;
-
         private static bool Prefix(GivePlayerArtifact __instance, string ___id, bool ___showDialogue)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -62,7 +82,30 @@ namespace ArchipelagoEverhood.Patches
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (___showDialogue || data.ForceSayDialogue)
+                {
+                    if (data.ForceSayDialogue && data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
+                else
+                {
+                    SayOnEnterPatch.SetOverrideText(itemText);
+                    __instance.Continue();
+                }
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("UnlockCosmetic", e);
+            }
+
+            return false;
+        }
+    }
                 else
                 {
                     SayOnEnterPatch.SetOverrideText(itemText);
@@ -81,8 +124,6 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(AddWeapon), "OnEnter")]
     public static class AddWeaponPatch
     {
-        private static int message = 0;
-
         private static bool Prefix(AddWeapon __instance, Weapon ___playerWeapon)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -97,7 +138,16 @@ namespace ArchipelagoEverhood.Patches
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.ForceSayDialogue)
+                {
+                    if (data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
                 else
                 {
                     SayOnEnterPatch.SetOverrideText(itemText);
@@ -116,8 +166,6 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(UnlockCosmetic), "OnEnter")]
     public static class UnlockCosmeticPatch
     {
-        private static int message = 0;
-
         private static bool Prefix(UnlockCosmetic __instance, Cosmetics ___cosmetic)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -132,7 +180,16 @@ namespace ArchipelagoEverhood.Patches
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.ForceSayDialogue)
+                {
+                    if (data.Shown)
+                    {
+                        __instance.Continue();
+                        return false;
+                    }
+
+                    data.Shown = true;
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
+                }
                 else
                 {
                     SayOnEnterPatch.SetOverrideText(itemText);
