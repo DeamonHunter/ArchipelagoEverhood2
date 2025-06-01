@@ -10,15 +10,15 @@ namespace ArchipelagoEverhood.Data
             { 100, new EverhoodItemInfo { Item = Item.WeaponToken, ItemFlags = ItemFlags.Advancement, ItemName = "Power Gem" } },
             { 101, new EverhoodItemInfo { Item = Item.DeathCoin, ItemFlags = ItemFlags.Advancement, ItemName = "Soul Coin" } },
             { 106, new EverhoodItemInfo { Item = Item.RoomKey23, ItemFlags = ItemFlags.Advancement, ItemName = "Floor 23 Key" } },
-            { 107, new EverhoodItemInfo { Item = Item.RoomKeyGold, ItemFlags = ItemFlags.Advancement, ItemName = "Floor Gold Key" } },
-            { 108, new EverhoodItemInfo { Item = Item.RoomKeyGreen, ItemFlags = ItemFlags.Advancement, ItemName = "Floor Green Key" } },
+            { 107, new EverhoodItemInfo { Item = Item.RoomKeyGold, ItemFlags = ItemFlags.Advancement, ItemName = "Gold Key" } },
+            { 108, new EverhoodItemInfo { Item = Item.RoomKeyGreen, ItemFlags = ItemFlags.Advancement, ItemName = "Green Key" } },
             { 112, new EverhoodItemInfo { Item = Item.MoonInsignia, ItemFlags = ItemFlags.Advancement, ItemName = "Moon Insignia" } },
             { 113, new EverhoodItemInfo { Item = Item.SunInsignia, ItemFlags = ItemFlags.Advancement, ItemName = "Sun Insignia" } },
             { 114, new EverhoodItemInfo { Item = Item.TomatoSeed, ItemFlags = ItemFlags.None, ItemName = "Tomato Seed" } },
             { 115, new EverhoodItemInfo { Item = Item.Druffle, ItemFlags = ItemFlags.None, ItemName = "Druffle" } },
 
-            { 0, new EverhoodItemInfo { Item = Item.RoomKeyPinecone, ItemFlags = ItemFlags.Advancement, ItemName = "Floor Pinecone Key" } },
-            { 1, new EverhoodItemInfo { Item = Item.RoomKeyOmega, ItemFlags = ItemFlags.Advancement, ItemName = "Floor Omega Key" } },
+            { 0, new EverhoodItemInfo { Item = Item.RoomKeyPinecone, ItemFlags = ItemFlags.Advancement, ItemName = "Pinecone Key" } },
+            { 1, new EverhoodItemInfo { Item = Item.RoomKeyOmega, ItemFlags = ItemFlags.Advancement, ItemName = "Omega Key" } },
             { 2, new EverhoodItemInfo { Item = Item.RavenKey, ItemFlags = ItemFlags.NeverExclude, ItemName = "Raven Hub Key" } },
             { 3, new EverhoodItemInfo { Item = Item.FrogKey, ItemFlags = ItemFlags.NeverExclude, ItemName = "Frog Hub Key" } },
             { 4, new EverhoodItemInfo { Item = Item.CrystalKey, ItemFlags = ItemFlags.Advancement, ItemName = "Crystal Key" } },
@@ -111,6 +111,9 @@ namespace ArchipelagoEverhood.Data
             { 408, new EverhoodItemInfo { Cosmetic = Cosmetics.Hotdog, ItemFlags = ItemFlags.None, ItemName = "Hotdog Cosmetic" } },
             { 409, new EverhoodItemInfo { Cosmetic = Cosmetics.Red_Bandana, ItemFlags = ItemFlags.None, ItemName = "Red Bandana Cosmetic" } },
             { 410, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Oingo Boingo Cosmetic" } },
+            { 411, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Mage Hat Cosmetic" } },
+            { 412, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Afro Cosmetic" } },
+            { 413, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Red Bandana Cosmetic" } },
         };
 
         public static Dictionary<string, long> ItemIdsByName;
