@@ -28,8 +28,19 @@ namespace ArchipelagoEverhood.Archipelago
 
             var session = ArchipelagoSessionFactory.CreateSession(ipAddress);
             session.Socket.ErrorReceived += (exception, message) => { Globals.Logging.Log("[ArchError]", $"{message} : {exception}"); };
-            await session.ConnectAsync();
-            var loginResult = await session.LoginAsync("Everhood 2", username, ItemsHandlingFlags.AllItems, null, null, null, password);
+
+            LoginResult? loginResult;
+            try
+            {
+                await session.ConnectAsync();
+                loginResult = await session.LoginAsync("Everhood 2", username, ItemsHandlingFlags.AllItems, null, null, null, password);
+            }
+            catch (TaskCanceledException e)
+            {
+                loginResult = new LoginFailure("Timed out. Please check connection info.");
+                Globals.Logging.Error(e);
+            }
+            
             if (!loginResult.Successful)
             {
                 var failed = (LoginFailure)loginResult;
