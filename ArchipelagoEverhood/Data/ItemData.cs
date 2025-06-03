@@ -56,7 +56,7 @@ namespace ArchipelagoEverhood.Data
             { 110, new EverhoodItemInfo { GemPack = 3, ItemFlags = ItemFlags.Advancement, ItemName = "Power Gems x3" } },
             {
                 111, new EverhoodItemInfo { GemPack = 25, ItemFlags = ItemFlags.NeverExclude, ItemName = "Power Gems x25" }
-            }, //Todo: This invalidates any checks. Might need to deal with this another way.
+            }, //Todo: This invalidates any checks. Might need to deal with this another way. [Dot] You don't fight Catgod until postgame, I'd delete the 25 pack.
         };
 
         public static Dictionary<long, EverhoodItemInfo> WeaponsById = new()
@@ -84,7 +84,7 @@ namespace ArchipelagoEverhood.Data
             { 206, new EverhoodItemInfo { Xp = 35, ItemFlags = ItemFlags.None, ItemName = "35xp" } },
             { 207, new EverhoodItemInfo { Xp = 36, ItemFlags = ItemFlags.None, ItemName = "36xp" } },
             { 208, new EverhoodItemInfo { Xp = 40, ItemFlags = ItemFlags.None, ItemName = "40xp" } },
-            { 209, new EverhoodItemInfo { Xp = 45, ItemFlags = ItemFlags.None, ItemName = "40xp" } },
+            { 209, new EverhoodItemInfo { Xp = 45, ItemFlags = ItemFlags.None, ItemName = "45xp" } },
             { 210, new EverhoodItemInfo { Xp = 50, ItemFlags = ItemFlags.None, ItemName = "50xp" } },
             { 211, new EverhoodItemInfo { Xp = 60, ItemFlags = ItemFlags.None, ItemName = "60xp" } },
             { 212, new EverhoodItemInfo { Xp = 64, ItemFlags = ItemFlags.None, ItemName = "64xp" } },
@@ -93,9 +93,22 @@ namespace ArchipelagoEverhood.Data
             { 215, new EverhoodItemInfo { Xp = 76, ItemFlags = ItemFlags.None, ItemName = "76xp" } },
             { 216, new EverhoodItemInfo { Xp = 80, ItemFlags = ItemFlags.None, ItemName = "80xp" } },
             { 217, new EverhoodItemInfo { Xp = 100, ItemFlags = ItemFlags.None, ItemName = "100xp" } },
-            { 218, new EverhoodItemInfo { Xp = 150, ItemFlags = ItemFlags.None, ItemName = "150xp" } },
-            { 219, new EverhoodItemInfo { Xp = 200, ItemFlags = ItemFlags.None, ItemName = "200xp" } },
-            { 220, new EverhoodItemInfo { Xp = 400, ItemFlags = ItemFlags.None, ItemName = "400xp" } },
+            { 218, new EverhoodItemInfo { Xp = 128, ItemFlags = ItemFlags.None, ItemName = "128xp" } },
+            { 219, new EverhoodItemInfo { Xp = 150, ItemFlags = ItemFlags.None, ItemName = "150xp" } },
+            { 220, new EverhoodItemInfo { Xp = 200, ItemFlags = ItemFlags.None, ItemName = "200xp" } },
+            { 221, new EverhoodItemInfo { Xp = 250, ItemFlags = ItemFlags.None, ItemName = "250xp" } },
+            { 222, new EverhoodItemInfo { Xp = 300, ItemFlags = ItemFlags.None, ItemName = "300xp" } },
+            { 223, new EverhoodItemInfo { Xp = 350, ItemFlags = ItemFlags.None, ItemName = "350xp" } },
+            { 224, new EverhoodItemInfo { Xp = 400, ItemFlags = ItemFlags.None, ItemName = "400xp" } },
+            { 225, new EverhoodItemInfo { Xp = 500, ItemFlags = ItemFlags.None, ItemName = "500xp" } },
+            { 226, new EverhoodItemInfo { Xp = 600, ItemFlags = ItemFlags.None, ItemName = "600xp" } },
+            { 227, new EverhoodItemInfo { Xp = 650, ItemFlags = ItemFlags.None, ItemName = "650xp" } },
+            { 228, new EverhoodItemInfo { Xp = 700, ItemFlags = ItemFlags.None, ItemName = "700xp" } },
+            { 229, new EverhoodItemInfo { Xp = 800, ItemFlags = ItemFlags.None, ItemName = "800xp" } },
+            { 230, new EverhoodItemInfo { Xp = 888, ItemFlags = ItemFlags.None, ItemName = "888xp" } },
+            { 231, new EverhoodItemInfo { Xp = 950, ItemFlags = ItemFlags.None, ItemName = "950xp" } },
+            { 232, new EverhoodItemInfo { Xp = 1000, ItemFlags = ItemFlags.None, ItemName = "1000xp" } },
+            { 233, new EverhoodItemInfo { Xp = 1200, ItemFlags = ItemFlags.None, ItemName = "1200xp" } },
         };
 
         public static Dictionary<long, EverhoodItemInfo> CosmeticsById = new()
@@ -113,6 +126,8 @@ namespace ArchipelagoEverhood.Data
             { 410, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle7_OingoBoingo, ItemFlags = ItemFlags.None, ItemName = "Oingo Boingo Cosmetic" } },
             { 411, new EverhoodItemInfo { Cosmetic = Cosmetics.Mage_Hat, ItemFlags = ItemFlags.None, ItemName = "Mage Hat Cosmetic" } },
             { 412, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle6_Afro, ItemFlags = ItemFlags.None, ItemName = "Afro Cosmetic" } },
+            { 413, new EverhoodItemInfo { Cosmetic = Cosmetics.JesterHat, ItemFlags = ItemFlags.None, ItemName = "Jester Hat" } },
+            { 414, new EverhoodItemInfo { Cosmetic = Cosmetics.Knight_Helmet, ItemFlags = ItemFlags.None, ItemName = "Knight Helmet" } },
         };
 
         public static Dictionary<string, long> ItemIdsByName;
