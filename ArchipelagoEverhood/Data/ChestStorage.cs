@@ -56,13 +56,98 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 36, "Neon_Hillbert_Room2Bobo", "50xp", "GL_1A_HH2_ChestOpen", ChestType.XP),
         };
         /*
-            new ChestData(_itemStartId + X, "GL_3RoomKeyInventory", "Green Key", "GL_3RoomKeyInventory", ChestType.Item),  //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
+            //Add to the other HotelEntrance/Key items on the list
+            new ChestData(_itemStartId + X, "GL_3RoomKeyInventory", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item),  //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
             new ChestData(_itemStartId + X, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
-            new ChestData(_itemStartId + X, "GL_4RoomKeyInventory", "Pinecone Key", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (Pinecone Key)
-            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (Pinecone Key)
-            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "ReindeerSkull", "GL_4A_HHe_ChestOpen", ChestType.Cosmetic), // Reindeer Skull. Requires Green 3/Year 2000 completed (Pinecone Key)
+            new ChestData(_itemStartId + X, "GL_4RoomKeyInventory", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "ReindeerSkull", "GL_4A_HHe_ChestOpen", ChestType.Cosmetic), // Reindeer Skull. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
+            new ChestData(_itemStartId + X, "GL_5RoomKeyInventory", "RoomKeyOmega", "GL_5RoomKeyInventory", ChestType.Item), // Requires beating Vanguard3D in Irvine's Pocket Dimension
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "WeaponToken", "GL_5A_HHe_ChestOpen", ChestType.Item), // After Omega Room
+            new ChestData(_itemStartId + X, "Neon_HotelEntrance", "JesterHat", "NG_Cosmetic_JesterHat", ChestType.Cosmetic), // After Omega Room
             //Floor Pinecone - The Simple Life
-            new ChestData(_itemStartId + X, "Neon_Hillbert_Room4", "50xp", "GL_1A_HH4_ChestOpen", ChestType.XP), //50xp
+            new ChestData(_itemStartId + X, "Neon_Hillbert_Room4", "50xp", "GL_1A_HH4_ChestOpen", ChestType.XP),
+            //Dragon gives soul weapon but I didn't see the command for it, will need to recheck. 
+            //Year 3000 (accessible after Dragon)
+            new ChestData(_itemStartId + X, "Marzian_Part3Hero_Wasteland", "100xp", "GL_1A_M4_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Marzian_Part3Hero_City", "50xp", "GL_1C_M4_ChestOpen", ChestType.XP),
+            // Year 4000
+            new ChestData(_itemStartId + X, "Marzian_Part4Hero", "WeaponToken", "GL_1C_M5_ChestOpen", ChestType.Item),
+            // Mushroom Forest (accessible after Dragon)
+            new ChestData(_itemStartId + X, "MushroomBureau_SunPath", "SunInsignia", "GL_MB_Sun", ChestType.Item),
+            new ChestData(_itemStartId + X, "MushroomBureau_MoonPath", "WeaponToken", "GL_1A_MBm_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "MushroomBureau_MoonPath", "MoonInsignia", "GL_MB_Moon", ChestType.Item),
+            new ChestData(_itemStartId + X, "MushroomBureau_MoonPath", "DeathCoin", "GL_MB_DeathCoinPickedUp", ChestType.Item),
+            //Lucy Room 266 888
+            new ChestData(_itemStartId + X, "LucyRoom", "Duality", "GL_HH_LucyEncounterOutro", ChestType.Item),
+            //Sam's Room 111 568
+            new ChestData(_itemStartId + X, "SamRoom", "CrystalKey", "GL_SR_CrystalKeyPickedUp", ChestType.Item),
+            // Year 5000 (requires Crystal Key)
+            new ChestData(_itemStartId + X, "Marzian_Part5Hero", "SoulWeapon", "GL_M6_WeaponPickedUp", ChestType.Item),
+            //Lab (gives code 888 688 for Colosseum)
+            new ChestData(_itemStartId + X, "Lab", "35xp", "GL_1A_LAB_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Lab", "Clover", "GL_3A_LAB_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Lab", "WeaponToken", "GL_2A_LAB_ChestOpen", ChestType.Item),
+            // new ChestData(_itemStartId + X, "Lab", "SoulWeapon", "Add Katana", ChestType.Item), // I don't know what to do about the katana, Add Katana was the only thing I saw.
+            // Omega Room
+            new ChestData(_itemStartId + X, "Neon_Hillbert_Room5", "WeaponToken", "GL_1A_HH5_ChestOpen", ChestType.Item),
+            // Liminal Rooms, death coin door
+            new ChestData(_itemStartId + X, "DeathCoinDoor_LiminalRooms", "WeaponToken", "GL_1A_LH_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "DeathCoinDoor_LiminalRooms", "WeaponToken", "GL_2A_LH_ChestOpen", ChestType.Item),
+            //Smega Station
+            new ChestData(_itemStartId + X, "Smega_Start", "50xp", "GL_1A_SMmb_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_Start", "50xp", "GL_3A_SSmb_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_Start", "WeaponToken", "GL_4A_SSmb_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Smega_Audio", "50xp", "GL_2A_SSmb_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_Audio", "GasMask", "GL_SS_GasMaskGiven", ChestType.Cosmetic), // Speaking to Doctor Dump after fixing issues in RAM
+            new ChestData(_itemStartId + X, "Smega_Audio", "WeaponToken", "GL_SS_GasMaskGiven", ChestType.Item), // Speaking to Doctor Dump after fixing issues in RAM
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM1_ChestOpen", ChestType.XP),
+            // new ChestData(_itemStartId + X, "Smega_RAM", "", "GL_SSRAM2_ChestOpen", ChestType.), // Not a real chest, turns into a rocket and leaves
+            new ChestData(_itemStartId + X, "Smega_RAM", "100xp", "GL_SSRAM3_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM4_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_RAM", "WeaponToken", "GL_SSRAM5_ChestOpen", ChestType.Item),
+            // new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM6_ChestOpen", ChestType.XP), // Couldn't fine, unsure if exists
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM7_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_RAM", "WeaponToken", "GL_SSRAM8_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM9_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_RAM", "WeaponToken", "GL_SSRAM10_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM11_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM12_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_RAM", "WeaponToken", "GL_SSRAM13_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM14_ChestOpen", ChestType.XP),
+            // I didn't find GL_1A_SSp_ChestOpen
+            new ChestData(_itemStartId + X, "Smega_Processor", "WeaponToken", "GL_2A_SSp_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Smega_Processor", "WeaponToken", "GL_3A_SSp_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + X, "Smega_Processor", "50xp", "GL_4A_SSp_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_Processor", "50xp", "GL_5A_SSp_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + X, "Smega_Processor", "50xp", "GL_6A_SSp_ChestOpen", ChestType.XP),
+            // Death Mountain
+            new ChestData(_itemStartId + X, "DeathMountain", "50xp", "Chest_1A_BI", ChestType.XP),
+            new ChestData(_itemStartId + X, "DeathMountain", "WeaponToken", "Chest_2A_BI", ChestType.Item),
+            new ChestData(_itemStartId + X, "DeathMountain", "WeaponToken", "Chest_3A_BI", ChestType.Item),
+            new ChestData(_itemStartId + X, "DeathMountain", "50xp", "Chest_4A_BI", ChestType.XP),
+            new ChestData(_itemStartId + X, "DeathMountain", "50xp", "Chest_5A_BI", ChestType.XP),
+            new ChestData(_itemStartId + X, "DeathMountain", "50xp", "Chest_6A_BI", ChestType.XP),
+            new ChestData(_itemStartId + X, "DeathMountain", "DeathCoin", "Chest_7A_BI", ChestType.Item), // Secret Village, for the Scholar Puzzle
+            new ChestData(_itemStartId + X, "DeathMountain", "50xp", "GL_BI_VictoryTrigger", ChestType.XP), // actually a "[Command] Pick 1 DeathCoin" but this may be better?
+            //Everhood 1
+            new ChestData(_itemStartId + X, "Everhood1", "V.I.P.Ticket", "GL_DE_GreenMageBriefingOutside", ChestType.Item), // [Command] Pick 1 VIPTicket
+            new ChestData(_itemStartId + X, "Everhood1", "LongPlank", "GL_DE_RastaInteracted", ChestType.Item), // [Command] Pick 1 LongPlank
+            // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
+            new ChestData(_itemStartId + X, "Everhood1", "DeathCoin", "GL_DE_DeathCoin", ChestType.Item),
+            // Pandemonium
+            new ChestData(_itemStartId + X, "Pandemonium", "PandemoniumKey", "GL_Pa_SproutPKey", ChestType.Item), // from speaking to Sprout
+            // The Colosseum, without using a code is accessed at Pandemonium
+            new ChestData(_itemStartId + X, "Colosseum", "WeaponToken", "GL_GauntletQuest1_Finished", ChestType.Item), // [Command] recieveitem, [Command] Pick 1 WeaponToken
+            new ChestData(_itemStartId + X, "Colosseum", "Knight_Helmet", "GL_GauntletQuest1_Finished", ChestType.Cosmetic), // [Command] recieveitem, [Command] Knight_Helmet
+            new ChestData(_itemStartId + X, "Colosseum", "DeathCoin", "GL_GauntletQuest2_Finished", ChestType.Item),
+            new ChestData(_itemStartId + X, "Colosseum", "WeaponToken", "GL_GauntletQuest3_Finished", ChestType.Item), // [Command] recieveitem [Command] Pick 2 WeaponToken
+            new ChestData(_itemStartId + X, "Colosseum", "WeaponToken", "GL_GauntletQuest3_Finished", ChestType.Item), // Don't know if we can do this in 1 line of code?
+            new ChestData(_itemStartId + X, "Colosseum", "WeaponToken", "GL_GauntletQuest4_Finished", ChestType.Item), // or GL_DoubleDsDragonArenaBattle, [Command] Pick 3 WeaponToken
+            // Pandemonium boatman journey, requires 1 Death Coin
+            new ChestData(_itemStartId + X, "Pandemonium", "WeaponToken", "GL_1A_SEnd1_ChestOpen", ChestType.Item),
+            //Torment Room 222 883
+            new ChestData(_itemStartId + X, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
         */
     }
 }
