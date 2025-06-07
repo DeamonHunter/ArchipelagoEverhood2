@@ -108,9 +108,28 @@ namespace ArchipelagoEverhood.Archipelago
         {
             try
             {
-                var ipAddress = _ipAddress.Trim();
+                var ipAddress = _ipAddress?.Trim();
+                if (string.IsNullOrEmpty(ipAddress)) {
+                    _error = "IP Address is empty! Ensure you put the correct ip address in.";
+                    _waiting = false;
+                    return;
+                }
+                
                 if (ipAddress.StartsWith("/connect"))
                     ipAddress = ipAddress.Remove(0, 8).Trim();
+            
+                //Just double check in case of "/connect"
+                if (string.IsNullOrEmpty(ipAddress)) {
+                    _error = "IP Address is empty! Ensure you put the correct ip address in.";
+                    _waiting = false;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(_username)) {
+                    _error = "Slot Name is empty! Ensure you put the correct slot name in.";
+                    _waiting = false;
+                    return;
+                }
 
                 var reason = await Globals.SessionHandler.TryFreshLogin(ipAddress, _username.Trim(), _password.Trim());
                 if (reason != null)
@@ -200,7 +219,7 @@ namespace ArchipelagoEverhood.Archipelago
             GUILayout.Label("IP Address And Port:", _labelStyle);
             _ipAddress = GUILayout.TextField(_ipAddress, _textFieldStyle, _defaultInputHeight);
 
-            GUILayout.Label("Username:", _labelStyle);
+            GUILayout.Label("Slot Name:", _labelStyle);
             _username = GUILayout.TextField(_username, _textFieldStyle, _defaultInputHeight);
 
             GUILayout.Label("Password:", _labelStyle);
