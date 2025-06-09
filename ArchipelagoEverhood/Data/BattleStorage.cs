@@ -75,7 +75,10 @@ namespace ArchipelagoEverhood.Data
             //Floor Pinecone - The Simple Life
             new BattleData(_battleStartId + 48, "Squirrel-Battle", "GL_1A_HH4_SquirrelDead", BattleType.HillbertHotel, 400), //400xp (A lot of Squirrels)
             //Colloseum
-            new BattleData(_battleStartId + 49, "JeanDArc-Battle", "GauntletQuest1count", BattleType.Colloseum, 0, 1) //"GL_GauntletQuest_Refresh"
+            new BattleData(_battleStartId + 49, "JeanDArc-Battle", "GauntletQuest1count", BattleType.Colloseum, 0, 1), //"GL_GauntletQuest_Refresh"
+
+            //Todo: Move Upwards
+            new BattleData(_battleStartId + 50, "Hyena-Battle", "GL_B3_M1EncounterDead", BattleType.Trash, 50) //50xp Opus and Screech
         };
 
         public static readonly HashSet<string> SkipBattles = new()
