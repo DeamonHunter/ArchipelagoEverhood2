@@ -32,7 +32,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 19, "EternalWar_Battlefield", "50xp", "GL_5_EWb_ChestOpen", ChestType.XP),
 
             new ChestData(_itemStartId + 20, "EternalWar_Dungeon", "50xp", "GL_1A_EWd_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 21, "EternalWar_Dungeon", "WeaponToken", "GL_EWd_TrapsActive", ChestType.Item), //Todo: Sets false
+            new ChestData(_itemStartId + 21, "EternalWar_Dungeon", "WeaponToken", "GL_EWd_TrapsActive", ChestType.Item, expectedValue: false),
 
             new ChestData(_itemStartId + 22, "Marzian_Part1Hero_Mines", "50xp", "GL_1A_M1m_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 23, "Marzian_Part1Hero_Mines", "WeaponToken", "GL_M1m_ElectricSwitch_Removed", ChestType.Item),
@@ -54,8 +54,10 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 35, "Neon_Hillbert_Room1", "50xp", "GL_3A_HH1_ChestOpen", ChestType.XP),
 
             new ChestData(_itemStartId + 36, "Neon_Hillbert_Room2Bobo", "50xp", "GL_1A_HH2_ChestOpen", ChestType.XP),
+            //new ChestData(_itemStartId + 37, "Neon_HotelEntrance", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item),
         };
         /*
+            new ChestData(_itemStartId + X, "IntroLevel", "Clock", "GL_MovementTutorialBattle", ChestType.Item),
             new ChestData(_itemStartId + X, "GL_3RoomKeyInventory", "Green Key", "GL_3RoomKeyInventory", ChestType.Item),  //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
             new ChestData(_itemStartId + X, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
             new ChestData(_itemStartId + X, "GL_4RoomKeyInventory", "Pinecone Key", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (Pinecone Key)
