@@ -306,11 +306,16 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(SetPlayerCosmetic), "OnEnter")]
     public static class SetPlayerCosmeticPatch
     {
-        private static bool Prefix(SetPlayerCosmetic __instance)
+        private static bool Prefix(SetPlayerCosmetic __instance, Cosmetics ___cosmetic)
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return true;
-            Globals.Logging.LogDebug("SetPlayerCosmetic", "Ignoring Set.");
+
+            if (Globals.ServicesRoot!.GameData.GeneralData.collectedCosmetics.Contains(___cosmetic))
+                return true;
+
+            Globals.Logging.LogDebug("SetPlayerCosmetic", "Ignoring Set: Don't have cosmetic.");
+            __instance.Continue();
             return false;
         }
     }

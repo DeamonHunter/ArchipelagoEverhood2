@@ -74,120 +74,118 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 47, "Bobo_Toxicated-Battle", "GL_HH2_BoboDefeated", BattleType.HillbertHotel, 80), //80xp (Drunk Bobo)
             //Floor Pinecone - The Simple Life
             new BattleData(_battleStartId + 48, "Squirrel-Battle", "GL_1A_HH4_SquirrelDead", BattleType.HillbertHotel, 400), //400xp (A lot of Squirrels)
-            //Colloseum
-            new BattleData(_battleStartId + 49, "JeanDArc-Battle", "GauntletQuest1count", BattleType.Colloseum, 0, 1) //"GL_GauntletQuest_Refresh"
-            /*
-            new BattleData(_battleStartId + X, "DragonPart2-Battle", "GL_DragonDead", BattleType.MajorBattle, 0), // Required story fight
-            // Year 3000 (unlocked after Dragon)
-            new BattleData(_battleStartId + X, "Thriller-Battle", "GL_1A_M4_ThrillerDead", BattleType.MajorBattle, 50), // Required, before switch
-            new BattleData(_battleStartId + X, "Lurker-Battle", "GL_1A_M4_LurkerDead", BattleType.MajorBattle, 50), //In Cave, Required
-            new BattleData(_battleStartId + X, "Lurker-Battle", "GL_2A_M4_LurkerDead", BattleType.Trash, 50), //Bottom, guarding chest.
-            new BattleData(_battleStartId + X, "Wheeler-Battle", "GL_1A_M4_WheelerDead", BattleType.MajorBattle, 50), // Requiured, at door after switch
-            new BattleData(_battleStartId + X, "Lurker-Battle", "GL_1C_M4_Lurker", BattleType.Trash, 50),
-            new BattleData(_battleStartId + X, "Wheeler-Battle", "GL_1C_M4_Wheeler", BattleType.Trash, 50),
-            new BattleData(_battleStartId + X, "Thriller-Battle", "GL_1C_M4_Thriller", BattleType.MajorBattle, 50), // Before second switch, required
-            // Year 4000 (can access immediately after Year 3000)
-            new BattleData(_battleStartId + X, "Lurker-Battle", "GL_1C_M5_Lurker", BattleType.MajorBattle, 50), // Required
-            new BattleData(_battleStartId + X, "Marzian-Battle", "GL_1A_M5_MarzianDead", BattleType.MajorBattle, 50), // Required
-            new BattleData(_battleStartId + X, "Chameleon-Battle", "GL_1A_M5_ChameleonDead", BattleType.MajorBattle, 75), // Required
-            new BattleData(_battleStartId + X, "SharkJailor-Battle", "GL_1A_M5_SharkDead", BattleType.MajorBattle, 25), // Required, Irvine fight
-            new BattleData(_battleStartId + X, "LaTigre-Battle", "GL_1A_M5_TigreDead", BattleType.MajorBattle, 100), // Required, Sam fight. Got xp screen
-            // Mushroom Forest (unlocked after Dragon) 
-            new BattleData(_battleStartId + X, "BrownSlowMushroom-Battle", "GL_MBs_1A_SlowBrownMushroomBattle", BattleType.MajorBattle, 50), // Sun path, required
-            new BattleData(_battleStartId + X, "HydraMushroom-Battle", "HydraMushroomAwaken", BattleType.Trash, 50), // Moon path, believe this is a trash fight
-            new BattleData(_battleStartId + X, "SmellyGasMushroom-Battle", "SmellyGasMushroom-Battle", BattleType.MajorBattle, 50), // Moon path, required, fight as Cube
-            new BattleData(_battleStartId + X, "BrownSlowMushroom-Battle", "GL_1B_MBm_SlowBrownDead", BattleType.MajorBattle, 50), // Moon path, required, fight as Cube
-            new BattleData(_battleStartId + X, "MB_SunKnight-Battle", "GL_1B_MBm_SunKnightDead", BattleType.MajorBattle, 100), // Moon path, required, fight as Cube
-            new BattleData(_battleStartId + X, "GL_MB_BureauGone", "GL_MushroomBureauFinished", BattleType.MajorBattle, 100), // Mushroom Bureau Fight after getting an Insignia, Judge Mushroom fight. Does not end normally
-            // Lucy's Room, 266 888 (code given after Mushroom Forest)
-            new BattleData(_battleStartId + X, "Lucy-Battle", "GL_HH_LucyEncounter", BattleType.MajorBattle, 1000), // Is a hard fight but not required to beat game, would block Duality... so progression?
-            // Irvine's Pocket dimension (unlocked after Mushroom Forest)
-            new BattleData(_battleStartId + X, "Jest3D-Battle", "GL_1A_3D_Jest3DDead", BattleType.Trash, 100),
-            new BattleData(_battleStartId + X, "Jest3D-Battle", "GL_2A_3D_Jest3DDead", BattleType.Trash, 100),
-            new BattleData(_battleStartId + X, "DoopyDragon3D-Battle", "GL_1A_3D_DoopyDragonDead", BattleType.Trash, 35),
-            new BattleData(_battleStartId + X, "Vanguard3D-Battle", "GL_1A_3D_VanguardDead", BattleType.MajorBattle, 250),
-            // Lab (unlocked after Mushroom Forest). gives code 888 688 for Colloseum
-            new BattleData(_battleStartId + X, "GL_1A_LAB_DoorOfTheDeadBattle", "GL_1A_LAB_DoorOfTheDeadBattle", BattleType.MajorBattle, 0), // Result for winning, no victory screen no xp, leads to Katana
-            new BattleData(_battleStartId + X, "TheLab_Ghost_Chunky-Battle", "GL_1A_LAB_ChunkyBattle", BattleType.MajorBattle, 35), // Required to leave lab. If we have a return to hub option could be Trash
-            new BattleData(_battleStartId + X, "TheLab_Ghost_Junkie-Battle", "GL_2A_LAB_JunkieBattle", BattleType.MajorBattle, 35), // Required to leave lab. If we have a return to hub option could be Trash
-            new BattleData(_battleStartId + X, "TheLab_Ghost_Frankie-Battle", "GL_3A_LAB_FrankieBattle", BattleType.MajorBattle, 35), // Required to leave lab. If we have a return to hub option could be Trash
-            // Omega Room (Omega Key)
-            new BattleData(_battleStartId + X, "CarrotCazok-Battle", "GL_1A_HH5_CarrotDead", BattleType.MajorBattle, 50),
-            new BattleData(_battleStartId + X, "GhostCazok-Battle", "GL_2A_HH5_GhostDead", BattleType.MajorBattle, 50),
-            new BattleData(_battleStartId + X, "Vanguard3DCazok-Battle", "GL_3A_HH5_VanguardDead", BattleType.MajorBattle, 50),
-            new BattleData(_battleStartId + X, "Cazok-Battle", "GL_HH5_CazokDead", BattleType.MajorBattle, 950),
-            // Smega Station (unlocked after Mushroom Forest)
-            new BattleData(_battleStartId + X, "Motherboard_INT-Battle", "GL_1A_SSmb_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Motherboard_Char-Battle", "GL_2A_SSmb_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Motherboard_BOOL-Battle", "GL_3A_SSmb_DataDead", BattleType.Trash, 192), // Triple fight
-            new BattleData(_battleStartId + X, "Motherboard_While-Battle", "GL_4A_SSmb_DataDead", BattleType.MajorBattle, 64),
-            // Smega Station - Towards RAM
-            new BattleData(_battleStartId + X, "RAM_INT-Battle", "GL_1A_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "RAM_BOOL-Battle", "GL_2A_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "RAM_While-Battle", "GL_5A_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "RAM_While-Battle", "GL_1B_SSram_DataDead", BattleType.Trash, 128),
-            new BattleData(_battleStartId + X, "RAM_INT-Battle", "GL_4B_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "RAM_Char-Battle", "GL_5B_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "RAM_Float-Battle", "GL_2C_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "RAM_Char-Battle", "GL_3C_SSram_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Matrix-Battle", "GL_5C_SSram_DataDead", BattleType.Trash, 64),
-            // Smega Station - Towards Processor
-            new BattleData(_battleStartId + X, "ProcessorGate-Battle", "GL_SSmb_ProcessorDead", BattleType.MajorBattle, 250),
-            new BattleData(_battleStartId + X, "Processor_INT-Battle", "GL_2A_SSpr_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Processor_float-Battle", "GL_3A_SSpr_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Matrix-Battle", "GL_5A_SSpr_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Processor_BOOL-Battle", "GL_6A_SSpr_DataDead", BattleType.Trash, 64),
-            new BattleData(_battleStartId + X, "Processor_Char-Battle", "GL_8A_SSpr_DataDead", BattleType.Trash, 64),
-            // Smega Station - Towards Processor 2nd room
-            new BattleData(_battleStartId + X, "Processor_While-Battle", "GL_2B_SSpr_DataDead", BattleType.MajorBattle, 128), // Don't remember if this is a Trash or MajorBattle
-            // Smega Station - Towards Processor, Boss room
-            new BattleData(_battleStartId + X, "IrvineCorrupt-Battle", "GL_SSPR_IrvineBattleStart", BattleType.MajorBattle, 1200),
-            // Death Mountain. Fights respawn upon re-entering but give 0xp (unlocked after Mushroom Forest)
-            new BattleData(_battleStartId + X, "Rock-Battle", "GL_1A_BI_RockDead", BattleType.Trash, 200),
-            new BattleData(_battleStartId + X, "Rock-Battle", "GL_2A_BI_RockDead", BattleType.Trash, 200),
-            new BattleData(_battleStartId + X, "MimicChest-Battle", "GL_1A_BI_MimicChestDead", BattleType.Trash, 250),
-            new BattleData(_battleStartId + X, "MimicApple-Battle", "GL_1A_BI_MimicAppleDead", BattleType.Trash, 300),
-            new BattleData(_battleStartId + X, "Harpy-Battle", "GL_1A_BI_HarpyDead", BattleType.MajorBattle, 250),
+            //Todo: Move Upwards
+            new BattleData(_battleStartId + 50, "Hyena-Battle", "GL_B3_M1EncounterDead", BattleType.Trash, 50) //50xp Opus and Screech
+            //Dragon
+            //new BattleData(_battleStartId + X, "DragonPart2-Battle", "GL_DragonDead", BattleType.MajorBattle, 0), // Required story fight
+            //Year 3000 (unlocked after Dragon)
+            new BattleData(_battleStartId + 51, "Thriller-Battle", "GL_1A_M4_ThrillerDead", BattleType.MajorBattle, 50), // Required, before switch
+            new BattleData(_battleStartId + 52, "Lurker-Battle", "GL_1A_M4_LurkerDead", BattleType.MajorBattle, 50), //In Cave, Required
+            new BattleData(_battleStartId + 53, "Lurker-Battle", "GL_2A_M4_LurkerDead", BattleType.Trash, 50), //Bottom, guarding chest.
+            new BattleData(_battleStartId + 54, "Wheeler-Battle", "GL_1A_M4_WheelerDead", BattleType.MajorBattle, 50), // Requiured, at door after switch
+            new BattleData(_battleStartId + 55, "Lurker-Battle", "GL_1C_M4_Lurker", BattleType.Trash, 50),
+            new BattleData(_battleStartId + 56, "Wheeler-Battle", "GL_1C_M4_Wheeler", BattleType.Trash, 50),
+            new BattleData(_battleStartId + 57, "Thriller-Battle", "GL_1C_M4_Thriller", BattleType.MajorBattle, 50), // Before second switch, required
+            //Year 4000 (can access immediately after Year 3000)
+            new BattleData(_battleStartId + 58, "Lurker-Battle", "GL_1C_M5_Lurker", BattleType.MajorBattle, 50), // Required
+            new BattleData(_battleStartId + 59, "Marzian-Battle", "GL_1A_M5_MarzianDead", BattleType.MajorBattle, 50), // Required
+            new BattleData(_battleStartId + 60, "Chameleon-Battle", "GL_1A_M5_ChameleonDead", BattleType.MajorBattle, 75), // Required
+            new BattleData(_battleStartId + 61, "SharkJailor-Battle", "GL_1A_M5_SharkDead", BattleType.MajorBattle, 25), // Required, Irvine fight
+            new BattleData(_battleStartId + 62, "LaTigre-Battle", "GL_1A_M5_TigreDead", BattleType.MajorBattle, 100), // Required, Sam fight. Got xp screen
+            //Mushroom Forest (unlocked after Dragon) 
+            new BattleData(_battleStartId + 63, "BrownSlowMushroom-Battle", "GL_MBs_1A_SlowBrownMushroomBattle", BattleType.MajorBattle, 50), // Sun path, required
+            new BattleData(_battleStartId + 64, "HydraMushroom-Battle", "HydraMushroomAwaken", BattleType.Trash, 50), // Moon path, believe this is a trash fight
+            new BattleData(_battleStartId + 65, "SmellyGasMushroom-Battle", "SmellyGasMushroom-Battle", BattleType.MajorBattle, 50), // Moon path, required, fight as Cube
+            new BattleData(_battleStartId + 66, "BrownSlowMushroom-Battle", "GL_1B_MBm_SlowBrownDead", BattleType.MajorBattle, 50), // Moon path, required, fight as Cube
+            new BattleData(_battleStartId + 67, "MB_SunKnight-Battle", "GL_1B_MBm_SunKnightDead", BattleType.MajorBattle, 100), // Moon path, required, fight as Cube
+            new BattleData(_battleStartId + 68, "GL_MB_BureauGone", "GL_MushroomBureauFinished", BattleType.MajorBattle, 100), // Mushroom Bureau Fight after getting an Insignia, Judge Mushroom fight. Does not end normally
+            //Lucy's Room, 266 888 (code given after Mushroom Forest)
+            new BattleData(_battleStartId + 69, "Lucy-Battle", "GL_HH_LucyEncounter", BattleType.MajorBattle, 1000), // Is a hard fight but not required to beat game, would block Duality... so progression?
+            //Irvine's Pocket dimension (unlocked after Mushroom Forest)
+            new BattleData(_battleStartId + 70, "Jest3D-Battle", "GL_1A_3D_Jest3DDead", BattleType.Trash, 100),
+            new BattleData(_battleStartId + 71, "Jest3D-Battle", "GL_2A_3D_Jest3DDead", BattleType.Trash, 100),
+            new BattleData(_battleStartId + 72, "DoopyDragon3D-Battle", "GL_1A_3D_DoopyDragonDead", BattleType.Trash, 35),
+            new BattleData(_battleStartId + 73, "Vanguard3D-Battle", "GL_1A_3D_VanguardDead", BattleType.MajorBattle, 250),
+            //Lab (unlocked after Mushroom Forest). gives code 888 688 for Colloseum
+            new BattleData(_battleStartId + 74, "GL_1A_LAB_DoorOfTheDeadBattle", "GL_1A_LAB_DoorOfTheDeadBattle", BattleType.MajorBattle, 0), // Result for winning, no victory screen no xp, leads to Katana
+            new BattleData(_battleStartId + 75, "TheLab_Ghost_Chunky-Battle", "GL_1A_LAB_ChunkyBattle", BattleType.MajorBattle, 35), // Required to leave lab. If we have a return to hub option could be Trash
+            new BattleData(_battleStartId + 76, "TheLab_Ghost_Junkie-Battle", "GL_2A_LAB_JunkieBattle", BattleType.MajorBattle, 35), // Required to leave lab. If we have a return to hub option could be Trash
+            new BattleData(_battleStartId + 77, "TheLab_Ghost_Frankie-Battle", "GL_3A_LAB_FrankieBattle", BattleType.MajorBattle, 35), // Required to leave lab. If we have a return to hub option could be Trash
+            //Omega Room (Omega Key)
+            new BattleData(_battleStartId + 78, "CarrotCazok-Battle", "GL_1A_HH5_CarrotDead", BattleType.MajorBattle, 50),
+            new BattleData(_battleStartId + 79, "GhostCazok-Battle", "GL_2A_HH5_GhostDead", BattleType.MajorBattle, 50),
+            new BattleData(_battleStartId + 80, "Vanguard3DCazok-Battle", "GL_3A_HH5_VanguardDead", BattleType.MajorBattle, 50),
+            new BattleData(_battleStartId + 81, "Cazok-Battle", "GL_HH5_CazokDead", BattleType.MajorBattle, 950),
+            //Smega Station (unlocked after Mushroom Forest)
+            new BattleData(_battleStartId + 82, "Motherboard_INT-Battle", "GL_1A_SSmb_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 83, "Motherboard_Char-Battle", "GL_2A_SSmb_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 84, "Motherboard_BOOL-Battle", "GL_3A_SSmb_DataDead", BattleType.Trash, 192), // Triple fight
+            new BattleData(_battleStartId + 85, "Motherboard_While-Battle", "GL_4A_SSmb_DataDead", BattleType.MajorBattle, 64),
+            //Smega Station - Towards RAM
+            new BattleData(_battleStartId + 86, "RAM_INT-Battle", "GL_1A_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 87, "RAM_BOOL-Battle", "GL_2A_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 88, "RAM_While-Battle", "GL_5A_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 89, "RAM_While-Battle", "GL_1B_SSram_DataDead", BattleType.Trash, 128),
+            new BattleData(_battleStartId + 90, "RAM_INT-Battle", "GL_4B_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 91, "RAM_Char-Battle", "GL_5B_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 92, "RAM_Float-Battle", "GL_2C_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 93, "RAM_Char-Battle", "GL_3C_SSram_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 94, "Matrix-Battle", "GL_5C_SSram_DataDead", BattleType.Trash, 64),
+            //Smega Station - Towards Processor
+            new BattleData(_battleStartId + 95, "ProcessorGate-Battle", "GL_SSmb_ProcessorDead", BattleType.MajorBattle, 250),
+            new BattleData(_battleStartId + 96, "Processor_INT-Battle", "GL_2A_SSpr_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 97, "Processor_float-Battle", "GL_3A_SSpr_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 98, "Matrix-Battle", "GL_5A_SSpr_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 99, "Processor_BOOL-Battle", "GL_6A_SSpr_DataDead", BattleType.Trash, 64),
+            new BattleData(_battleStartId + 100, "Processor_Char-Battle", "GL_8A_SSpr_DataDead", BattleType.Trash, 64),
+            //Smega Station - Towards Processor 2nd room
+            new BattleData(_battleStartId + 101, "Processor_While-Battle", "GL_2B_SSpr_DataDead", BattleType.MajorBattle, 128), // Don't remember if this is a Trash or MajorBattle
+            //Smega Station - Towards Processor, Boss room
+            new BattleData(_battleStartId + 102, "IrvineCorrupt-Battle", "GL_SSPR_IrvineBattleStart", BattleType.MajorBattle, 1200),
+            //Death Mountain. Fights respawn upon re-entering but give 0xp (unlocked after Mushroom Forest)
+            new BattleData(_battleStartId + 103, "Rock-Battle", "GL_1A_BI_RockDead", BattleType.Trash, 200),
+            new BattleData(_battleStartId + 104, "Rock-Battle", "GL_2A_BI_RockDead", BattleType.Trash, 200),
+            new BattleData(_battleStartId + 105, "MimicChest-Battle", "GL_1A_BI_MimicChestDead", BattleType.Trash, 250),
+            new BattleData(_battleStartId + 106, "MimicApple-Battle", "GL_1A_BI_MimicAppleDead", BattleType.Trash, 300),
+            new BattleData(_battleStartId + 107, "Harpy-Battle", "GL_1A_BI_HarpyDead", BattleType.MajorBattle, 250),
             //Death Mountain Part 2
-            new BattleData(_battleStartId + X, "Zombie-Battle", "GL_1A_BI_ZombieDead", BattleType.Trash, 300),
-            new BattleData(_battleStartId + X, "Zombie-Battle", "GL_2A_BI_ZombieDead", BattleType.Trash, 300),
-            new BattleData(_battleStartId + X, "Zombie-Battle", "GL_3A_BI_ZombieDead", BattleType.Trash, 300),
-            new BattleData(_battleStartId + X, "Rock-Battle", "GL_4A_BI_RockDead", BattleType.Trash, 200),
-            new BattleData(_battleStartId + X, "Harpy-Battle", "GL_2A_BI_HarpyDead", BattleType.Trash, 250),
-            new BattleData(_battleStartId + X, "CrabMachine-Battle", "GL_1A_BI_GeniusDead", BattleType.MajorBattle, 1000),
-            // Pandemonium Tutorial (accessed after Death Mountain)
-            new BattleData(_battleStartId + X, "Dmitri-Battle", "GL_TS_DmitriBattle", BattleType.MajorBattle, 650), // 1st attempt is as Irvine
-            // Everhood 1 - Cursed Castle (Accessed after Pandemonium Tutorial)
-            new BattleData(_battleStartId + X, "Yellow-Battle", "GL_DE_YellowDead", BattleType.MajorBattle, 800),
-            new BattleData(_battleStartId + X, "CursedCastle-Battle", "GL_DE_CursedCastleDead", BattleType.MajorBattle, 800),
-            // Everhood 1 - Circus Door
-            new BattleData(_battleStartId + X, "Pink-Battle", "GL_DE_PinkBattle", BattleType.MajorBattle, 600), // Optional, but gives soul weapon
-            // Everhood 1 - Midnight Town 
-            new BattleData(_battleStartId + X, "SlotMachine-Battle", "GL_BrownMageExperiment", BattleType.MajorBattle, 500),
-            // Pandemonium - Deep Sea
-            new BattleData(_battleStartId + X, "JudgeCreation-Battle", "GL_Pa_EnterPandemonium", BattleType.MajorBattle, 0),
-            // The Colosseum, without using a code is accessed at Pandemonium (otherwise accessed at the Lab with 888 688)
-            new BattleData(_battleStartId + X, "JeanDArc-Battle", "GL_GauntletQuest1_Finished", BattleType.Colloseum, 350),
-            new BattleData(_battleStartId + X, "Molly-Battle", "GL_GauntletQuest2_Finished", BattleType.Colloseum, 888),
-            new BattleData(_battleStartId + X, "RAM_ForLoop-Battle", "GL_GauntletQuest3_Finished", BattleType.Colloseum, 500),
-            new BattleData(_battleStartId + X, "DragonPart3-Battle", "GL_DoubleDsDragonArenaBattle", BattleType.Colloseum, 0),
-            // Pandemonium (requires Death Coin)
-            new BattleData(_battleStartId + X, "GL_SEnd_Init", "GL_BoboDefeatedFirstTime", BattleType.MajorBattle, 0), // Also have GL_BoboDefeated. Doesn't have a normal end to fight
-            new BattleData(_battleStartId + X, "ShadeDemon-Battle", "GL_SEnd_ShadeBattleStart", BattleType.MajorBattle, 0),
-            new BattleData(_battleStartId + X, "SunBattle_ReadyToDie", "GL_SEnd_SunBattle", BattleType.MajorBattle, 0),
-            // Riley's Kingdom (after Pandemonium)
-            new BattleData(_battleStartId + X, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy1ADefeated", BattleType.Trash, 0),
-            new BattleData(_battleStartId + X, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy2ADefeated", BattleType.Trash, 0),
-            new BattleData(_battleStartId + X, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy3ADefeated", BattleType.Trash, 0),
-            new BattleData(_battleStartId + X, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy4ADefeated", BattleType.Trash, 0),
-            new BattleData(_battleStartId + X, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy5ADefeated", BattleType.Trash, 0),
-            new BattleData(_battleStartId + X, "Evren2-Battle", "GL_RESend_EvrenBattle", BattleType.MajorBattle, 700),
-
-            new BattleData(_battleStartId + X, "GL_SEnd_CreditsHasBeenViewed", "GL_RileyBattle", BattleType.MajorBattle, 0), // Fight doesn't end normally, wasn't good markers for this. Mainly saw [Command] StartRileyBattle : Stop
-
-            //Goal
-            new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", BattleType.MajorBattle, 0),
-            */
+            new BattleData(_battleStartId + 108, "Zombie-Battle", "GL_1A_BI_ZombieDead", BattleType.Trash, 300),
+            new BattleData(_battleStartId + 109, "Zombie-Battle", "GL_2A_BI_ZombieDead", BattleType.Trash, 300),
+            new BattleData(_battleStartId + 110, "Zombie-Battle", "GL_3A_BI_ZombieDead", BattleType.Trash, 300),
+            new BattleData(_battleStartId + 111, "Rock-Battle", "GL_4A_BI_RockDead", BattleType.Trash, 200),
+            new BattleData(_battleStartId + 112, "Harpy-Battle", "GL_2A_BI_HarpyDead", BattleType.Trash, 250),
+            new BattleData(_battleStartId + 113, "CrabMachine-Battle", "GL_1A_BI_GeniusDead", BattleType.MajorBattle, 1000),
+            //Pandemonium Tutorial (accessed after Death Mountain)
+            new BattleData(_battleStartId + 114, "Dmitri-Battle", "GL_TS_DmitriBattle", BattleType.MajorBattle, 650), // 1st attempt is as Irvine
+            //Everhood 1 - Cursed Castle (Accessed after Pandemonium Tutorial)
+            new BattleData(_battleStartId + 115, "Yellow-Battle", "GL_DE_YellowDead", BattleType.MajorBattle, 800),
+            new BattleData(_battleStartId + 116, "CursedCastle-Battle", "GL_DE_CursedCastleDead", BattleType.MajorBattle, 800),
+            //Everhood 1 - Circus Door
+            new BattleData(_battleStartId + 117, "Pink-Battle", "GL_DE_PinkBattle", BattleType.MajorBattle, 600), // Optional, but gives soul weapon
+            //Everhood 1 - Midnight Town 
+            new BattleData(_battleStartId + 118, "SlotMachine-Battle", "GL_BrownMageExperiment", BattleType.MajorBattle, 500),
+            //Pandemonium - Deep Sea
+            new BattleData(_battleStartId + 119, "JudgeCreation-Battle", "GL_Pa_EnterPandemonium", BattleType.MajorBattle, 0),
+            //The Colosseum, without using a code is accessed at Pandemonium (otherwise accessed at the Lab with 888 688)
+            new BattleData(_battleStartId + 120, "JeanDArc-Battle", "GL_GauntletQuest1_Finished", BattleType.Colloseum, 350),
+            //new BattleData(_battleStartId + 121, "JeanDArc-Battle", "GauntletQuest1count", BattleType.Colloseum, 0, 1), //"GL_GauntletQuest_Refresh" DeamonHunter's version
+            new BattleData(_battleStartId + 121, "Molly-Battle", "GL_GauntletQuest2_Finished", BattleType.Colloseum, 888),
+            new BattleData(_battleStartId + 122, "RAM_ForLoop-Battle", "GL_GauntletQuest3_Finished", BattleType.Colloseum, 500),
+            new BattleData(_battleStartId + 123, "DragonPart3-Battle", "GL_DoubleDsDragonArenaBattle", BattleType.Colloseum, 0),
+            //new BattleData(_battleStartId + X, "MushroomHouse-Battle", "GL_GauntletQuest5_Finishe", BattleType.Colloseum, 200), // Post ShadePostCredits, may need MushroomDefeated Gives 2 power gems.
+            //Pandemonium (requires Death Coin)
+            new BattleData(_battleStartId + 124, "GL_SEnd_Init", "GL_BoboDefeatedFirstTime", BattleType.MajorBattle, 0), // Also have GL_BoboDefeated. Doesn't have a normal end to fight
+            new BattleData(_battleStartId + 125, "ShadeDemon-Battle", "GL_SEnd_ShadeBattleStart", BattleType.MajorBattle, 0),
+            new BattleData(_battleStartId + 126, "SunBattle_ReadyToDie", "GL_SEnd_SunBattle", BattleType.MajorBattle, 0),
+            //Riley's Kingdom (after Pandemonium)
+            new BattleData(_battleStartId + 127, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy1ADefeated", BattleType.Trash, 0),
+            new BattleData(_battleStartId + 128, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy2ADefeated", BattleType.Trash, 0),
+            new BattleData(_battleStartId + 129, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy3ADefeated", BattleType.Trash, 0),
+            new BattleData(_battleStartId + 130, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy4ADefeated", BattleType.Trash, 0),
+            new BattleData(_battleStartId + 131, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy5ADefeated", BattleType.Trash, 0),
+            new BattleData(_battleStartId + 132, "Evren2-Battle", "GL_RESend_EvrenBattle", BattleType.MajorBattle, 700),
+            new BattleData(_battleStartId + 133, "GL_SEnd_CreditsHasBeenViewed", "GL_RileyBattle", BattleType.MajorBattle, 0), // Fight doesn't end normally, wasn't good markers for this. Mainly saw [Command] StartRileyBattle : Stop
+            
         };
 
         public static readonly HashSet<string> SkipBattles = new()
@@ -197,10 +195,12 @@ namespace ArchipelagoEverhood.Data
             "DragonPart1-Battle"
         };
 
-        //Todo: Determine Goal [Dot] Goal should be ShadePostCredits-Battle.
+        //Todo: Determine Goal [Dot] A Goal should be ShadePostCredits-Battle.
         public static readonly HashSet<string> VictoryBattles = new()
         {
             "DragonPart2-Battle"
+             // new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", BattleType.MajorBattle, 0),
+             // CatGodHairball-Battle //777xp
         };
     }
 }

@@ -23,8 +23,8 @@ namespace ArchipelagoEverhood.Archipelago
             _items = session.Items;
 
             //Auto scout this item as it gets awarded in a new save immediately.
-            if (!_locations.AllLocationsChecked.Contains(107))
-                ScoutLocations(new List<long>() { 107 });
+            //Todo: Save Scout Info To Save File
+            ScoutLocations(new List<long>() { 107 });
         }
 
         public void SetAcceptingItems(bool acceptingItems)

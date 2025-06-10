@@ -220,13 +220,13 @@ namespace ArchipelagoEverhood.Logic
                 return false;
             }
 
-            if (boolValue)
+            if (boolValue == chestData.ExpectedValue)
             {
-                Globals.Logging.Error($"{chestData.VariableName} successfully unlocked. {boolValue}/True");
+                Globals.Logging.Error($"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
                 return true;
             }
 
-            Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked. {boolValue}/True");
+            Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
             return false;
         }
 
