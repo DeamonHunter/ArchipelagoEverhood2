@@ -171,7 +171,7 @@ namespace ArchipelagoEverhood.Patches
                     }
                     catch (Exception e)
                     {
-                        Globals.Logging.Error(e);
+                        Globals.Logging.Error("MenuDialog", e);
                     }
                 }
             }

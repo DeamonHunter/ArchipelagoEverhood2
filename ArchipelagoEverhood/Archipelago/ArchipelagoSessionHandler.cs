@@ -38,7 +38,7 @@ namespace ArchipelagoEverhood.Archipelago
             catch (TaskCanceledException e)
             {
                 loginResult = new LoginFailure("Timed out. Please check connection info.");
-                Globals.Logging.Error(e);
+                Globals.Logging.Error("Login", e);
             }
 
             if (!loginResult.Successful)
@@ -94,7 +94,7 @@ namespace ArchipelagoEverhood.Archipelago
             }
             catch (Exception e)
             {
-                Globals.Logging.Error(e);
+                Globals.Logging.Error("Loading", e);
             }
         }
 

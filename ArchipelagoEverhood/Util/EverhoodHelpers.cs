@@ -77,17 +77,17 @@ namespace ArchipelagoEverhood.Util
         {
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(flag, out var boolValue))
             {
-                Globals.Logging.Error($"{flag} not successfully unlocked: Variable doesn't exist yet.");
+                Globals.Logging.LogDebug("EverhoodHelper", $"{flag} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (boolValue)
             {
-                Globals.Logging.Error($"{flag} successfully unlocked. {boolValue}/True");
+                Globals.Logging.LogDebug("EverhoodHelper",$"{flag} successfully unlocked. {boolValue}/True");
                 return true;
             }
 
-            Globals.Logging.Error($"{flag} not successfully unlocked. {boolValue}/True");
+            Globals.Logging.LogDebug("EverhoodHelper", $"{flag} not successfully unlocked. {boolValue}/True");
             return false;
         }
 
@@ -95,17 +95,17 @@ namespace ArchipelagoEverhood.Util
         {
             if (!Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue(flag, out var intValue))
             {
-                Globals.Logging.Error($"{flag} not successfully unlocked: Variable doesn't exist yet.");
+                Globals.Logging.LogDebug("EverhoodHelper", $"{flag} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (intValue >= count)
             {
-                Globals.Logging.Error($"{flag} successfully unlocked. {intValue}/{count}");
+                Globals.Logging.LogDebug("EverhoodHelper", $"{flag} successfully unlocked. {intValue}/{count}");
                 return true;
             }
 
-            Globals.Logging.Error($"{flag} not successfully unlocked. {intValue}/{count}");
+            Globals.Logging.LogDebug("EverhoodHelper", $"{flag} not successfully unlocked. {intValue}/{count}");
             return false;
         }
     }

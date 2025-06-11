@@ -76,7 +76,6 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnEnterMainHub(Scene scene)
         {
-            Globals.Logging.Error("EverhoodOverride", "Entered Hub");
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["Archipelago_ReachedMain"] = true;
             if (!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
                 return;
@@ -133,7 +132,6 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnEnterMarzianHallway(Scene scene)
         {
-            Globals.Logging.Error("EverhoodOverride", "Entered Hallway");
             if (!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
                 return;
 
@@ -148,7 +146,6 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnEnterNeonDistrict(Scene scene)
         {
-            Globals.Logging.Error("EverhoodOverride", "Entered Neon District");
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
                 throw new Exception("Failed to edit Neon District: Could not find 'GAMEPLAY'.");
 

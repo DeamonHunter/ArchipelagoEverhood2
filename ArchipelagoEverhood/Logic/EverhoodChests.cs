@@ -24,7 +24,7 @@ namespace ArchipelagoEverhood.Logic
                 //Globals.Logging.Log("InLogic", $"{clone.LocationId} : {clone.InLogic}");
                 if (!_activeChestData.TryAdd(clone.LocationId, clone))
                 {
-                    Globals.Logging.Error($"Multiple chests have the id: {clone.LocationId}");
+                    Globals.Logging.Error("EverhoodChests", $"Multiple chests have the id: {clone.LocationId}");
                     continue;
                 }
 
@@ -216,17 +216,17 @@ namespace ArchipelagoEverhood.Logic
 
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(chestData.VariableName, out var boolValue))
             {
-                Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                Globals.Logging.LogDebug("EverhoodChests",$"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (boolValue == chestData.ExpectedValue)
             {
-                Globals.Logging.Error($"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
+                Globals.Logging.LogDebug("EverhoodChests",$"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
                 return true;
             }
 
-            Globals.Logging.Error($"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
+            Globals.Logging.LogDebug("EverhoodChests",$"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
             return false;
         }
 

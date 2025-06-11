@@ -45,8 +45,6 @@ namespace ArchipelagoEverhood.Util
             _logger.Error($"[{source}] {error}");
         }
 
-        public void Error(object obj) => _logger.Error(obj);
-
         public void LogMessage(LogMessage message)
         {
             _logger.Msg(message.ToString());

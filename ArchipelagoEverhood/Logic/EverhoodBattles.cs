@@ -26,7 +26,7 @@ namespace ArchipelagoEverhood.Logic
                 clone.InLogic = locations.AllLocations.Contains(clone.LocationId);
                 if (!_activeBattleData.TryAdd(clone.LocationId, clone))
                 {
-                    Globals.Logging.Error($"Multiple battles have the id: {clone.LocationId}");
+                    Globals.Logging.Error("EverhoodBattles", $"Multiple battles have the id: {clone.LocationId}");
                     continue;
                 }
 
@@ -71,7 +71,7 @@ namespace ArchipelagoEverhood.Logic
 
                 if (BattleStorage.VictoryBattles.Contains(battleSceneName))
                 {
-                    Globals.Logging.Warning("Battles", $"Starting Victory fight!");
+                    Globals.Logging.Warning("EverhoodBattles", $"Starting Victory fight!");
                     InVictoryBattle = true;
                     return;
                 }
@@ -79,7 +79,7 @@ namespace ArchipelagoEverhood.Logic
                 var relevantData = _activeBattleData!.Where(x => x.Value.SceneName == battleSceneName).Select(x => x.Value).ToList();
                 if (relevantData.Count <= 0)
                 {
-                    Globals.Logging.Error($"Failed to find battle: {battleSceneName}.");
+                    Globals.Logging.Error("EverhoodBattles", $"Failed to find battle: {battleSceneName}.");
                     return;
                 }
 
@@ -133,33 +133,33 @@ namespace ArchipelagoEverhood.Logic
             {
                 if (!Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue(battleData.VariableName, out var intValue))
                 {
-                    Globals.Logging.Error($"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                    Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                     return false;
                 }
 
                 if (intValue >= battleData.IntegerCount.Value)
                 {
-                    Globals.Logging.Error($"{battleData.VariableName} successfully unlocked. {intValue}/{battleData.IntegerCount}");
+                    Globals.Logging.LogDebug("EverhoodBattles",$"{battleData.VariableName} successfully unlocked. {intValue}/{battleData.IntegerCount}");
                     return true;
                 }
 
-                Globals.Logging.Error($"{battleData.VariableName} not successfully unlocked. {intValue}/{battleData.IntegerCount}");
+                Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked. {intValue}/{battleData.IntegerCount}");
                 return false;
             }
 
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(battleData.VariableName, out var boolValue))
             {
-                Globals.Logging.Error($"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (boolValue)
             {
-                Globals.Logging.Error($"{battleData.VariableName} successfully unlocked. {boolValue}/True");
+                Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} successfully unlocked. {boolValue}/True");
                 return true;
             }
 
-            Globals.Logging.Error($"{battleData.VariableName} not successfully unlocked. {boolValue}/True");
+            Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked. {boolValue}/True");
             return false;
         }
     }

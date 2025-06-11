@@ -121,9 +121,6 @@ namespace ArchipelagoEverhood.Archipelago
                     return;
             }
 
-            if (_itemsToAdd.Any())
-                Globals.Logging.Log("ItemHandler", "Passed Check.");
-
             while (_itemsToAdd.TryDequeue(out var item))
                 UnlockItem(item);
 
@@ -141,10 +138,10 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void UnlockItem(ItemUnlock itemUnlock)
         {
-            Globals.Logging.Log("ItemHandler", $"Looking to unlock: {itemUnlock.DisplayName}");
+            Globals.Logging.LogDebug("ItemHandler", $"Looking to unlock: {itemUnlock.DisplayName}");
             if (!itemUnlock.Remote && (_currentSlot != itemUnlock.PlayerSlot || _currentTeam != itemUnlock.PlayerTeam))
             {
-                Globals.Logging.Log("ItemHandler", $"Tried to Unlock someone else's item. {itemUnlock.DisplayName} : {itemUnlock.ItemId} : {itemUnlock.PlayerSlot}");
+                Globals.Logging.Error("ItemHandler", $"Tried to Unlock someone else's item. {itemUnlock.DisplayName} : {itemUnlock.ItemId} : {itemUnlock.PlayerSlot}");
                 return;
             }
 
@@ -218,7 +215,7 @@ namespace ArchipelagoEverhood.Archipelago
                         else if (property.Name.Contains("lastDefeatedBattleRoot"))
                             property.SetValue(nestedClass, null); //Todo: Hopefully this doesn't cause issues.
                         else
-                            Globals.Logging.Log("ItemHandler", $"Unknown property in Level Up Animation {property.Name}");
+                            Globals.Logging.Error("ItemHandler", $"Unknown property in Level Up Animation {property.Name}");
                     }
 
                     var coRoutine = (IEnumerator)method!.Invoke(nestedClass, new object[] { xpLevelPlayer });

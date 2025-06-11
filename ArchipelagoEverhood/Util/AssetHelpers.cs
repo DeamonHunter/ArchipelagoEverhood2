@@ -38,7 +38,7 @@ namespace ArchipelagoEverhood.Util
             }
             catch (Exception e)
             {
-                Globals.Logging.Error(e);
+                Globals.Logging.Error("AssetHelper", e);
                 return null;
             }
         }
