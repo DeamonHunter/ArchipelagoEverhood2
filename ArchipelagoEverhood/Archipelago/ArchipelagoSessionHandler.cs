@@ -50,6 +50,8 @@ namespace ArchipelagoEverhood.Archipelago
 
             var successful = (LoginSuccessful)loginResult;
 
+            session.MessageLog.OnMessageReceived += Globals.Logging.LogMessage;
+
             Slot = successful.Slot;
             _team = successful.Team;
             _slotData = successful.SlotData;
