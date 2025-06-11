@@ -271,6 +271,14 @@ namespace ArchipelagoEverhood.Patches
 
             try
             {
+                var scene = SceneManager.GetSceneByName("IntroLevel");
+                if (scene.isLoaded)
+                {
+                    Globals.Logging.Msg($"Used Mirror to try and unlock Cosmetic.");
+                    __instance.Continue();
+                    return false;
+                }
+
                 Globals.Logging.Msg($"Unlocking Cosmetic: {___cosmetic}");
                 var data = Globals.EverhoodChests.ChestOpened(___cosmetic);
                 if (data == null)
