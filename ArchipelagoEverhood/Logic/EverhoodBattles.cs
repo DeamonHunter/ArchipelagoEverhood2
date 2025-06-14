@@ -44,7 +44,8 @@ namespace ArchipelagoEverhood.Logic
                 locationsToCheck.Add(clone.LocationId);
             }
 
-            Globals.SessionHandler.LogicHandler!.CheckLocations(locationsToCheck);
+            if (locationsToCheck.Count > 0)
+                Globals.SessionHandler.LogicHandler!.CheckLocations(locationsToCheck);
         }
 
         public bool LocationChecked(long id)
