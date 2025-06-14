@@ -445,6 +445,7 @@ namespace ArchipelagoEverhood.Patches
                     if (unlockMovement)
                         topDown.Player.SetTopDownPlayerMovementState(true);
 
+                    dialog.SetActive(false);
                     if (!callingCommand)
                         return;
 

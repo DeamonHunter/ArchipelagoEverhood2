@@ -110,6 +110,9 @@ namespace ArchipelagoEverhood.Archipelago
             if (Globals.GameplayRoot!.IsRootAvailable() && !(Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf))
                 return;
 
+            //if (Globals.CurrentTopdownLevel == 6)
+            //    return;
+
             //Don't reward items if the player can't move (likely cutscene or dialogue)
             if (!Globals.TopdownRoot!.Player.MovementState)
             {
@@ -124,11 +127,13 @@ namespace ArchipelagoEverhood.Archipelago
             while (_itemsToAdd.TryDequeue(out var item))
                 UnlockItem(item);
 
-            if (Globals.GameplayRoot.IsRootAvailable() || (SayDialog.ActiveSayDialog && (SayDialog.ActiveSayDialog.enabled || SayDialog.ActiveSayDialog.gameObject.activeInHierarchy)))
+            if (Globals.GameplayRoot.IsRootAvailable() || (SayDialog.ActiveSayDialog && SayDialog.ActiveSayDialog.gameObject.activeInHierarchy))
                 return;
 
             if (!_queuedSays.TryDequeue(out var sayItem))
                 return;
+
+            Globals.Logging.LogDebug("ItemHandler", $"Unqueued say: {sayItem.DisplayName}. Still have {_queuedSays.Count} left.");
 
             if (sayItem.PlayerSlot != _currentSlot && sayItem.PlayerTeam != _currentTeam)
                 SayOnEnterPatch.ForceShowDialogue($"Received {sayItem.DisplayName} from {sayItem.PlayerName}", null);
