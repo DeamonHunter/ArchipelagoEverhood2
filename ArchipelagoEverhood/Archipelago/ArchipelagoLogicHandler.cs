@@ -21,10 +21,6 @@ namespace ArchipelagoEverhood.Archipelago
         {
             _locations = session.Locations;
             _items = session.Items;
-
-            //Auto scout this item as it gets awarded in a new save immediately.
-            //Todo: Save Scout Info To Save File
-            ScoutLocations(new List<long>() { 107 });
         }
 
         public void SetAcceptingItems(bool acceptingItems)

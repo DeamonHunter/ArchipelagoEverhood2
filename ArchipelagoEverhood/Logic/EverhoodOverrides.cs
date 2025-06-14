@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Util;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,9 @@ namespace ArchipelagoEverhood.Archipelago
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
-        public void ArchipelagoConnected(string seed)
+        private SoulColor _soulColor;
+
+        public void ArchipelagoConnected(string seed, SoulColor soulColor)
         {
             if (Overriding)
             {
@@ -27,6 +30,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             Overriding = true;
             Seed = seed;
+            _soulColor = soulColor;
             Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
 
             var infProjExperience = typeof(InfinityProjectExperience);
@@ -59,11 +63,14 @@ namespace ArchipelagoEverhood.Archipelago
 
         public void OnSceneChange(string sceneName, Scene scene)
         {
+            if (Globals.CurrentTopdownLevel == -1)
+                Globals.CurrentTopdownLevel = scene.buildIndex;
+
             Globals.ExitToHubButton.SetActive(EverhoodHelpers.HasFlag("Archipelago_ReachedMain") && sceneName != "CosmicHubInfinity");
             switch (sceneName)
             {
                 case "CosmicHubInfinity":
-                    OnEnterMainHub(scene);
+                    Globals.EverhoodDoors.OnEnterMainHub(scene);
                     break;
                 case "Marzian_Part1Hero_MinesHallway":
                     OnEnterMarzianHallway(scene);
@@ -74,59 +81,32 @@ namespace ArchipelagoEverhood.Archipelago
             }
         }
 
-        private void OnEnterMainHub(Scene scene)
+        public bool HasSoulColor() => _soulColor != SoulColor.None;
+
+        public void SetQuestionnaire()
         {
-            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["Archipelago_ReachedMain"] = true;
-            if (!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
-                return;
+            //Set the player position to the correct point.
+            Globals.TopdownRoot!.Player.transform.position = new Vector3(2.85f, -2.5576f, 0);
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_StartedGame"] = true;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_TutorialDeath"] = true; //???
+            Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_PlayerAge"] = 15; //Not exactly used but set anyway to ensure nothing breaks.
 
-            if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
-                throw new Exception("Failed to edit Main Hub: Could not find 'GAMEPLAY'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("MarzianStoryDoor", gameplay, out var door))
-                throw new Exception("Failed to edit Main Hub: Could not find 'MarzianStoryDoor'.");
-
-            var doorTransform = door.transform;
-            doorTransform.position = new Vector3(4.7f, doorTransform.position.y, doorTransform.position.z);
-            var copy = GameObject.Instantiate(door.gameObject, doorTransform.position - new Vector3(0.5f, 0, 0f), doorTransform.rotation, doorTransform.parent);
-
-            for (var i = copy.transform.childCount - 1; i >= 0; i--)
+            Globals.ServicesRoot!.GameData.GeneralData.EquipWeapon(Weapon.Unarmed);
+            switch (_soulColor)
             {
-                var transform = copy.transform.GetChild(i);
-                switch (transform.name)
-                {
-                    case "LevelLoad-MarzianPart1":
-                        transform.gameObject.SetActive(true);
-                        break;
-                    case "LevelLoad-MarzianPart2":
-                    case "LevelLoad-MarzianPart3":
-                    case "LevelLoad-MarzianPart4":
-                        GameObject.Destroy(transform.gameObject);
-                        break;
-                    case "StoneHengeDoorBottom":
-                        if (!EverhoodHelpers.TryGetChildWithName("NumberPad", transform, out var numberPad))
-                            throw new Exception("Failed to edit Main Hub: Could not find 'NumberPad'.");
-
-                        for (var j = numberPad.childCount - 1; j >= 0; j--)
-                        {
-                            var numberTransform = numberPad.GetChild(j);
-                            switch (numberTransform.name)
-                            {
-                                case "Part1Numbers":
-                                    numberTransform.gameObject.SetActive(true);
-                                    break;
-                                case "Part2Numbers":
-                                case "Part3Numbers":
-                                case "Part4Numbers":
-                                case "Part5Numbers":
-                                case "Part6Numbers":
-                                    GameObject.Destroy(numberTransform.gameObject);
-                                    break;
-                            }
-                        }
-
-                        break;
-                }
+                case SoulColor.None:
+                case SoulColor.Blue:
+                    Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_Blue"] = 5;
+                    Globals.ServicesRoot!.GameData.GeneralData.playerColor = PlayerColor.Blue;
+                    break;
+                case SoulColor.Green:
+                    Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_Green"] = 5;
+                    Globals.ServicesRoot!.GameData.GeneralData.playerColor = PlayerColor.Green;
+                    break;
+                case SoulColor.Red:
+                    Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_Red"] = 5;
+                    Globals.ServicesRoot!.GameData.GeneralData.playerColor = PlayerColor.Red;
+                    break;
             }
         }
 
@@ -200,6 +180,7 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void ReturnToHub()
         {
+            Globals.Logging.Log("ReturnToHub", $"Loading Main Menu from: {Globals.CurrentTopdownLevel}.");
             Globals.SceneManagerRoot!.LoadTopdownScene("FadeInBasic", "FadeOutBasic", Globals.CurrentTopdownLevel, 10, new Vector3(2.938f, -3.7142f, 0), Direction.South, true);
         }
 

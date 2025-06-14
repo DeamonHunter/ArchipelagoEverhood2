@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
+using ArchipelagoEverhood.Data;
 using UnityEngine;
 
 namespace ArchipelagoEverhood.Archipelago
@@ -67,7 +68,14 @@ namespace ArchipelagoEverhood.Archipelago
 
             LogicHandler = new ArchipelagoLogicHandler(_currentSession!);
             ItemHandler = new ArchipelagoItemHandler(_currentSession!.ConnectionInfo.Slot, _currentSession!.ConnectionInfo.Team);
-            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed);
+
+            SoulColor soulColor;
+            if (_slotData!.TryGetValue("SoulColor", out var colorObj))
+                soulColor = (SoulColor)((int)colorObj + 1);
+            else
+                soulColor = SoulColor.None;
+
+            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor);
         }
 
         private void FindObjects()

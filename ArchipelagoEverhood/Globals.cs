@@ -25,6 +25,7 @@ namespace ArchipelagoEverhood
         public static readonly EverhoodBattles EverhoodBattles = new();
         public static readonly EverhoodChests EverhoodChests = new();
         public static readonly EverhoodOverrides EverhoodOverrides = new();
+        public static readonly EverhoodDoors EverhoodDoors = new();
 
         //Archipelago Stuff
         public static ArchLogger Logging;
