@@ -1,57 +1,13 @@
-﻿using System;
-using System.Reflection;
+﻿#if DEBUG
+using System;
 using ForeignGnomes.VisualScripting;
 using Fungus;
 using HarmonyLib;
-using RocaVS;
 using UnityEngine;
 using SetOperator = Fungus.SetOperator;
 
 namespace ArchipelagoEverhood
 {
-    [HarmonyPatch(typeof(DamageEnemy), "Run")]
-    public static class LoadingSceneOnEnablePatch
-    {
-        private static void Postfix(DamageEnemy __instance)
-        {
-            return;
-
-            var main_GameplayRoot = (Main_GameplayRoot)(typeof(DamageEnemy).GetField("main_GameplayRoot", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance));
-            var _absorbedNotesCount = (int)(typeof(DamageEnemy).GetField("_absorbedNotesCount", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance));
-            var _weaponAttack = (WeaponAttacks)(typeof(DamageEnemy).GetField("_weaponAttack", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance));
-            var _colorAbsorbed = (ProjectileColor)(typeof(DamageEnemy).GetField("_colorAbsorbed", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance));
-            var _serviceRoot = (ServicesRoot)(typeof(DamageEnemy).GetField("_serviceRoot", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance));
-            var multiplier = (float)(typeof(DamageEnemy).GetField("multiplier", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance));
-
-            GameplayEnemy gameplayEnemy = main_GameplayRoot.ActiveBattleRoot.GameplayEnemy;
-            int num1 = gameplayEnemy.IsStrengthColor(_colorAbsorbed) ? 1 : 0;
-            bool flag = gameplayEnemy.IsWeaknessColor(_colorAbsorbed);
-            float num2 = 1f;
-            if (num1 != 0)
-                num2 -= _serviceRoot.WeaponSkills.StrengthModifier * gameplayEnemy.StrengthOffsetModifier;
-            if (flag)
-                num2 += _serviceRoot.WeaponSkills.WeaknessModifier * gameplayEnemy.WeaknessOffsetModifier;
-            WeaponAttack weaponAttack = _serviceRoot.WeaponSkills.GetWeaponAttack(_weaponAttack);
-            double num3 = (double)_serviceRoot.WeaponDamage.GetFinalDamage(weaponAttack, _absorbedNotesCount) * (double)num2 * (double)weaponAttack.DamageWeight * (double)multiplier;
-            ArtifactModifier artifactModifier = _serviceRoot.Artifacts.GetArtifactModifier(_serviceRoot.GameData.GeneralData.equipedArtifact);
-            int level = _serviceRoot.GameData.GeneralData.xpLevel_player.level;
-            float num4 = InfinityEditorData.playerEnergyLevelModifier[level];
-            GameplayPlayer activePlayer = main_GameplayRoot.ActivePlayer;
-            int colorAbsorbed = (int)_colorAbsorbed;
-            float colorBoost = artifactModifier.GetColorBoost(activePlayer, (ProjectileColor)colorAbsorbed);
-            float colorBonusModifier = weaponAttack.GetColorBonusModifier(_colorAbsorbed);
-            float num5 = 0.0f;
-            WeaponLevel currentWeaponLevel = main_GameplayRoot.ActivePlayer.GameplayPlayerAttack.CurrentWeaponHolding.CurrentWeaponLevel;
-            float num6 = currentWeaponLevel == null ? 0.0f : currentWeaponLevel.BaseDamageModifier;
-            float num7 = currentWeaponLevel == null ? 0.0f : currentWeaponLevel.GetColorDamageModifier(_colorAbsorbed);
-            double num8 = 1.0 + ((double)num4 + (double)colorBoost + (double)colorBonusModifier + (double)num5 + (double)num6 + (double)num7);
-            float damage = (float)(num3 * num8);
-
-            Globals.Logging.Msg(
-                $"DAMAGE:\n NUM2 {num2} \n {weaponAttack.DamageWeight} \n {multiplier} \n NUM3 {num3}\n NUM4 {num4}\n NUM5 {num5} \n NUM6 {num6}\n NUM7 {num7}\n NUM8 {num8} \n DAMAGE {damage}");
-        }
-    }
-
     [HarmonyPatch(typeof(fvs_SetVariable), "DoSetOperation")]
     public static class fvs_SetVariablePatch
     {
@@ -280,3 +236,4 @@ namespace ArchipelagoEverhood
         }
     }
 }
+#endif
