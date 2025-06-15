@@ -150,22 +150,29 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             }
 
+            var data = Globals.ServicesRoot!.GameData.GeneralData;
             //Todo: Item Sprites?
             if (ItemData.ItemsById.TryGetValue(itemUnlock.ItemId, out var item))
             {
-                Globals.ServicesRoot!.GameData.GeneralData.AddCollectedItem(item.Item.ToString(), 1);
+                data.AddCollectedItem(item.Item.ToString(), 1);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
             else if (ItemData.WeaponsById.TryGetValue(itemUnlock.ItemId, out var weapon))
             {
-                Globals.ServicesRoot!.GameData.GeneralData.AddWeapon(weapon.Weapon);
+                data.AddWeapon(weapon.Weapon);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
             else if (ItemData.ArtifactsById.TryGetValue(itemUnlock.ItemId, out var artifact))
             {
-                Globals.ServicesRoot!.GameData.GeneralData.AddArtifactItem(artifact.Artifact.ToString(), 1);
+                data.AddArtifactItem(artifact.Artifact.ToString(), 1);
+                if (itemUnlock.Remote)
+                    _queuedSays.Enqueue(itemUnlock);
+            }
+            else if (ItemData.DoorKeysById.TryGetValue(itemUnlock.ItemId, out var doorKey))
+            {
+                Globals.EverhoodDoors.OnReceiveDoorKey(doorKey.DoorId);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
@@ -182,14 +189,14 @@ namespace ArchipelagoEverhood.Archipelago
                 }
                 else
                 {
-                    var xpLevel = Globals.ServicesRoot!.GameData.GeneralData.xpLevel_player;
+                    var xpLevel = data.xpLevel_player;
                     var playerLevelXpRequired = Globals.ServicesRoot!.InfinityProjectExperience.GetPlayerLevelXpRequired(xpLevel.level);
                     Globals.TopdownRoot!.PlayerXpGainUI.GainXP(xpLevel.AddXp(xp.Xp, playerLevelXpRequired));
                 }
             }
             else if (ItemData.CosmeticsById.TryGetValue(itemUnlock.ItemId, out var cosmetic))
             {
-                Globals.ServicesRoot!.GameData.GeneralData.AddCosmectic(cosmetic.Cosmetic);
+                data.AddCosmectic(cosmetic.Cosmetic);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }

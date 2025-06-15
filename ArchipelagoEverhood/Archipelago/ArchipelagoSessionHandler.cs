@@ -75,6 +75,9 @@ namespace ArchipelagoEverhood.Archipelago
             else
                 soulColor = SoulColor.None;
 
+            if (_slotData.TryGetValue("DoorKeys", out var doorKeys))
+                Globals.EverhoodDoors.DoorRandoEnabled = (bool)doorKeys;
+
             Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor);
         }
 

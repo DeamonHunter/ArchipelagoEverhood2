@@ -98,6 +98,19 @@ namespace ArchipelagoEverhood.Data
             { 220, new EverhoodItemInfo { Xp = 400, ItemFlags = ItemFlags.None, ItemName = "400xp" } },
         };
 
+        public static Dictionary<long, EverhoodItemInfo> DoorKeysById = new()
+        {
+            { 300, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 0} },
+            { 301, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Progressive Marzian Key", DoorId = 1} },
+            { 302, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Eternal War Key", DoorId = 2} },
+            { 303, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Smega Console Key", DoorId = 3} },
+            { 304, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Lab Key", DoorId = 4} },
+            { 305, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Home Town Key", DoorId = 5} },
+            //{ 306, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 6} },
+            //{ 307, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 7} },
+            //{ 308, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 8} },
+        };
+
         public static Dictionary<long, EverhoodItemInfo> CosmeticsById = new()
         {
             { 400, new EverhoodItemInfo { Cosmetic = Cosmetics.Hairstyle1_Anime, ItemFlags = ItemFlags.None, ItemName = "Anime Hairstyle Cosmetic" } },
@@ -167,6 +180,7 @@ namespace ArchipelagoEverhood.Data
             public int GemPack;
             public int Xp;
             public Weapon Weapon;
+            public int DoorId;
 
             public string ItemName;
             public ItemFlags ItemFlags;

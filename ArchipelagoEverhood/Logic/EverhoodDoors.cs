@@ -11,14 +11,15 @@ namespace ArchipelagoEverhood.Logic
     {
         public bool DoorRandoEnabled = false;
 
-        private HashSet<int> _activeDoors = new();
+        private HashSet<long> _activeDoors = new();
 
         private int _marzianKeys;
+        private const long marzian_key_id = 1;
 
-        private static readonly Dictionary<int, string> _keysToDoors = new()
+        private static readonly Dictionary<long, string> _keysToDoors = new()
         {
             { 0, "NeonDistrictDoor" }, //Blue Route
-            { 1, "MarzianStoryDoor" }, //Green Route
+            { marzian_key_id, "MarzianStoryDoor" }, //Green Route
             { 2, "EternalWarDoor" }, //Red Route
             { 3, "Smega_Door" }, //Post Dragon Content
             { 4, "TheLab" }, //Post Dragon Content
@@ -33,10 +34,10 @@ namespace ArchipelagoEverhood.Logic
             ChangeDoorsMainHub(scene);
         }
 
-        public void OnReceiveDoorKey(int keyId)
+        public void OnReceiveDoorKey(long keyId)
         {
             _activeDoors.Add(keyId);
-            if (keyId == 1)
+            if (keyId == marzian_key_id)
                 _marzianKeys++;
 
             var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
