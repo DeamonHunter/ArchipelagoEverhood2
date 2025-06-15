@@ -381,7 +381,7 @@ namespace ArchipelagoEverhood.Patches
             "Companion Dialogue box"
         };
 
-        private static void Prefix(Say __instance, ref string ___overridingName, ref Character ___character,
+        private static void Prefix(Say __instance, ref string ___overridingName,
             ref Characters ___characterByEnum, ref CharacterPortrait ___characterPortrait, ref TextType ___textType, ref bool ___showAlways,
             ref bool ___extendPrevious, ref bool ___waitForClick, ref Color ___overridingNameColor, ref Color ___overridingDialogueColor,
             ref bool ___disableInstantComplete, out bool __state)
@@ -398,17 +398,20 @@ namespace ArchipelagoEverhood.Patches
             }
 
             __state = true;
-            //___character = null;
-            ___characterByEnum = Characters.None;
-            ___characterPortrait = CharacterPortrait.None;
+            if (___characterByEnum != Characters.Description)
+            {
+                ___characterByEnum = Characters.Generic;
+                ___characterPortrait = CharacterPortrait.None;
+                ___overridingNameColor = Color.white;
+                ___overridingDialogueColor = Color.white;
+                ___disableInstantComplete = true;
+            }
+
             ___textType = TextType.Normal;
             ___overridingName = "Archipelago";
             ___showAlways = true;
             ___extendPrevious = false;
             ___waitForClick = true;
-            ___overridingNameColor = Color.white;
-            ___overridingDialogueColor = Color.white;
-            ___disableInstantComplete = true;
             __instance.SetStoryText(_overrideTextValue);
             _overrideTextValue = null;
             SayGetStringIdPatch.Override = true;

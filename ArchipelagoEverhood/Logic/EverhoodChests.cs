@@ -35,7 +35,7 @@ namespace ArchipelagoEverhood.Logic
                     continue;
                 }
 
-                clone.Achieved = CheckIfPasses(clone);
+                clone.Achieved = CheckIfPasses(clone, true);
                 if (!clone.Achieved)
                     continue;
 
@@ -109,7 +109,7 @@ namespace ArchipelagoEverhood.Logic
                     if (chestData.Achieved)
                         continue;
 
-                    if (!CheckIfPasses(chestData))
+                    if (!CheckIfPasses(chestData, false))
                         continue;
 
                     CheckLocation(chestData);
@@ -141,7 +141,7 @@ namespace ArchipelagoEverhood.Logic
                     if (chestData.Achieved)
                         continue;
 
-                    if (!CheckIfPasses(chestData))
+                    if (!CheckIfPasses(chestData, false))
                         continue;
 
                     CheckLocation(chestData);
@@ -170,7 +170,7 @@ namespace ArchipelagoEverhood.Logic
                 if (chestData.Achieved)
                     continue;
 
-                if (!CheckIfPasses(chestData))
+                if (!CheckIfPasses(chestData, false))
                     continue;
 
                 CheckLocation(chestData);
@@ -198,7 +198,7 @@ namespace ArchipelagoEverhood.Logic
                 if (chestData.Achieved)
                     continue;
 
-                if (!CheckIfPasses(chestData))
+                if (!CheckIfPasses(chestData, false))
                     continue;
 
                 CheckLocation(chestData);
@@ -209,10 +209,10 @@ namespace ArchipelagoEverhood.Logic
             return null;
         }
 
-        private bool CheckIfPasses(ChestData chestData)
+        private bool CheckIfPasses(ChestData chestData, bool startup)
         {
             if (chestData.VariableName == null)
-                return false;
+                return !startup;
 
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(chestData.VariableName, out var boolValue))
             {
