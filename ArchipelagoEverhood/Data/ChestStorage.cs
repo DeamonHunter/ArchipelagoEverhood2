@@ -54,16 +54,15 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 35, "Neon_Hillbert_Room1", "50xp", "GL_3A_HH1_ChestOpen", ChestType.XP),
 
             new ChestData(_itemStartId + 36, "Neon_Hillbert_Room2Bobo", "50xp", "GL_1A_HH2_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 37, "Neon_HotelEntrance", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item),
+            new ChestData(_itemStartId + 37, "Neon_HotelEntrance", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item), //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
+            
             //Add to the other HotelEntrance/Key items on the list
-            new ChestData(_itemStartId + 38, "GL_3RoomKeyInventory", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item),  //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
             new ChestData(_itemStartId + 39, "IntroLevel", "Clock", "GL_MovementTutorialBattle", ChestType.Item),
-            new ChestData(_itemStartId + 40, "GL_3RoomKeyInventory", "Green Key", "GL_3RoomKeyInventory", ChestType.Item),  //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
             new ChestData(_itemStartId + 41, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
-            new ChestData(_itemStartId + 42, "GL_4RoomKeyInventory", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
+            new ChestData(_itemStartId + 42, "Neon_HotelEntrance", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
             new ChestData(_itemStartId + 43, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
             new ChestData(_itemStartId + 44, "Neon_HotelEntrance", "ReindeerSkull", "GL_4A_HHe_ChestOpen", ChestType.Cosmetic), // Reindeer Skull. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
-            new ChestData(_itemStartId + 45, "GL_5RoomKeyInventory", "RoomKeyOmega", "GL_5RoomKeyInventory", ChestType.Item), // Requires beating Vanguard3D in Irvine's Pocket Dimension
+            new ChestData(_itemStartId + 45, "Neon_HotelEntrance", "RoomKeyOmega", "GL_5RoomKeyInventory", ChestType.Item), // Requires beating Vanguard3D in Irvine's Pocket Dimension
             new ChestData(_itemStartId + 46, "Neon_HotelEntrance", "WeaponToken", "GL_5A_HHe_ChestOpen", ChestType.Item), // After Omega Room
             new ChestData(_itemStartId + 47, "Neon_HotelEntrance", "JesterHat", "NG_Cosmetic_JesterHat", ChestType.Cosmetic), // After Omega Room
             //Floor Pinecone - The Simple Life
@@ -84,12 +83,12 @@ namespace ArchipelagoEverhood.Data
             //Sam's Room 111 568
             new ChestData(_itemStartId + 57, "SamRoom", "CrystalKey", "GL_SR_CrystalKeyPickedUp", ChestType.Item),
             //Year 5000 (requires Crystal Key)
-            new ChestData(_itemStartId + 58, "Marzian_Part5Hero", "SoulWeapon", "GL_M6_WeaponPickedUp", ChestType.Item),
+            //new ChestData(_itemStartId + 58, "Marzian_Part5Hero", "SoulWeapon", "GL_M6_WeaponPickedUp", ChestType.Item),
             //Lab (gives code 888 688 for Colosseum)
             new ChestData(_itemStartId + 59, "Lab", "35xp", "GL_1A_LAB_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 60, "Lab", "Clover", "GL_3A_LAB_ChestOpen", ChestType.Item),
             new ChestData(_itemStartId + 61, "Lab", "WeaponToken", "GL_2A_LAB_ChestOpen", ChestType.Item),
-            //new ChestData(_itemStartId + X, "Lab", "SoulWeapon", "Add Katana", ChestType.Item), // I don't know what to do about the katana, Add Katana was the only thing I saw.
+            new ChestData(_itemStartId + 110, "Lab", "Katana", "Add Katana", ChestType.Item), // I don't know what to do about the katana, Add Katana was the only thing I saw.
             //Omega Room
             new ChestData(_itemStartId + 62, "Neon_Hillbert_Room5", "WeaponToken", "GL_1A_HH5_ChestOpen", ChestType.Item),
             //Liminal Rooms, death coin door
@@ -134,10 +133,11 @@ namespace ArchipelagoEverhood.Data
             //Everhood 1
             new ChestData(_itemStartId + 96, "Everhood1", "V.I.P.Ticket", "GL_DE_GreenMageBriefingOutside", ChestType.Item), // [Command] Pick 1 VIPTicket
             new ChestData(_itemStartId + 97, "Everhood1", "LongPlank", "GL_DE_RastaInteracted", ChestType.Item), // [Command] Pick 1 LongPlank
-            new ChestData(_itemStartId + 98, "Everhood1", "YellowMask", "GL_DE_BlueDead", ChestType.Item)// Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
+            new ChestData(_itemStartId + 98, "Everhood1", "YellowMask", "GL_DE_BlueDead", ChestType.Item), // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
             new ChestData(_itemStartId + 99, "Everhood1", "DeathCoin", "GL_DE_DeathCoin", ChestType.Item),
+            //new ChestData(_itemStartId + 100, "Everhood1", "SoulWeapon", "GL_DE_DeathCoin", ChestType.Item),
             //Pandemonium
-            new ChestData(_itemStartId + 100, "Pandemonium", "PandemoniumKey", "GL_Pa_SproutPKey", ChestType.Item), // from speaking to Sprout
+            //new ChestData(_itemStartId + 100, "Pandemonium", "PandemoniumKey", "GL_Pa_SproutPKey", ChestType.Item), // from speaking to Sprout
             //The Colosseum, without using a code is accessed at Pandemonium
             new ChestData(_itemStartId + 101, "Colosseum", "WeaponToken", "GL_GauntletQuest1_Finished", ChestType.Item), // [Command] recieveitem, [Command] Pick 1 WeaponToken
             new ChestData(_itemStartId + 102, "Colosseum", "Knight_Helmet", "GL_GauntletQuest1_Finished", ChestType.Cosmetic), // [Command] recieveitem, [Command] Knight_Helmet
@@ -147,9 +147,10 @@ namespace ArchipelagoEverhood.Data
             //new ChestData(_itemStartId + X, "Colosseum", "WeaponToken", "GL_GauntletQuest5_Finished", ChestType.Item), // Post ShadePostCredits, may need GL_GauntletQuest5_Finished. [Command] Pick 2 WeaponToken
             //new ChestData(_itemStartId + X, "Colosseum", "WeaponToken", "GL_GauntletQuest6_Finished", ChestType.Item), // No fight, [Command] Pick 2 WeaponToken
             // Pandemonium boatman journey, requires 1 Death Coin
-            new ChestData(_itemStartId + 106, "Pandemonium", "WeaponToken", "GL_1A_SEnd1_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 108, "Pandemonium", "WeaponToken", "GL_1A_SEnd1_ChestOpen", ChestType.Item),
             //Torment Room 222 883
-            new ChestData(_itemStartId + 107, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 109, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
+            //new ChestData(_itemStartId + 110, "Raven Hub", "SoulWeapon", "GL_DE_DeathCoin", ChestType.Item),
         };
     }
 }

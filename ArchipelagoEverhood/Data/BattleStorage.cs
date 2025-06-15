@@ -75,9 +75,8 @@ namespace ArchipelagoEverhood.Data
             //Floor Pinecone - The Simple Life
             new BattleData(_battleStartId + 48, "Squirrel-Battle", "GL_1A_HH4_SquirrelDead", BattleType.HillbertHotel, 400), //400xp (A lot of Squirrels)
             //Todo: Move Upwards
-            new BattleData(_battleStartId + 50, "Hyena-Battle", "GL_B3_M1EncounterDead", BattleType.Trash, 50) //50xp Opus and Screech
-            //Dragon
-            //new BattleData(_battleStartId + X, "DragonPart2-Battle", "GL_DragonDead", BattleType.MajorBattle, 0), // Required story fight
+            new BattleData(_battleStartId + 50, "Hyena-Battle", "GL_B3_M1EncounterDead", BattleType.Trash, 50), //50xp Opus and Screech
+            
             //Year 3000 (unlocked after Dragon)
             new BattleData(_battleStartId + 51, "Thriller-Battle", "GL_1A_M4_ThrillerDead", BattleType.MajorBattle, 50), // Required, before switch
             new BattleData(_battleStartId + 52, "Lurker-Battle", "GL_1A_M4_LurkerDead", BattleType.MajorBattle, 50), //In Cave, Required
@@ -186,6 +185,8 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 132, "Evren2-Battle", "GL_RESend_EvrenBattle", BattleType.MajorBattle, 700),
             new BattleData(_battleStartId + 133, "GL_SEnd_CreditsHasBeenViewed", "GL_RileyBattle", BattleType.MajorBattle, 0), // Fight doesn't end normally, wasn't good markers for this. Mainly saw [Command] StartRileyBattle : Stop
             
+            //Dragon
+            new BattleData(_battleStartId + 134, "DragonPart2-Battle", "GL_DragonDead", BattleType.MajorBattle, 0), // Required story fight
         };
 
         public static readonly HashSet<string> SkipBattles = new()
