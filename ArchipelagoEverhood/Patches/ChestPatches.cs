@@ -183,7 +183,7 @@ namespace ArchipelagoEverhood.Patches
     {
         private static bool Prefix(PickArtifactAndEquip __instance, Artifact ___artifact)
         {
-            if (!Globals.SessionHandler.LoggedIn)
+            if (!Globals.SessionHandler.LoggedIn || ___artifact == Artifact.None)
                 return true;
 
             try

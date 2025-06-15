@@ -71,7 +71,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             SoulColor soulColor;
             if (_slotData!.TryGetValue("SoulColor", out var colorObj))
-                soulColor = (SoulColor)((int)colorObj + 1);
+                soulColor = (SoulColor)((long)colorObj + 1);
             else
                 soulColor = SoulColor.None;
 

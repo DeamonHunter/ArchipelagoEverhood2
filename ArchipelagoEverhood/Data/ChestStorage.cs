@@ -57,7 +57,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 37, "Neon_HotelEntrance", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item), //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
             
             //Add to the other HotelEntrance/Key items on the list
-            new ChestData(_itemStartId + 39, "IntroLevel", "Clock", "GL_MovementTutorialBattle", ChestType.Item),
+            new ChestData(_itemStartId + 39, "IntroLevel", "Clock", null, ChestType.Item),
             new ChestData(_itemStartId + 41, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
             new ChestData(_itemStartId + 42, "Neon_HotelEntrance", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
             new ChestData(_itemStartId + 43, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
