@@ -15,12 +15,13 @@ namespace ArchipelagoEverhood.Archipelago
     {
         public bool Overriding;
         public string Seed { get; private set; }
+        public int PowerGemsRequired { get; private set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
         private SoulColor _soulColor;
 
-        public void ArchipelagoConnected(string seed, SoulColor soulColor)
+        public void ArchipelagoConnected(string seed, SoulColor soulColor, int powerGemAmount)
         {
             if (Overriding)
             {
@@ -31,6 +32,7 @@ namespace ArchipelagoEverhood.Archipelago
             Overriding = true;
             Seed = seed;
             _soulColor = soulColor;
+            PowerGemsRequired = powerGemAmount;
             Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
 
             var infProjExperience = typeof(InfinityProjectExperience);

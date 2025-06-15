@@ -78,7 +78,11 @@ namespace ArchipelagoEverhood.Archipelago
             if (_slotData.TryGetValue("DoorKeys", out var doorKeys))
                 Globals.EverhoodDoors.DoorRandoEnabled = (bool)doorKeys;
 
-            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor);
+            long powerGemAmount = 3;
+            if (_slotData.TryGetValue("DragonGems", out var powerGemObj))
+                powerGemAmount = (long)powerGemObj;
+
+            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor, (int)powerGemAmount);
         }
 
         private void FindObjects()
