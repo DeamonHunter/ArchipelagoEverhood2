@@ -202,6 +202,48 @@ namespace ArchipelagoEverhood.Archipelago
             }
         }
 
+        public void RemoveItem(global::Archipelago.MultiClient.Net.Models.ItemInfo itemInfo)
+        {
+             Globals.Logging.LogDebug("ItemHandler", $"Looking to remove: {itemInfo.ItemDisplayName}");
+            if (_currentSlot != itemInfo.Player.Slot || _currentTeam != itemInfo.Player.Team)
+            {
+                Globals.Logging.Error("ItemHandler", $"Tried to Unlock someone else's item. {itemInfo.ItemDisplayName} : {itemInfo.ItemId} : {itemInfo.Player.Slot}");
+                return;
+            }
+
+            var data = Globals.ServicesRoot!.GameData.GeneralData;
+            //Todo: Item Sprites?
+            if (ItemData.ItemsById.TryGetValue(itemInfo.ItemId, out var item))
+            {
+                data.collectedItems ??= new Dictionary<string, int>();
+                if (!data.collectedItems.ContainsKey(item.Item.ToString()))
+                    return;
+                data.collectedItems[item.Item.ToString()] -= 1;
+            }
+            else if (ItemData.WeaponsById.TryGetValue(itemInfo.ItemId, out var weapon))
+            {
+                data.RemoveWeapon(weapon.Weapon);
+            }
+            else if (ItemData.ArtifactsById.TryGetValue(itemInfo.ItemId, out var artifact))
+            {
+                data.UseArtifactItem(artifact.Artifact.ToString(), 1);
+            }
+            else if (ItemData.DoorKeysById.TryGetValue(itemInfo.ItemId, out var doorKey))
+            {
+                Globals.Logging.Error("ItemHandler", $"Tried to remove a doorkey {doorKey}? These shouldn't be erroring.");
+            }
+            else if (ItemData.XpsById.TryGetValue(itemInfo.ItemId, out var xp))
+            {
+                var xpLevel = data.xpLevel_player;
+                var playerLevelXpRequired = Globals.ServicesRoot!.InfinityProjectExperience.GetPlayerLevelXpRequired(xpLevel.level);
+                xpLevel.AddXp(-xp.Xp, playerLevelXpRequired);
+            }
+            else if (ItemData.CosmeticsById.TryGetValue(itemInfo.ItemId, out var cosmetic))
+            {
+                data.collectedCosmetics.Remove(cosmetic.Cosmetic);
+            }
+        }
+
         private void FindAndActivateBattleVictoryXpAnimation(GeneralData.XpLevelInfo xpLevelPlayer)
         {
             bool foundMethod = false;

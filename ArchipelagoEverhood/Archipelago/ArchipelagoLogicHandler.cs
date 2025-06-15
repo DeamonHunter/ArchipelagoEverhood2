@@ -5,6 +5,7 @@ using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.Models;
+using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Util;
 
 namespace ArchipelagoEverhood.Archipelago
@@ -41,11 +42,19 @@ namespace ArchipelagoEverhood.Archipelago
                     continue;
                 }
 
+                if (ItemData.DoorKeysById.TryGetValue(item.ItemId, out var doorKey))
+                {
+                    Globals.EverhoodDoors.OnReceiveDoorKey(doorKey.DoorId);
+                    MarkItemAdded(item.ItemId, i);
+                    continue;
+                }
+
                 if (Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue($"Archipelago_{i}", out var itemId))
                 {
                     if (itemId == item.ItemId)
                         continue;
                     Globals.Logging.Error("LogicHandler", $"ITEM DESYNC AT INDEX {i}. Was: {itemId} Is: {item.ItemId} CURRENTLY CANNOT HANDLE!!!!!");
+                    Globals.SessionHandler.ItemHandler!.RemoveItem(item);
                     Globals.SessionHandler.ItemHandler!.HandleRemoteItem(item);
                     MarkItemAdded(item.ItemId, i);
                 }
