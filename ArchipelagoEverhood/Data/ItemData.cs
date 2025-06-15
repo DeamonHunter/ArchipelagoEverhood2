@@ -17,7 +17,7 @@ namespace ArchipelagoEverhood.Data
             { 114, new EverhoodItemInfo { Item = Item.TomatoSeed, ItemFlags = ItemFlags.None, ItemName = "Tomato Seed" } },
             { 115, new EverhoodItemInfo { Item = Item.Druffle, ItemFlags = ItemFlags.None, ItemName = "Druffle" } },
             { 117, new EverhoodItemInfo { Item = Item.RoomKeyPinecone, ItemFlags = ItemFlags.Advancement, ItemName = "Pinecone Key" } },
-            
+
             { 1, new EverhoodItemInfo { Item = Item.RoomKeyOmega, ItemFlags = ItemFlags.Advancement, ItemName = "Omega Key" } },
             { 2, new EverhoodItemInfo { Item = Item.RavenKey, ItemFlags = ItemFlags.NeverExclude, ItemName = "Raven Hub Key" } },
             { 3, new EverhoodItemInfo { Item = Item.FrogKey, ItemFlags = ItemFlags.NeverExclude, ItemName = "Frog Hub Key" } },
@@ -69,7 +69,7 @@ namespace ArchipelagoEverhood.Data
         public static Dictionary<long, EverhoodItemInfo> ArtifactsById = new()
         {
             { 109, new EverhoodItemInfo { Artifact = Artifact.CrimsonBandana, ItemFlags = ItemFlags.NeverExclude, ItemName = "Crimson Bandana" } },
-            { 114, new EverhoodItemInfo { Artifact = Artifact.Clock, ItemFlags = ItemFlags.NeverExclude, ItemName = "Stopwatch" } },
+            { 116, new EverhoodItemInfo { Artifact = Artifact.Clock, ItemFlags = ItemFlags.NeverExclude, ItemName = "Stopwatch" } },
             { 118, new EverhoodItemInfo { Artifact = Artifact.Clover, ItemFlags = ItemFlags.NeverExclude, ItemName = "Clover" } },
         };
 
@@ -115,12 +115,12 @@ namespace ArchipelagoEverhood.Data
 
         public static Dictionary<long, EverhoodItemInfo> DoorKeysById = new()
         {
-            { 300, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 0} },
-            { 301, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Progressive Marzian Key", DoorId = 1} },
-            { 302, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Eternal War Key", DoorId = 2} },
-            { 303, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Smega Console Key", DoorId = 3} },
-            { 304, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Lab Key", DoorId = 4} },
-            { 305, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Home Town Key", DoorId = 5} },
+            { 300, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 0 } },
+            { 301, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Progressive Marzian Key", DoorId = 1 } },
+            { 302, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Eternal War Key", DoorId = 2 } },
+            { 303, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Smega Console Key", DoorId = 3 } },
+            { 304, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Lab Key", DoorId = 4 } },
+            { 305, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Home Town Key", DoorId = 5 } },
             //{ 306, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 6} },
             //{ 307, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 7} },
             //{ 308, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 8} },

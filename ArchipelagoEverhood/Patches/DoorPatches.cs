@@ -155,8 +155,7 @@ namespace ArchipelagoEverhood.Patches
                         else if (text.Contains("Gold"))
                             ElevatorItem = Item.RoomKeyGold;
 
-                        
-                        
+
                         Globals.Logging.Log("MenuDialog", $"Chosen {text} : {ElevatorItem}");
                         Flowchart flowchart = targetBlock.GetFlowchart();
                         Flowchart.choosing = false;
@@ -182,7 +181,6 @@ namespace ArchipelagoEverhood.Patches
                 return true;
             }
         }
-
     }
 
     [HarmonyPatch(typeof(VariableCondition), "EvaluateCondition")]
@@ -195,9 +193,9 @@ namespace ArchipelagoEverhood.Patches
             {
                 if (!Globals.SessionHandler.LoggedIn || !MenuDialogPatch.ElevatorItem.HasValue)
                     return true;
-                
+
                 Globals.Logging.Log("EvaluateCondition", $"Check: {___variable.Key}");
-                
+
                 if (___variable.Key == "GL_1FinishedHillbertQuest")
                 {
                     if (MenuDialogPatch.ElevatorItem != Item.RoomKey23)
@@ -206,7 +204,7 @@ namespace ArchipelagoEverhood.Patches
                     __result = true;
                     return false;
                 }
-                
+
                 if (___variable.Key == "GL_2FinishedHillbertQuest")
                 {
                     if (MenuDialogPatch.ElevatorItem != Item.RoomKeyGold)

@@ -56,11 +56,16 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             }
 
-            var infProjExperience = typeof(InfinityProjectExperience);
-            var xpRewardInfo = infProjExperience.GetField("xpRewardInfo", BindingFlags.Instance | BindingFlags.NonPublic);
-            OriginalXpLevels = (Dictionary<string, int>)xpRewardInfo.GetValue(Globals.ServicesRoot.InfinityProjectExperience);
-            xpRewardInfo.SetValue(Globals.ServicesRoot.InfinityProjectExperience, OriginalXpLevels);
-            GameObject.Destroy(Globals.ExitToHubButton.gameObject);
+            if (Globals.ServicesRoot != null)
+            {
+                var infProjExperience = typeof(InfinityProjectExperience);
+                var xpRewardInfo = infProjExperience.GetField("xpRewardInfo", BindingFlags.Instance | BindingFlags.NonPublic);
+                OriginalXpLevels = (Dictionary<string, int>)xpRewardInfo.GetValue(Globals.ServicesRoot.InfinityProjectExperience);
+                xpRewardInfo.SetValue(Globals.ServicesRoot.InfinityProjectExperience, OriginalXpLevels);
+            }
+            
+            if (Globals.ExitToHubButton)
+                GameObject.Destroy(Globals.ExitToHubButton.gameObject);
         }
 
         public void OnSceneChange(string sceneName, Scene scene)

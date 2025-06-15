@@ -76,7 +76,7 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 48, "Squirrel-Battle", "GL_1A_HH4_SquirrelDead", 400), //400xp (A lot of Squirrels)
             //Todo: Move Upwards
             new BattleData(_battleStartId + 50, "Hyena-Battle", "GL_B3_M1EncounterDead", 50), //50xp Opus and Screech
-            
+
             //Year 3000 (unlocked after Dragon)
             new BattleData(_battleStartId + 51, "Thriller-Battle", "GL_1A_M4_ThrillerDead", 50), // Required, before switch
             new BattleData(_battleStartId + 52, "Lurker-Battle", "GL_1A_M4_LurkerDead", 50), //In Cave, Required
@@ -201,8 +201,8 @@ namespace ArchipelagoEverhood.Data
         public static readonly HashSet<string> VictoryBattles = new()
         {
             "DragonPart2-Battle"
-             // new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", 0),
-             // CatGodHairball-Battle //777xp
+            // new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", 0),
+            // CatGodHairball-Battle //777xp
         };
     }
 }

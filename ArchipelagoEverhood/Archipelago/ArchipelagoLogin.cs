@@ -156,6 +156,8 @@ namespace ArchipelagoEverhood.Archipelago
             }
             catch (Exception e)
             {
+                if (Globals.SessionHandler.LoggedIn)
+                    Globals.SessionHandler.Disconnect(true).ConfigureAwait(false);
                 StopWaiting(e);
             }
         }

@@ -135,20 +135,22 @@ namespace ArchipelagoEverhood.Archipelago
 
         public void SendCompletion() => _currentSession!.SetGoalAchieved();
 
-        public async Task Disconnect()
+        public async Task Disconnect(bool error = false)
         {
             try
             {
                 if (_currentSession == null)
                     throw new Exception("Trying to disconnect from a non-existent connection?");
 
-                await _currentSession.Socket.DisconnectAsync();
-                Globals.EverhoodOverrides.ArchipelagoDisconnected();
+                if (_currentSession.Socket != null)
+                    await _currentSession.Socket.DisconnectAsync();
+                Globals.EverhoodOverrides?.ArchipelagoDisconnected();
                 LoggedIn = false;
                 LogicHandler = null;
                 ItemHandler = null;
                 _currentSession = null;
-                Globals.LoginHandler.StopWaiting(null);
+                if (!error)
+                    Globals.LoginHandler.StopWaiting(null);
             }
             catch (Exception e)
             {

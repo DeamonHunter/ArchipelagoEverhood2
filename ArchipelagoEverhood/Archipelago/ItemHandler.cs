@@ -204,7 +204,7 @@ namespace ArchipelagoEverhood.Archipelago
 
         public void RemoveItem(global::Archipelago.MultiClient.Net.Models.ItemInfo itemInfo)
         {
-             Globals.Logging.LogDebug("ItemHandler", $"Looking to remove: {itemInfo.ItemDisplayName}");
+            Globals.Logging.LogDebug("ItemHandler", $"Looking to remove: {itemInfo.ItemDisplayName}");
             if (_currentSlot != itemInfo.Player.Slot || _currentTeam != itemInfo.Player.Team)
             {
                 Globals.Logging.Error("ItemHandler", $"Tried to Unlock someone else's item. {itemInfo.ItemDisplayName} : {itemInfo.ItemId} : {itemInfo.Player.Slot}");
