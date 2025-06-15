@@ -59,7 +59,7 @@ namespace ArchipelagoEverhood.Logic
             foreach (Transform child in gameplay.transform)
             {
                 var value = _keysToDoors.FirstOrDefault(x => x.Value == child.name);
-                if (value.Value == null)
+                if (value.Value is null or "Hall Of Con")
                     continue;
 
                 child.gameObject.SetActive(_activeDoors.Contains(value.Key));
