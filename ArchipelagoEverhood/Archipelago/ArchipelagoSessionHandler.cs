@@ -91,7 +91,7 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.TopdownRoot = GameObject.FindObjectsByType<Main_TopdownRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
             Globals.GameplayRoot = GameObject.FindObjectsByType<Main_GameplayRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
             Globals.SceneManagerRoot = GameObject.FindObjectsByType<SceneManagerRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
-            
+
             //Cache Victory objects so its easier to check.
             Globals.BattleVictoryResult = (BattleVictoryResult)(typeof(Main_GameplayRoot).GetField("battleVictoryResult", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.GameplayRoot));
             Globals.VictoryScreenCanvas = (Canvas)(typeof(BattleVictoryResult).GetField("victoryCanvas", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Globals.BattleVictoryResult));
@@ -122,6 +122,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             LogicHandler!.Update();
             ItemHandler!.Update();
+            Globals.EverhoodDoors.Update();
         }
 
         public void QuitToMenu()

@@ -63,7 +63,7 @@ namespace ArchipelagoEverhood.Archipelago
                 OriginalXpLevels = (Dictionary<string, int>)xpRewardInfo.GetValue(Globals.ServicesRoot.InfinityProjectExperience);
                 xpRewardInfo.SetValue(Globals.ServicesRoot.InfinityProjectExperience, OriginalXpLevels);
             }
-            
+
             if (Globals.ExitToHubButton)
                 GameObject.Destroy(Globals.ExitToHubButton.gameObject);
         }
@@ -71,7 +71,10 @@ namespace ArchipelagoEverhood.Archipelago
         public void OnSceneChange(string sceneName, Scene scene)
         {
             if (Globals.CurrentTopdownLevel == -1)
+            {
                 Globals.CurrentTopdownLevel = scene.buildIndex;
+                Globals.Logging.LogDebug("Overrides", $"Setting Scene to {Globals.CurrentTopdownLevel}");
+            }
 
             Globals.ExitToHubButton.SetActive(EverhoodHelpers.HasFlag("Archipelago_ReachedMain") && sceneName != "CosmicHubInfinity");
             switch (sceneName)

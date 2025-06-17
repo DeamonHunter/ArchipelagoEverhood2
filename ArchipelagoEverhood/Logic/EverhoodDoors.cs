@@ -15,6 +15,7 @@ namespace ArchipelagoEverhood.Logic
 
         private int _marzianKeys;
         private const long marzian_key_id = 1;
+        private int _frameCountdown;
 
         private static readonly Dictionary<long, string> _keysToDoors = new()
         {
@@ -31,6 +32,21 @@ namespace ArchipelagoEverhood.Logic
         {
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["Archipelago_ReachedMain"] = true;
             SpawnMarzianEra0Door(scene);
+            _frameCountdown = 5;
+        }
+
+        public void Update()
+        {
+            if (_frameCountdown <= 0)
+                return;
+
+            _frameCountdown--;
+            if (_frameCountdown > 0)
+                return;
+
+            var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
+            if (!scene.isLoaded)
+                throw new Exception("Failed to load the hub even though we are in it???");
             ChangeDoorsMainHub(scene);
         }
 
@@ -38,7 +54,12 @@ namespace ArchipelagoEverhood.Logic
         {
             _activeDoors.Add(keyId);
             if (keyId == marzian_key_id)
+            {
                 _marzianKeys++;
+                Globals.Logging.Log("EverhoodDoors", $"Got Key: {keyId}. Count: {marzian_key_id}");
+            }
+            else
+                Globals.Logging.Log("EverhoodDoors", $"Got Key: {keyId}");
 
             var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
             if (scene.isLoaded)
@@ -63,56 +84,100 @@ namespace ArchipelagoEverhood.Logic
                     continue;
 
                 child.gameObject.SetActive(_activeDoors.Contains(value.Key));
-
-                if (value.Value != "MarzianStoryDoor")
-                    continue;
-
-                for (var i = child.childCount - 1; i >= 0; i--)
+                switch (value.Value)
                 {
-                    var transform = child.GetChild(i);
-                    switch (transform.name)
+                    default:
+                        child.gameObject.SetActive(_activeDoors.Contains(value.Key));
+                        break;
+
+                    case "Smega_Door":
                     {
-                        case "LevelLoad-MarzianPart1":
-                            transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1);
-                            break;
-                        case "LevelLoad-MarzianPart2":
-                            transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M2_Something") && _marzianKeys >= 2);
-                            break;
-                        case "LevelLoad-MarzianPart3":
-                            transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M3_Something") && _marzianKeys >= 3);
-                            break;
-                        case "LevelLoad-MarzianPart4":
-                            transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
-                            break;
-                        case "StoneHengeDoorBottom":
-                            if (!EverhoodHelpers.TryGetChildWithName("NumberPad", transform, out var numberPad))
-                                throw new Exception("Failed to edit Main Hub: Could not find 'NumberPad'.");
+                        if (_activeDoors.Contains(value.Key))
+                        {
+                            child.transform.position = new Vector3(1.2f, -3.5f, 0f);
+                            child.gameObject.SetActive(true);
+                        }
+                        else
+                            child.gameObject.SetActive(false);
 
-                            for (var j = numberPad.childCount - 1; j >= 0; j--)
+                        break;
+                    }
+                    case "MarzianStoryDoor":
+                    {
+                        var anyActive = false;
+                        for (var i = 0; i < child.childCount; i++)
+                        {
+                            var transform = child.GetChild(i);
+                            switch (transform.name)
                             {
-                                var numberTransform = numberPad.GetChild(j);
-                                switch (numberTransform.name)
+                                case "LevelLoad-MarzianPart1":
                                 {
-                                    case "Part1Numbers":
-                                        transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1);
-                                        break;
-                                    case "Part2Numbers":
-                                        transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M2_GorillaDefeated") && _marzianKeys >= 2);
-                                        break;
-                                    case "Part3Numbers":
-                                        transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M3_Something") && _marzianKeys >= 3);
-                                        break;
-                                    case "Part4Numbers":
-                                        transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
-                                        break;
-                                    case "Part5Numbers":
-                                    case "Part6Numbers":
-                                        GameObject.Destroy(numberTransform.gameObject);
-                                        break;
+                                    var active = !EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1;
+                                    transform.gameObject.SetActive(active);
+                                    anyActive |= active;
+                                    Globals.Logging.Log("Doors", $"1:{active}");
+                                    break;
                                 }
-                            }
+                                case "LevelLoad-MarzianPart2":
+                                {
+                                    var active = !EverhoodHelpers.HasFlag("GL_M2_GorillaDefeated") && _marzianKeys >= 2;
+                                    transform.gameObject.SetActive(active);
+                                    anyActive |= active;
+                                    Globals.Logging.Log("Doors", $"2:{active}");
+                                    break;
+                                }
+                                case "LevelLoad-MarzianPart3":
+                                {
+                                    var active = !EverhoodHelpers.HasFlag("GL_M3_GorillaDefeated") && _marzianKeys >= 3;
+                                    transform.gameObject.SetActive(active);
+                                    anyActive |= active;
+                                    Globals.Logging.Log("Doors", $"3:{active}");
+                                    break;
+                                }
+                                case "LevelLoad-MarzianPart4":
+                                {
+                                    var active = !EverhoodHelpers.HasFlag("GL_M4_GorillaDefeated") && _marzianKeys >= 4;
+                                    transform.gameObject.SetActive(active);
+                                    anyActive |= active;
+                                    Globals.Logging.Log("Doors", $"4:{active}");
+                                    break;
+                                }
+                                case "Portal_Marzian":
+                                    transform.gameObject.SetActive(anyActive);
+                                    break;
+                                case "StoneHengeDoorBottom":
+                                    if (!EverhoodHelpers.TryGetChildWithName("NumberPad", transform, out var numberPad))
+                                        throw new Exception("Failed to edit Main Hub: Could not find 'NumberPad'.");
 
-                            break;
+                                    for (var j = numberPad.childCount - 1; j >= 0; j--)
+                                    {
+                                        var numberTransform = numberPad.GetChild(j);
+                                        switch (numberTransform.name)
+                                        {
+                                            case "Part1Numbers":
+                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1);
+                                                break;
+                                            case "Part2Numbers":
+                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M2_GorillaDefeated") && _marzianKeys >= 2);
+                                                break;
+                                            case "Part3Numbers":
+                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M3_Something") && _marzianKeys >= 3);
+                                                break;
+                                            case "Part4Numbers":
+                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
+                                                break;
+                                            case "Part5Numbers":
+                                            case "Part6Numbers":
+                                                GameObject.Destroy(numberTransform.gameObject);
+                                                break;
+                                        }
+                                    }
+
+                                    break;
+                            }
+                        }
+
+                        break;
                     }
                 }
             }
