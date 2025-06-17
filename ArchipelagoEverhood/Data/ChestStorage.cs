@@ -36,8 +36,7 @@ namespace ArchipelagoEverhood.Data
 
             new ChestData(_itemStartId + 22, "Marzian_Part1Hero_Mines", "50xp", "GL_1A_M1m_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 23, "Marzian_Part1Hero_Mines", "WeaponToken", "GL_M1m_ElectricSwitch_Removed", ChestType.Item),
-            new ChestData(_itemStartId + 24, "Marzian_Part1Hero_MinesHallway", "CrimsonBandana", "GL_2A_M1h_ChestOpen",
-                ChestType.Item), //Todo: Block the other door so chest is not missable? Or set things up so re-entry is possible?
+            new ChestData(_itemStartId + 24, "Marzian_Part1Hero_MinesHallway", "CrimsonBandana", "GL_2A_M1h_ChestOpen", ChestType.Item), //Todo: Block the other door so chest is not missable? Or set things up so re-entry is possible?
             new ChestData(_itemStartId + 25, "Marzian_Part1Hero_MinesHallway", "Red_Bandana", "GL_2A_M1h_ChestOpen", ChestType.Cosmetic),
 
             //Todo: Hub Key
@@ -55,8 +54,8 @@ namespace ArchipelagoEverhood.Data
 
             new ChestData(_itemStartId + 36, "Neon_Hillbert_Room2Bobo", "50xp", "GL_1A_HH2_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 37, "Neon_HotelEntrance", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item), //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
-            
-            //Add to the other HotelEntrance/Key items on the list
+
+            //Todo: This one is broken due to variable being set after giving.
             new ChestData(_itemStartId + 39, "IntroLevel", "Clock", null, ChestType.Item),
             new ChestData(_itemStartId + 41, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
             new ChestData(_itemStartId + 42, "Neon_HotelEntrance", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
@@ -95,32 +94,33 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 63, "DeathCoinDoor_LiminalRooms", "WeaponToken", "GL_1A_LH_ChestOpen", ChestType.Item),
             new ChestData(_itemStartId + 64, "DeathCoinDoor_LiminalRooms", "WeaponToken", "GL_2A_LH_ChestOpen", ChestType.Item),
             //Smega Station
-            new ChestData(_itemStartId + 65, "Smega_Start", "50xp", "GL_1A_SMmb_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 66, "Smega_Start", "50xp", "GL_3A_SSmb_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 67, "Smega_Start", "WeaponToken", "GL_4A_SSmb_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 68, "Smega_Audio", "50xp", "GL_2A_SSmb_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 69, "Smega_Audio", "GasMask", "GL_SS_GasMaskGiven", ChestType.Cosmetic), // Speaking to Doctor Dump after fixing issues in RAM
-            new ChestData(_itemStartId + 70, "Smega_Audio", "WeaponToken", "GL_SS_GasMaskGiven", ChestType.Item), // Speaking to Doctor Dump after fixing issues in RAM
-            new ChestData(_itemStartId + 71, "Smega_RAM", "50xp", "GL_SSRAM1_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 65, "SMEGA_Motherboard-Hub", "50xp", "GL_1A_SMmb_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 66, "SMEGA_Motherboard-Hub", "50xp", "GL_3A_SSmb_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 67, "SMEGA_Motherboard-Hub", "WeaponToken", "GL_4A_SSmb_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 68, "SMEGA_Motherboard-Hub", "50xp", "GL_2A_SSmb_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 69, "SMEGA_Motherboard-Hub", "Gasmask", "GL_SS_GasMaskGiven", ChestType.Cosmetic), // Speaking to Doctor Dump after fixing issues in RAM
+            //Todo: This one is broken due to variable being set after giving.
+            new ChestData(_itemStartId + 70, "SMEGA_Motherboard-Hub", "WeaponToken", "GL_SS_OrangeQuestComplete", ChestType.Item), // Speaking to Doctor Dump after fixing issues in RAM
+            new ChestData(_itemStartId + 71, "SMEGA_RAM", "50xp", "GL_SSRAM1_ChestOpen", ChestType.XP),
             //new ChestData(_itemStartId + X, "Smega_RAM", "", "GL_SSRAM2_ChestOpen", ChestType.), // Not a real chest, turns into a rocket and leaves
-            new ChestData(_itemStartId + 72, "Smega_RAM", "100xp", "GL_SSRAM3_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 73, "Smega_RAM", "50xp", "GL_SSRAM4_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 74, "Smega_RAM", "WeaponToken", "GL_SSRAM5_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 72, "SMEGA_RAM", "100xp", "GL_SSRAM3_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 73, "SMEGA_RAM", "50xp", "GL_SSRAM4_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 74, "SMEGA_RAM", "WeaponToken", "GL_SSRAM5_ChestOpen", ChestType.Item),
             //new ChestData(_itemStartId + X, "Smega_RAM", "50xp", "GL_SSRAM6_ChestOpen", ChestType.XP), // Couldn't find, unsure if exists
-            new ChestData(_itemStartId + 75, "Smega_RAM", "50xp", "GL_SSRAM7_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 76, "Smega_RAM", "WeaponToken", "GL_SSRAM8_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 77, "Smega_RAM", "50xp", "GL_SSRAM9_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 78, "Smega_RAM", "WeaponToken", "GL_SSRAM10_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 79, "Smega_RAM", "50xp", "GL_SSRAM11_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 80, "Smega_RAM", "50xp", "GL_SSRAM12_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 81, "Smega_RAM", "WeaponToken", "GL_SSRAM13_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 82, "Smega_RAM", "50xp", "GL_SSRAM14_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 75, "SMEGA_RAM", "50xp", "GL_SSRAM7_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 76, "SMEGA_RAM", "WeaponToken", "GL_SSRAM8_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 77, "SMEGA_RAM", "50xp", "GL_SSRAM9_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 78, "SMEGA_RAM", "WeaponToken", "GL_SSRAM10_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 79, "SMEGA_RAM", "50xp", "GL_SSRAM11_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 80, "SMEGA_RAM", "50xp", "GL_SSRAM12_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 81, "SMEGA_RAM", "WeaponToken", "GL_SSRAM13_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 82, "SMEGA_RAM", "50xp", "GL_SSRAM14_ChestOpen", ChestType.XP),
             //[Dot] I didn't find GL_1A_SSp_ChestOpen
-            new ChestData(_itemStartId + 83, "Smega_Processor", "WeaponToken", "GL_2A_SSp_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 84, "Smega_Processor", "WeaponToken", "GL_3A_SSp_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 85, "Smega_Processor", "50xp", "GL_4A_SSp_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 86, "Smega_Processor", "50xp", "GL_5A_SSp_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 87, "Smega_Processor", "50xp", "GL_6A_SSp_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 83, "SMEGA_Processor", "WeaponToken", "GL_2A_SSp_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 84, "SMEGA_Processor", "WeaponToken", "GL_3A_SSp_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 85, "SMEGA_Processor", "50xp", "GL_4A_SSp_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 86, "SMEGA_Processor", "50xp", "GL_5A_SSp_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 87, "SMEGA_Processor", "50xp", "GL_6A_SSp_ChestOpen", ChestType.XP),
             //Death Mountain
             new ChestData(_itemStartId + 88, "DeathMountain", "50xp", "Chest_1A_BI", ChestType.XP),
             new ChestData(_itemStartId + 89, "DeathMountain", "WeaponToken", "Chest_2A_BI", ChestType.Item),
