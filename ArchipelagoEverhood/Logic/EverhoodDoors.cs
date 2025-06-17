@@ -56,7 +56,7 @@ namespace ArchipelagoEverhood.Logic
             if (keyId == marzian_key_id)
             {
                 _marzianKeys++;
-                Globals.Logging.Log("EverhoodDoors", $"Got Key: {keyId}. Count: {marzian_key_id}");
+                Globals.Logging.Log("EverhoodDoors", $"Got Key: {keyId}. Count: {_marzianKeys}");
             }
             else
                 Globals.Logging.Log("EverhoodDoors", $"Got Key: {keyId}");
@@ -94,7 +94,31 @@ namespace ArchipelagoEverhood.Logic
                     {
                         if (_activeDoors.Contains(value.Key))
                         {
-                            child.transform.position = new Vector3(1.2f, -3.5f, 0f);
+                            child.transform.position = new Vector3(1.8f, -2.45f, 0f);
+                            child.gameObject.SetActive(true);
+                        }
+                        else
+                            child.gameObject.SetActive(false);
+
+                        break;
+                    }
+                    case "TheLab":
+                    {
+                        if (_activeDoors.Contains(value.Key))
+                        {
+                            child.transform.position = new Vector3(4.019f, -2.303f, 0);
+                            child.gameObject.SetActive(true);
+                        }
+                        else
+                            child.gameObject.SetActive(false);
+
+                        break;
+                    }
+                    case "HomeTown_Door":
+                    {
+                        if (_activeDoors.Contains(value.Key))
+                        {
+                            child.transform.position = new Vector3(1.199f, -3.153f, 0f);
                             child.gameObject.SetActive(true);
                         }
                         else
@@ -143,9 +167,12 @@ namespace ArchipelagoEverhood.Logic
                                     break;
                                 }
                                 case "Portal_Marzian":
+                                {
                                     transform.gameObject.SetActive(anyActive);
                                     break;
+                                }
                                 case "StoneHengeDoorBottom":
+                                {
                                     if (!EverhoodHelpers.TryGetChildWithName("NumberPad", transform, out var numberPad))
                                         throw new Exception("Failed to edit Main Hub: Could not find 'NumberPad'.");
 
@@ -155,16 +182,16 @@ namespace ArchipelagoEverhood.Logic
                                         switch (numberTransform.name)
                                         {
                                             case "Part1Numbers":
-                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1);
+                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1);
                                                 break;
                                             case "Part2Numbers":
-                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M2_GorillaDefeated") && _marzianKeys >= 2);
+                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M2_GorillaDefeated") && _marzianKeys >= 2);
                                                 break;
                                             case "Part3Numbers":
-                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M3_Something") && _marzianKeys >= 3);
+                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M3_Something") && _marzianKeys >= 3);
                                                 break;
                                             case "Part4Numbers":
-                                                transform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
+                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
                                                 break;
                                             case "Part5Numbers":
                                             case "Part6Numbers":
@@ -174,6 +201,7 @@ namespace ArchipelagoEverhood.Logic
                                     }
 
                                     break;
+                                }
                             }
                         }
 
