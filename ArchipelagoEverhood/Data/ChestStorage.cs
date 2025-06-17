@@ -84,10 +84,10 @@ namespace ArchipelagoEverhood.Data
             //Year 5000 (requires Crystal Key)
             //new ChestData(_itemStartId + 58, "Marzian_Part5Hero", "SoulWeapon", "GL_M6_WeaponPickedUp", ChestType.Item),
             //Lab (gives code 888 688 for Colosseum)
-            new ChestData(_itemStartId + 59, "Lab", "35xp", "GL_1A_LAB_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 60, "Lab", "Clover", "GL_3A_LAB_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 61, "Lab", "WeaponToken", "GL_2A_LAB_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 110, "Lab", "Katana", "Add Katana", ChestType.Item), // I don't know what to do about the katana, Add Katana was the only thing I saw.
+            new ChestData(_itemStartId + 59, "TheLab", "35xp", "GL_1A_LAB_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 60, "TheLab", "Clover", "GL_3A_LAB_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 61, "TheLab", "WeaponToken", "GL_2A_LAB_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 110, "TheLab", "Katana", "GL_1A_LAB_DoorOfTheDeadBattle", ChestType.Item), //Todo: Check if this is the right thing. There are a couple
             //Omega Room
             new ChestData(_itemStartId + 62, "Neon_Hillbert_Room5", "WeaponToken", "GL_1A_HH5_ChestOpen", ChestType.Item),
             //Liminal Rooms, death coin door
