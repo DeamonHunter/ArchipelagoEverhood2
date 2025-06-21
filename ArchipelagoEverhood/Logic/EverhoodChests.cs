@@ -79,7 +79,7 @@ namespace ArchipelagoEverhood.Logic
 
                 if (chestData.Achieved)
                 {
-                    Globals.Logging.Log("Chests", "Chest Already Opened");
+                    chestData.Shown = true;
                     return chestData;
                 }
                 

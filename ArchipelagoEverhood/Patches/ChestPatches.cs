@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArchipelagoEverhood.Data;
 using Fungus;
 using HarmonyLib;
 using MelonLoader;
@@ -284,16 +285,16 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(___cosmetic);
                 if (data == null)
                     return true;
+                
+                if (data.Shown)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
-                    if (data.Shown)
-                    {
-                        __instance.Continue();
-                        return false;
-                    }
-
                     data.Shown = true;
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);
                 }
