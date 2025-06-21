@@ -25,9 +25,9 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (___showDialogue || data.ForceSayDialogue)
+                if (___showDialogue || data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
-                    if (data.ForceSayDialogue && data.Shown)
+                    if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue) && data.Shown)
                     {
                         __instance.Continue();
                         return false;
@@ -67,9 +67,9 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (data.ForceSayDialogue)
+                if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
-                    if (data.ForceSayDialogue && data.Shown)
+                    if (data.Shown)
                     {
                         __instance.Continue();
                         return false;
@@ -110,9 +110,9 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (___showDialogue || data.ForceSayDialogue)
+                if (___showDialogue || data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
-                    if (data.ForceSayDialogue && data.Shown)
+                    if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue) && data.Shown)
                     {
                         __instance.Continue();
                         return false;
@@ -152,9 +152,9 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (data.ForceSayDialogue)
+                if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
-                    if (data.ForceSayDialogue && data.Shown)
+                    if (data.Shown)
                     {
                         __instance.Continue();
                         return false;
@@ -194,9 +194,9 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (data.ForceSayDialogue)
+                if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
-                    if (data.ForceSayDialogue && data.Shown)
+                    if (data.Shown)
                     {
                         __instance.Continue();
                         return false;
@@ -236,7 +236,7 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (data.ForceSayDialogue)
+                if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
                     if (data.Shown)
                     {
@@ -286,7 +286,7 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (data.ForceSayDialogue)
+                if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {
                     if (data.Shown)
                     {
@@ -351,7 +351,7 @@ namespace ArchipelagoEverhood.Patches
                     return true;
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
-                if (data.ForceSayDialogue || ___showDialogue)
+                if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue) || ___showDialogue)
                 {
                     Globals.Logging.Log("XP Patch", $"Force Show Dialogue: {itemText}");
                     SayOnEnterPatch.ForceShowDialogue(itemText, __instance);

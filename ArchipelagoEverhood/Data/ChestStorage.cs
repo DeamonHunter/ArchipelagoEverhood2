@@ -14,15 +14,15 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 3, "Neon_NeonJungle", "75xp", "GL_4A_NJ_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 4, "Neon_NeonJungle", "100xp", "GL_5A_NJ_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 5, "Neon_NeonJungle", "0xp", "GL_6A_NJ_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 6, "Neon_NeonJungle", "WeaponToken", "GL_NJ_WeaponCrystalPickedUp", ChestType.Item),
+            new ChestData(_itemStartId + 6, "Neon_NeonJungle", "WeaponToken", "GL_NJ_WeaponCrystalPickedUp", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
 
-            new ChestData(_itemStartId + 7, "Neon_NeonDistrict", "Hairstyle1_Anime", "NG_Hair1Spike", ChestType.Cosmetic), //Given on startup
-            new ChestData(_itemStartId + 8, "Neon_NeonDistrict", "Mage_Hat", null, ChestType.Cosmetic, true), //This does not seem to have a variable. Likely because these don't use it.
-            new ChestData(_itemStartId + 9, "Neon_NeonDistrict", "Hairstyle2_Wild", "NG_Hair2Wild", ChestType.Cosmetic, true),
-            new ChestData(_itemStartId + 10, "Neon_NeonDistrict", "Hairstyle3_Backslick", "NG_Hair3Back", ChestType.Cosmetic, true),
-            new ChestData(_itemStartId + 11, "Neon_NeonDistrict", "Hairstyle4_Stylish", "NG_Hair4Stylish", ChestType.Cosmetic, true),
-            new ChestData(_itemStartId + 12, "Neon_NeonDistrict", "Hairstyle5_Natural", "NG_Hair5Natural", ChestType.Cosmetic, true),
-            new ChestData(_itemStartId + 13, "Neon_NeonDistrict", "Hairstyle6_Afro", "NG_Hair6Afro", ChestType.Cosmetic, true),
+            new ChestData(_itemStartId + 7, "Neon_NeonDistrict", "Hairstyle1_Anime", "NG_Hair1Spike", ChestType.Cosmetic, RewardConditions.ForceShowDialogue),
+            new ChestData(_itemStartId + 8, "Neon_NeonDistrict", "Mage_Hat", null, ChestType.Cosmetic, RewardConditions.ForceShowDialogue), //This does not seem to have a variable. Likely because these don't use it.
+            new ChestData(_itemStartId + 9, "Neon_NeonDistrict", "Hairstyle2_Wild", "NG_Hair2Wild", ChestType.Cosmetic, RewardConditions.ForceShowDialogue),
+            new ChestData(_itemStartId + 10, "Neon_NeonDistrict", "Hairstyle3_Backslick", "NG_Hair3Back", ChestType.Cosmetic, RewardConditions.ForceShowDialogue),
+            new ChestData(_itemStartId + 11, "Neon_NeonDistrict", "Hairstyle4_Stylish", "NG_Hair4Stylish", ChestType.Cosmetic, RewardConditions.ForceShowDialogue),
+            new ChestData(_itemStartId + 12, "Neon_NeonDistrict", "Hairstyle5_Natural", "NG_Hair5Natural", ChestType.Cosmetic, RewardConditions.ForceShowDialogue),
+            new ChestData(_itemStartId + 13, "Neon_NeonDistrict", "Hairstyle6_Afro", "NG_Hair6Afro", ChestType.Cosmetic, RewardConditions.ForceShowDialogue),
 
             new ChestData(_itemStartId + 14, "EternalWar_Battlefield", "100xp", "GL_1_EWb_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 15, "EternalWar_Battlefield", "Hotdog", "GL_2_EWb_ChestOpen", ChestType.Cosmetic),
@@ -32,12 +32,13 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 19, "EternalWar_Battlefield", "50xp", "GL_5_EWb_ChestOpen", ChestType.XP),
 
             new ChestData(_itemStartId + 20, "EternalWar_Dungeon", "50xp", "GL_1A_EWd_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 21, "EternalWar_Dungeon", "WeaponToken", "GL_EWd_TrapsActive", ChestType.Item, expectedValue: false),
+            new ChestData(_itemStartId + 21, "EternalWar_Dungeon", "WeaponToken", "GL_EWd_TrapsActive", ChestType.Item, RewardConditions.DontSetVariableOnGiven, false),
 
             new ChestData(_itemStartId + 22, "Marzian_Part1Hero_Mines", "50xp", "GL_1A_M1m_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 23, "Marzian_Part1Hero_Mines", "WeaponToken", "GL_M1m_ElectricSwitch_Removed", ChestType.Item),
-            new ChestData(_itemStartId + 24, "Marzian_Part1Hero_MinesHallway", "CrimsonBandana", "GL_2A_M1h_ChestOpen", ChestType.Item), //Todo: Block the other door so chest is not missable? Or set things up so re-entry is possible?
-            new ChestData(_itemStartId + 25, "Marzian_Part1Hero_MinesHallway", "Red_Bandana", "GL_2A_M1h_ChestOpen", ChestType.Cosmetic),
+            new ChestData(_itemStartId + 23, "Marzian_Part1Hero_Mines", "WeaponToken", "GL_M1m_ElectricSwitch_Removed", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
+            //Todo: As this chest gives 2 items, we need to not have it unlock unless both are given.
+            new ChestData(_itemStartId + 24, "Marzian_Part1Hero_MinesHallway", "CrimsonBandana", "GL_2A_M1h_ChestOpen", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
+            new ChestData(_itemStartId + 25, "Marzian_Part1Hero_MinesHallway", "Red_Bandana", "GL_2A_M1h_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
 
             //Todo: Hub Key
             new ChestData(_itemStartId + 26, "Neon_HotelEntrance", "RoomKey23", "GL_1RoomKeyInventory", ChestType.Item),
@@ -56,7 +57,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 37, "Neon_HotelEntrance", "RoomKeyGreen", "GL_3RoomKeyInventory", ChestType.Item), //Based on map progression, [Dot] Possibly Green 2/Year 1000 still need to test this.
 
             //Todo: This one is broken due to variable being set after giving.
-            new ChestData(_itemStartId + 39, "IntroLevel", "Clock", null, ChestType.Item),
+            new ChestData(_itemStartId + 39, "IntroLevel", "Clock", "GL_MovementTutorialBattle", ChestType.Item, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 41, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
             new ChestData(_itemStartId + 42, "Neon_HotelEntrance", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
             new ChestData(_itemStartId + 43, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
@@ -65,7 +66,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 46, "Neon_HotelEntrance", "WeaponToken", "GL_5A_HHe_ChestOpen", ChestType.Item), // After Omega Room
             new ChestData(_itemStartId + 47, "Neon_HotelEntrance", "JesterHat", "NG_Cosmetic_JesterHat", ChestType.Cosmetic), // After Omega Room
             //Floor Pinecone - The Simple Life
-            new ChestData(_itemStartId + 48, "Neon_Hillbert_Room4", "50xp", "GL_1A_HH4_ChestOpen", ChestType.XP),
+            new ChestData(_itemStartId + 48, "Neon_Hillbert_Room4_Winter", "50xp", "GL_1A_HH4_ChestOpen", ChestType.XP),
             //Dragon gives soul weapon but I didn't see the command for it, will need to recheck. 
             //Year 3000 (accessible after Dragon)
             new ChestData(_itemStartId + 49, "Marzian_Part3Hero_Wasteland", "100xp", "GL_1A_M4_ChestOpen", ChestType.XP),
@@ -73,7 +74,7 @@ namespace ArchipelagoEverhood.Data
             //Year 4000
             new ChestData(_itemStartId + 51, "Marzian_Part4Hero", "WeaponToken", "GL_1C_M5_ChestOpen", ChestType.Item),
             //Mushroom Forest (accessible after Dragon)
-            new ChestData(_itemStartId + 52, "MushroomBureau_SunPath", "SunInsignia", "GL_MB_Sun", ChestType.Item),
+            new ChestData(_itemStartId + 52, "MushroomBureau_SunPath", "SunInsignia", "GL_MB_Sun", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 53, "MushroomBureau_MoonPath", "WeaponToken", "GL_1A_MBm_ChestOpen", ChestType.Item),
             new ChestData(_itemStartId + 54, "MushroomBureau_MoonPath", "MoonInsignia", "GL_MB_Moon", ChestType.Item),
             new ChestData(_itemStartId + 55, "MushroomBureau_MoonPath", "DeathCoin", "GL_MB_DeathCoinPickedUp", ChestType.Item),
@@ -87,7 +88,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 59, "TheLab", "35xp", "GL_1A_LAB_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 60, "TheLab", "Clover", "GL_3A_LAB_ChestOpen", ChestType.Item),
             new ChestData(_itemStartId + 61, "TheLab", "WeaponToken", "GL_2A_LAB_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 110, "TheLab", "Katana", "GL_1A_LAB_DoorOfTheDeadBattle", ChestType.Item), //Todo: Check if this is the right thing. There are a couple
+            new ChestData(_itemStartId + 110, "TheLab", "Katana", "GL_1A_LAB_DoorOfTheDeadBattle", ChestType.Item, RewardConditions.DontSetVariableOnGiven), //Todo: Check if this is the right thing. There are a couple
             //Omega Room
             new ChestData(_itemStartId + 62, "Neon_Hillbert_Room5", "WeaponToken", "GL_1A_HH5_ChestOpen", ChestType.Item),
             //Liminal Rooms, death coin door
@@ -99,8 +100,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 67, "SMEGA_Motherboard-Hub", "WeaponToken", "GL_4A_SSmb_ChestOpen", ChestType.Item),
             new ChestData(_itemStartId + 68, "SMEGA_Motherboard-Hub", "50xp", "GL_2A_SSmb_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 69, "SMEGA_Motherboard-Hub", "Gasmask", "GL_SS_GasMaskGiven", ChestType.Cosmetic), // Speaking to Doctor Dump after fixing issues in RAM
-            //Todo: This one is broken due to variable being set after giving.
-            new ChestData(_itemStartId + 70, "SMEGA_Motherboard-Hub", "WeaponToken", "GL_SS_OrangeQuestComplete", ChestType.Item), // Speaking to Doctor Dump after fixing issues in RAM
+            new ChestData(_itemStartId + 70, "SMEGA_Motherboard-Hub", "WeaponToken", "GL_SS_OrangeQuestComplete", ChestType.Item, RewardConditions.RewardOnVariable), // Speaking to Doctor Dump after fixing issues in RAM
             new ChestData(_itemStartId + 71, "SMEGA_RAM", "50xp", "GL_SSRAM1_ChestOpen", ChestType.XP),
             //new ChestData(_itemStartId + X, "Smega_RAM", "", "GL_SSRAM2_ChestOpen", ChestType.), // Not a real chest, turns into a rocket and leaves
             new ChestData(_itemStartId + 72, "SMEGA_RAM", "100xp", "GL_SSRAM3_ChestOpen", ChestType.XP),
