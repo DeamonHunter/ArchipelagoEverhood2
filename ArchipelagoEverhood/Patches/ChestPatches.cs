@@ -448,7 +448,8 @@ namespace ArchipelagoEverhood.Patches
                     dialog.Writer.SetDisableInstanteComplete(false);
                     if (unlockMovement)
                         topDown.Player.SetTopDownPlayerMovementState(true);
-
+                    
+                    dialog.ClearContinue();
                     dialog.SetActive(false);
                     if (!callingCommand)
                         return;
