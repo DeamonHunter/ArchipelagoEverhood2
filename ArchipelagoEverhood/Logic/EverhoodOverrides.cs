@@ -136,8 +136,19 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnEnterNeonDistrict(Scene scene)
         {
+            if (EverhoodHelpers.HasFlag("GL_ND_PaidStoneguard"))
+            {
+                if (!EverhoodHelpers.TryGetGameObjectWithName("Club10000", scene.GetRootGameObjects(), out var club10000))
+                    throw new Exception("Failed to edit Neon District: Could not find 'Club10000'.");
+                if (!EverhoodHelpers.TryGetChildWithName("GAMEPLAY", club10000, out var clubGameplay))
+                    throw new Exception("Failed to edit Neon District: Could not find 'GAMEPLAY' under 'Club10000'.");
+                if (EverhoodHelpers.TryGetChildWithName("StoneGuardNeon[NPC]", clubGameplay, out var stoneGuard))
+                    stoneGuard.transform.position = new Vector3(55.367f, -12.449f, 0);
+            }
+            
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
                 throw new Exception("Failed to edit Neon District: Could not find 'GAMEPLAY'.");
+            
 
             if (EverhoodHelpers.TryGetChildWithName("FirstTime", gameplay, out var firstTime))
                 firstTime.gameObject.SetActive(false);
