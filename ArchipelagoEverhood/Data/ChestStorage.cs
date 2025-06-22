@@ -42,12 +42,12 @@ namespace ArchipelagoEverhood.Data
 
             //Todo: Hub Key
             new ChestData(_itemStartId + 26, "Neon_HotelEntrance", "RoomKey23", "GL_1RoomKeyInventory", ChestType.Item),
-            new ChestData(_itemStartId + 27, "Neon_HotelEntrance", "100xp", "GL_1A_HHe_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 28, "Neon_HotelEntrance", "CatEarsBald", "GL_1A_HHe_ChestOpen", ChestType.Cosmetic),
-            new ChestData(_itemStartId + 29, "Neon_HotelEntrance", "CatEarsHair", "GL_1A_HHe_ChestOpen", ChestType.Cosmetic),
+            new ChestData(_itemStartId + 27, "Neon_HotelEntrance", "100xp", "GL_1A_HHe_ChestOpen", ChestType.XP, RewardConditions.DontSetVariableOnGiven),
+            new ChestData(_itemStartId + 28, "Neon_HotelEntrance", "CatEarsBald", "GL_1A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
+            new ChestData(_itemStartId + 29, "Neon_HotelEntrance", "CatEarsHair", "GL_1A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 30, "GL_2RoomKeyInventory", "RoomKeyGold", "GL_2RoomKeyInventory", ChestType.Item), //Requires beating 2 starting areas
-            new ChestData(_itemStartId + 31, "Neon_HotelEntrance", "50xp", "GL_2A_HHe_ChestOpen", ChestType.XP),
-            new ChestData(_itemStartId + 32, "Neon_HotelEntrance", "Hairstyle7_OingoBoingo", "GL_2A_HHe_ChestOpen", ChestType.Cosmetic),
+            new ChestData(_itemStartId + 31, "Neon_HotelEntrance", "50xp", "GL_2A_HHe_ChestOpen", ChestType.XP, RewardConditions.DontSetVariableOnGiven),
+            new ChestData(_itemStartId + 32, "Neon_HotelEntrance", "Hairstyle7_OingoBoingo", "GL_2A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
 
             new ChestData(_itemStartId + 33, "Neon_Hillbert_Room1", "50xp", "GL_1A_HH1_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 34, "Neon_Hillbert_Room1", "50xp", "GL_2A_HH1_ChestOpen", ChestType.XP),
@@ -60,8 +60,8 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 39, "IntroLevel", "Clock", "GL_MovementTutorialBattle", ChestType.Item, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 41, "Neon_HotelEntrance", "WeaponToken", "GL_3A_HHe_ChestOpen", ChestType.Item), //Power Gem, Complete Green Floor
             new ChestData(_itemStartId + 42, "Neon_HotelEntrance", "RoomKeyPinecone", "GL_4RoomKeyInventory", ChestType.Item), // Requires Green 3/Year 2000 completed (RoomKeyPinecone)
-            new ChestData(_itemStartId + 43, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item), //Power Gem. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
-            new ChestData(_itemStartId + 44, "Neon_HotelEntrance", "ReindeerSkull", "GL_4A_HHe_ChestOpen", ChestType.Cosmetic), // Reindeer Skull. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
+            new ChestData(_itemStartId + 43, "Neon_HotelEntrance", "WeaponToken", "GL_4A_HHe_ChestOpen", ChestType.Item, RewardConditions.DontSetVariableOnGiven), //Power Gem. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
+            new ChestData(_itemStartId + 44, "Neon_HotelEntrance", "Reindeer_Skull", "GL_4A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven), // Reindeer Skull. Requires Green 3/Year 2000 completed (RoomKeyPinecone)
             new ChestData(_itemStartId + 45, "Neon_HotelEntrance", "RoomKeyOmega", "GL_5RoomKeyInventory", ChestType.Item), // Requires beating Vanguard3D in Irvine's Pocket Dimension
             new ChestData(_itemStartId + 46, "Neon_HotelEntrance", "WeaponToken", "GL_5A_HHe_ChestOpen", ChestType.Item), // After Omega Room
             new ChestData(_itemStartId + 47, "Neon_HotelEntrance", "JesterHat", "NG_Cosmetic_JesterHat", ChestType.Cosmetic), // After Omega Room
