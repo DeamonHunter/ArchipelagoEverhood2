@@ -151,6 +151,10 @@ namespace ArchipelagoEverhood.Data
             //Torment Room 222 883
             new ChestData(_itemStartId + 109, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
             //new ChestData(_itemStartId + 110, "Raven Hub", "SoulWeapon", "GL_DE_DeathCoin", ChestType.Item),
+            new ChestData(_itemStartId + 112, "Hometown_Festival", "5xp", "GL_OrangeCatPetted", ChestType.XP),
+            new ChestData(_itemStartId + 113, "Hometown_Festival", "5xp", "GL_GreyCatPetted", ChestType.XP),
+            new ChestData(_itemStartId + 114, "Hometown_Festival", "-2xp", "GL_BlackCatPetted", ChestType.XP),
+            new ChestData(_itemStartId + 115, "Hometown_Festival", "Braclet", "GL_HT_SoulDetermined", ChestType.Item),
         };
     }
 }

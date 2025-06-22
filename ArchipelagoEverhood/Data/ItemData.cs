@@ -71,13 +71,13 @@ namespace ArchipelagoEverhood.Data
             { 109, new EverhoodItemInfo { Artifact = Artifact.CrimsonBandana, ItemFlags = ItemFlags.NeverExclude, ItemName = "Crimson Bandana" } },
             { 116, new EverhoodItemInfo { Artifact = Artifact.Clock, ItemFlags = ItemFlags.NeverExclude, ItemName = "Stopwatch" } },
             { 118, new EverhoodItemInfo { Artifact = Artifact.Clover, ItemFlags = ItemFlags.NeverExclude, ItemName = "Clover" } },
+            { 119, new EverhoodItemInfo { Artifact = Artifact.Braclet, ItemFlags = ItemFlags.NeverExclude, ItemName = "Bead Braclet" } },
         };
 
         public static Dictionary<long, EverhoodItemInfo> XpsById = new()
         {
             { 200, new EverhoodItemInfo { Xp = 0, ItemFlags = ItemFlags.None, ItemName = "0xp" } },
             { 201, new EverhoodItemInfo { Xp = 2, ItemFlags = ItemFlags.None, ItemName = "2xp" } },
-            //{ 201, new EverhoodItemInfo { Xp = 5, ItemFlags = ItemFlags.None, ItemName = "5xp" } },
             { 202, new EverhoodItemInfo { Xp = 15, ItemFlags = ItemFlags.None, ItemName = "15xp" } },
             { 203, new EverhoodItemInfo { Xp = 20, ItemFlags = ItemFlags.None, ItemName = "20xp" } },
             { 204, new EverhoodItemInfo { Xp = 25, ItemFlags = ItemFlags.None, ItemName = "25xp" } },
@@ -111,6 +111,8 @@ namespace ArchipelagoEverhood.Data
             { 232, new EverhoodItemInfo { Xp = 950, ItemFlags = ItemFlags.None, ItemName = "950xp" } },
             { 233, new EverhoodItemInfo { Xp = 1000, ItemFlags = ItemFlags.None, ItemName = "1000xp" } },
             { 234, new EverhoodItemInfo { Xp = 1200, ItemFlags = ItemFlags.None, ItemName = "1200xp" } },
+            { 235, new EverhoodItemInfo { Xp = -2, ItemFlags = ItemFlags.None, ItemName = "-2xp" } },
+            { 236, new EverhoodItemInfo { Xp = 5, ItemFlags = ItemFlags.None, ItemName = "5xp" } },
         };
 
         public static Dictionary<long, EverhoodItemInfo> DoorKeysById = new()
