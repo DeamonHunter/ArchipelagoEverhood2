@@ -127,8 +127,20 @@ namespace ArchipelagoEverhood.Archipelago
             while (_itemsToAdd.TryDequeue(out var item))
                 UnlockItem(item);
 
-            if (Globals.GameplayRoot.IsRootAvailable() || (SayDialog.ActiveSayDialog && SayDialog.ActiveSayDialog.gameObject.activeInHierarchy))
+            if (Globals.GameplayRoot.IsRootAvailable())
                 return;
+
+            if (SayDialog.ActiveSayDialog)
+            {
+                if (SayDialog.ActiveSayDialog.gameObject.activeInHierarchy)
+                    return;
+
+                if (SayOnEnterPatch.OverridenDialogue)
+                {
+                    SayDialog.ActiveSayDialog.ClearContinue();
+                    SayOnEnterPatch.OverridenDialogue = false;
+                }
+            }
 
             if (!_queuedSays.TryDequeue(out var sayItem))
                 return;

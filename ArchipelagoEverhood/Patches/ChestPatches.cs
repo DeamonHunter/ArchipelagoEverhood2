@@ -377,6 +377,8 @@ namespace ArchipelagoEverhood.Patches
     {
         private static string? _overrideTextValue;
 
+        public static bool OverridenDialogue;
+
         private static HashSet<string> _bannedSays = new()
         {
             "Companion Dialogue box"
@@ -417,6 +419,7 @@ namespace ArchipelagoEverhood.Patches
             _overrideTextValue = null;
             SayGetStringIdPatch.Override = true;
             WriterProcessTokens.Override = true;
+            OverridenDialogue = true;
         }
 
         public static void SetOverrideText(string text)
