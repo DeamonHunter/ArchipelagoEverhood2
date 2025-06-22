@@ -154,6 +154,20 @@ namespace ArchipelagoEverhood.Archipelago
             //Todo: Item Sprites?
             if (ItemData.ItemsById.TryGetValue(itemUnlock.ItemId, out var item))
             {
+                switch (item.Item)
+                {
+                    case Item.RoomKey23:
+                    case Item.RoomKeyGold:
+                    case Item.RoomKeyGreen:
+                    case Item.RoomKeyPinecone:
+                    case Item.RoomKeyOmega:
+                        //These items break if you get more than 1.
+                        if (data.collectedItems.TryGetValue(item.Item.ToString(), out var count) && count > 0)
+                            return;
+                        break;
+                }
+
+
                 data.AddCollectedItem(item.Item.ToString(), 1);
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
