@@ -172,14 +172,22 @@ namespace ArchipelagoEverhood.Patches
                 if (!Globals.SessionHandler.LoggedIn)
                     return true;
 
-                if (Globals.CurrentTopdownLevel != 15)
-                    return true;
+                switch (Globals.CurrentTopdownLevel)
+                {
+                    case 10:
+                        if (HillbertQuestFlags(___variable, out __result))
+                            return false;
+                        break;
+                    
+                    case 15:
+                        if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
+                            return false;
 
-                if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
-                    return false;
-
-                if (FloorPostMortem(___variable, ___booleanData, out __result))
-                    return false;
+                        if (FloorPostMortem(___variable, ___booleanData, out __result))
+                            return false;
+                        break;
+                }
+                
 
                 return true;
             }
@@ -194,123 +202,151 @@ namespace ArchipelagoEverhood.Patches
         {
             Globals.Logging.LogDebug("EvaluateCondition", $"Check: {variable.Key} : {MenuDialogAddOptionPatch.ElevatorItem}");
             result = false;
-            if (variable.Key == "GL_1FinishedHillbertQuest")
+            switch (variable.Key)
             {
-                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKey23)
+                case "GL_1FinishedHillbertQuest":
                 {
-                    result = false;
+                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKey23)
+                    {
+                        result = false;
+                        return true;
+                    }
+
+                    MenuDialogAddOptionPatch.ElevatorItem = null;
+                    result = true;
                     return true;
                 }
-
-                MenuDialogAddOptionPatch.ElevatorItem = null;
-                result = true;
-                return true;
-            }
-
-            if (variable.Key == "GL_2FinishedHillbertQuest")
-            {
-                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGold)
+                case "GL_2FinishedHillbertQuest":
                 {
-                    result = false;
+                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGold)
+                    {
+                        result = false;
+                        return true;
+                    }
+                    MenuDialogAddOptionPatch.ElevatorItem = null;
+                    result = true;
                     return true;
                 }
-                MenuDialogAddOptionPatch.ElevatorItem = null;
-                result = true;
-                return true;
-            }
-
-            if (variable.Key == "GL_3FinishedHillbertQuest")
-            {
-                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGreen)
+                case "GL_3FinishedHillbertQuest":
                 {
-                    result = false;
+                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGreen)
+                    {
+                        result = false;
+                        return true;
+                    }
+                    MenuDialogAddOptionPatch.ElevatorItem = null;
+                    result = true;
                     return true;
                 }
-                MenuDialogAddOptionPatch.ElevatorItem = null;
-                result = true;
-                return true;
-            }
-
-            if (variable.Key == "GL_4FinishedHillbertQuest")
-            {
-                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyPinecone)
+                case "GL_4FinishedHillbertQuest":
                 {
-                    result = false;
+                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyPinecone)
+                    {
+                        result = false;
+                        return true;
+                    }
+                    MenuDialogAddOptionPatch.ElevatorItem = null;
+                    result = true;
                     return true;
                 }
-                MenuDialogAddOptionPatch.ElevatorItem = null;
-                result = true;
-                return true;
-            }
-
-            if (variable.Key == "GL_5FinishedHillbertQuest")
-            {
-                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyOmega)
+                case "GL_5FinishedHillbertQuest":
                 {
-                    result = false;
+                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyOmega)
+                    {
+                        result = false;
+                        return true;
+                    }
+                    MenuDialogAddOptionPatch.ElevatorItem = null;
+                    result = true;
                     return true;
                 }
-                MenuDialogAddOptionPatch.ElevatorItem = null;
-                result = true;
-                return true;
+                default:
+                    return false;
             }
-
-            return false;
         }
-
+        
         private static bool FloorPostMortem(Variable variable, BooleanData booleanData, out bool result)
         {
             result = false;
             if (booleanData.Value)
                 return false;
 
-            if (variable.Key == "GL_1PostMortem")
+            switch (variable.Key)
             {
-                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                if (EverhoodHelpers.HasFlag("GL_1FinishedHillbertQuest"))
-                    return false;
+                case "GL_1PostMortem":
+                {
+                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                    if (EverhoodHelpers.HasFlag("GL_1FinishedHillbertQuest"))
+                        return false;
 
-                result = true;
-                return true;
+                    result = true;
+                    return true;
+                }
+                case "GL_2PostMortem":
+                {
+                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                    if (EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest"))
+                        return false;
+
+                    result = false;
+                    return true;
+                }
+                case "GL_3PostMortem":
+                {
+                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                    if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest"))
+                        return false;
+
+                    result = false;
+                    return true;
+                }
+                case "GL_4PostMortem":
+                {
+                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                    if (EverhoodHelpers.HasFlag("GL_4FinishedHillbertQuest"))
+                        return false;
+
+                    result = false;
+                    return true;
+                }
+                case "GL_5PostMortem":
+                {
+                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                    if (EverhoodHelpers.HasFlag("GL_5FinishedHillbertQuest"))
+                        return false;
+
+                    result = false;
+                    return true;
+                }
+                default:
+                    return false;
             }
-            if (variable.Key == "GL_2PostMortem")
+        }
+
+        private static bool HillbertQuestFlags(Variable variable, out bool result)
+        {
+            Globals.Logging.LogDebug("EvaluateCondition", $"Check: {variable.Key} : {MenuDialogAddOptionPatch.ElevatorItem}");
+            result = false;
+            switch (variable.Key)
             {
-                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                if (EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest"))
+                case "GL_1FinishedHillbertQuest":
+                    result = EverhoodHelpers.HasFlag("GL_1RoomKeyInventory");
+                    return true;
+                case "GL_2FinishedHillbertQuest":
+                    result = EverhoodHelpers.HasFlag("GL_2RoomKeyInventory");
+                    return true;
+                case "GL_3FinishedHillbertQuest":
+                    result = EverhoodHelpers.HasFlag("GL_3RoomKeyInventory");
+                    return true;
+                case "GL_4FinishedHillbertQuest":
+                    result = EverhoodHelpers.HasFlag("GL_4RoomKeyInventory");
+                    return true;
+                case "GL_5FinishedHillbertQuest":
+                    result = EverhoodHelpers.HasFlag("GL_5RoomKeyInventory");
+                    return true;
+                default:
                     return false;
-
-                result = false;
-                return true;
             }
-            if (variable.Key == "GL_3PostMortem")
-            {
-                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest"))
-                    return false;
-
-                result = false;
-                return true;
-            }
-            if (variable.Key == "GL_4PostMortem")
-            {
-                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest"))
-                    return false;
-
-                result = false;
-                return true;
-            }
-            if (variable.Key == "GL_5PostMortem")
-            {
-                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                if (EverhoodHelpers.HasFlag("GL_5FinishedHillbertQuest"))
-                    return false;
-
-                result = false;
-                return true;
-            }
-
-            return false;
         }
     }
 }
