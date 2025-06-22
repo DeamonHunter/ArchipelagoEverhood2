@@ -88,6 +88,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "Neon_NeonDistrict":
                     OnEnterNeonDistrict(scene);
                     break;
+                case "Hometown_Festival":
+                    OnEnterHometownFestival(scene);
+                    break;
             }
         }
 
@@ -159,6 +162,15 @@ namespace ArchipelagoEverhood.Archipelago
             if (EverhoodHelpers.TryGetChildWithName("X1", infiniteTown, out var x1Minus))
                 x1Minus.gameObject.SetActive(false);
         }
+        
+        private void OnEnterHometownFestival(Scene scene)
+        {
+            if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
+                throw new Exception("Failed to edit Marzian Hallway: Could not find 'GAMEPLAY'.");
+            if (EverhoodHelpers.TryGetChildWithName("Spotlight{NPC}", gameplay, out var spotlight))
+                spotlight.gameObject.SetActive(false);
+        }
+
 
 #region Main Menu
 
