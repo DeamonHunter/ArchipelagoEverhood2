@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection;
+using ArchipelagoEverhood.Util;
 using Fungus;
 using HarmonyLib;
 using UnityEngine;
@@ -60,18 +61,34 @@ namespace ArchipelagoEverhood.Patches
     {
         public static Item? ElevatorItem;
 
-        private static bool Prefix(MenuDialog __instance, string text, bool interactable, bool hideOption, Block targetBlock, ref Button[] ___cachedButtons, out bool __result)
+        private static bool Prefix(MenuDialog __instance, string text, bool interactable, bool hideOption, Block targetBlock, int ___nextOptionIndex, ref Button[] ___cachedButtons, out bool __result)
         {
             try
             {
-                if (!Globals.SessionHandler.LoggedIn || targetBlock?.BlockName != "AutoKey")
+                if (!Globals.SessionHandler.LoggedIn || __instance.gameObject.scene.name != "Neon_HotelEntrance")
                 {
-                    Globals.Logging.Log("BlockName", targetBlock?.BlockName);
                     __result = false;
                     return true;
                 }
 
-                if (__instance.gameObject.scene.name == "Neon_HotelEntrance" && ___cachedButtons.Length < 7)
+                var group = __instance.GetComponentInChildren<HorizontalLayoutGroup>();
+                if (targetBlock?.BlockName != "AutoKey")
+                {
+                    switch (targetBlock?.BlockName)
+                    {
+                        case "CosmicHub":
+                        case "Cancel":
+                            break;
+                        default:
+                            group.spacing = 35.24f;
+                            break;
+                    }
+                    __result = false;
+                    return true;
+                }
+                
+                Globals.Logging.Log("BK", targetBlock?.BlockName + " : " + ___nextOptionIndex);
+                if (___cachedButtons.Length < 7)
                 {
                     Array.Resize(ref ___cachedButtons, 7);
                     var copyFrom = ___cachedButtons[3].gameObject;
@@ -79,10 +96,20 @@ namespace ArchipelagoEverhood.Patches
                     ___cachedButtons[5] = GameObject.Instantiate(copyFrom, copyFrom.transform.position, copyFrom.transform.rotation, copyFrom.transform.parent).GetComponent<Button>();
                     ___cachedButtons[6] = GameObject.Instantiate(copyFrom, copyFrom.transform.position, copyFrom.transform.rotation, copyFrom.transform.parent).GetComponent<Button>();
                 }
-               
-                            
-                var last = __instance.CachedButtons[^1];
 
+                if (___nextOptionIndex >= 2)
+                {
+                    foreach (Transform child in group.transform)
+                    {
+                        var rect = child.GetComponent<RectTransform>();
+                        rect.sizeDelta = new Vector2(80, rect.sizeDelta.y);
+                    }
+                    group.spacing = 5;
+                }
+                else
+                    group.spacing = 35.24f;
+                
+                
                 __result = __instance.AddOption(text, interactable, hideOption, Do);
                 return false;
 
@@ -137,58 +164,22 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(VariableCondition), "EvaluateCondition")]
     public class IfPatch
     {
-        private static bool Prefix(VariableCondition __instance, Variable ___variable, out bool __result)
+        private static bool Prefix(VariableCondition __instance, Variable ___variable, BooleanData ___booleanData, out bool __result)
         {
             __result = false;
             try
             {
-                if (!Globals.SessionHandler.LoggedIn || !MenuDialogAddOptionPatch.ElevatorItem.HasValue)
+                if (!Globals.SessionHandler.LoggedIn)
                     return true;
 
-                Globals.Logging.Log("EvaluateCondition", $"Check: {___variable.Key}");
+                if (Globals.CurrentTopdownLevel != 15)
+                    return true;
 
-                if (___variable.Key == "GL_1FinishedHillbertQuest")
-                {
-                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKey23)
-                        return false;
-                    MenuDialogAddOptionPatch.ElevatorItem = null;
-                    __result = true;
+                if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
                     return false;
-                }
 
-                if (___variable.Key == "GL_2FinishedHillbertQuest")
-                {
-                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGold)
-                        return false;
-                    MenuDialogAddOptionPatch.ElevatorItem = null;
-                    __result = true;
+                if (FloorPostMortem(___variable, ___booleanData, out __result))
                     return false;
-                }
-                
-                if (___variable.Key == "GL_3FinishedHillbertQuest")
-                {
-                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGreen)
-                        return false;
-                    MenuDialogAddOptionPatch.ElevatorItem = null;
-                    __result = true;
-                    return false;
-                }
-                if (___variable.Key == "GL_4FinishedHillbertQuest")
-                {
-                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyPinecone)
-                        return false;
-                    MenuDialogAddOptionPatch.ElevatorItem = null;
-                    __result = true;
-                    return false;
-                }
-                if (___variable.Key == "GL_5FinishedHillbertQuest")
-                {
-                    if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyOmega)
-                        return false;
-                    MenuDialogAddOptionPatch.ElevatorItem = null;
-                    __result = true;
-                    return false;
-                }
 
                 return true;
             }
@@ -197,6 +188,129 @@ namespace ArchipelagoEverhood.Patches
                 Globals.Logging.Error("VariableCondition", e);
                 return true;
             }
+        }
+
+        private static bool Elevator(Variable variable, out bool result)
+        {
+            Globals.Logging.LogDebug("EvaluateCondition", $"Check: {variable.Key} : {MenuDialogAddOptionPatch.ElevatorItem}");
+            result = false;
+            if (variable.Key == "GL_1FinishedHillbertQuest")
+            {
+                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKey23)
+                {
+                    result = false;
+                    return true;
+                }
+
+                MenuDialogAddOptionPatch.ElevatorItem = null;
+                result = true;
+                return true;
+            }
+
+            if (variable.Key == "GL_2FinishedHillbertQuest")
+            {
+                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGold)
+                {
+                    result = false;
+                    return true;
+                }
+                MenuDialogAddOptionPatch.ElevatorItem = null;
+                result = true;
+                return true;
+            }
+
+            if (variable.Key == "GL_3FinishedHillbertQuest")
+            {
+                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyGreen)
+                {
+                    result = false;
+                    return true;
+                }
+                MenuDialogAddOptionPatch.ElevatorItem = null;
+                result = true;
+                return true;
+            }
+
+            if (variable.Key == "GL_4FinishedHillbertQuest")
+            {
+                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyPinecone)
+                {
+                    result = false;
+                    return true;
+                }
+                MenuDialogAddOptionPatch.ElevatorItem = null;
+                result = true;
+                return true;
+            }
+
+            if (variable.Key == "GL_5FinishedHillbertQuest")
+            {
+                if (MenuDialogAddOptionPatch.ElevatorItem != Item.RoomKeyOmega)
+                {
+                    result = false;
+                    return true;
+                }
+                MenuDialogAddOptionPatch.ElevatorItem = null;
+                result = true;
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool FloorPostMortem(Variable variable, BooleanData booleanData, out bool result)
+        {
+            result = false;
+            if (booleanData.Value)
+                return false;
+
+            if (variable.Key == "GL_1PostMortem")
+            {
+                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                if (EverhoodHelpers.HasFlag("GL_1FinishedHillbertQuest"))
+                    return false;
+
+                result = true;
+                return true;
+            }
+            if (variable.Key == "GL_2PostMortem")
+            {
+                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                if (EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest"))
+                    return false;
+
+                result = false;
+                return true;
+            }
+            if (variable.Key == "GL_3PostMortem")
+            {
+                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest"))
+                    return false;
+
+                result = false;
+                return true;
+            }
+            if (variable.Key == "GL_4PostMortem")
+            {
+                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest"))
+                    return false;
+
+                result = false;
+                return true;
+            }
+            if (variable.Key == "GL_5PostMortem")
+            {
+                Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
+                if (EverhoodHelpers.HasFlag("GL_5FinishedHillbertQuest"))
+                    return false;
+
+                result = false;
+                return true;
+            }
+
+            return false;
         }
     }
 }
