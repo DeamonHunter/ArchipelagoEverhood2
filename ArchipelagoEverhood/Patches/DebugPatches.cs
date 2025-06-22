@@ -193,33 +193,6 @@ namespace ArchipelagoEverhood
         }
     }
 
-    [HarmonyPatch(typeof(EverhoodVariableCondition), "EvaluateCondition")]
-    public static class CheckPatch
-    {
-        private static void Prefix(EverhoodVariableCondition __instance, BooleanData ___booleanData, IntegerData ___integerData, StringData ___stringData)
-        {
-            try
-            {
-                if (__instance is IfGameplayPlayerEnergyAbsorbed)
-                    return;
-
-                var type = __instance.GetVariableType();
-                if (type == typeof(int))
-                    Globals.Logging.Msg($"Special If {__instance.GetType()}: {__instance.GetSummary()}\n{__instance.GetValue()} {__instance._CompareOperator} {___integerData.Value}");
-                else if (type == typeof(bool))
-                    Globals.Logging.Msg($"Special If {__instance.GetType()}: {__instance.GetSummary()}\n{__instance.GetValue()} {__instance._CompareOperator} {___booleanData.Value}");
-                else if (type == typeof(string))
-                    Globals.Logging.Msg($"Special If {__instance.GetType()}: {__instance.GetSummary()}\n{__instance.GetValue()} {__instance._CompareOperator} {___stringData.Value}");
-                else
-                    Globals.Logging.Msg($"Special If {__instance.GetType()}: Unknown type {type}");
-            }
-            catch (Exception e)
-            {
-                Globals.Logging.Error("Failed during Variable Patch:", e);
-            }
-        }
-    }
-
     [HarmonyPatch(typeof(Command), "Execute")]
     public static class CommandPatch
     {
