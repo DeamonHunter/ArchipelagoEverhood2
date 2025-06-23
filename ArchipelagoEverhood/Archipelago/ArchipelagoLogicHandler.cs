@@ -125,10 +125,12 @@ namespace ArchipelagoEverhood.Archipelago
 
         public string GetScoutedItemText(long location, bool inVictory)
         {
-            if (!Globals.SessionHandler.LogicHandler!.Scouts.TryGetValue(location, out var info))
+            if (!Scouts.TryGetValue(location, out var info))
                 return $"Failed to scout location: {location}";
 
             return EverhoodHelpers.ConstructCollectedItemText(info.ItemName, info.Flags, info.Player.Slot != Globals.SessionHandler.Slot ? info.Player.Alias : null, inVictory);
         }
+
+        public bool IsScouted(long location) => Scouts.ContainsKey(location);
     }
 }

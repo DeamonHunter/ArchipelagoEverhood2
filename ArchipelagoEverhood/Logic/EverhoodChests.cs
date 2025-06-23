@@ -68,7 +68,7 @@ namespace ArchipelagoEverhood.Logic
 
             var cosmeticStr = cosmetic.ToString();
 
-            bool showWarning = true;
+            ChestData? rewardOnVariable = null;
             foreach (var chestData in _activeChestData.Values)
             {
                 if (chestData.Type != ChestType.Cosmetic)
@@ -82,16 +82,21 @@ namespace ArchipelagoEverhood.Logic
                     chestData.Shown = true;
                     return chestData;
                 }
-                
+
                 if (chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    showWarning = false;
+                {
+                    if (rewardOnVariable == null && Globals.SessionHandler.LogicHandler!.IsScouted(chestData.LocationId))
+                        rewardOnVariable = chestData;
+                    continue;
+                }
 
                 CheckLocation(chestData);
                 return chestData;
             }
 
-            if (showWarning)
-                Globals.Logging.Warning("Chests", $"Did not find any chest for the cosmetic {cosmeticStr}. Missing?");
+            if (rewardOnVariable != null)
+                return rewardOnVariable;
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the cosmetic {cosmeticStr}. Missing?");
             return null;
         }
 
@@ -100,7 +105,7 @@ namespace ArchipelagoEverhood.Logic
             if (_activeChestData == null)
                 return null;
 
-            bool showWarning = true;
+            ChestData? rewardOnVariable = null;
             foreach (var item in items.Keys)
             {
                 var itemStr = item.ToString();
@@ -115,9 +120,13 @@ namespace ArchipelagoEverhood.Logic
 
                     if (chestData.Achieved)
                         continue;
-                            
+
                     if (chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                        showWarning = false;
+                    {
+                        if (rewardOnVariable == null && Globals.SessionHandler.LogicHandler!.IsScouted(chestData.LocationId))
+                            rewardOnVariable = chestData;
+                        continue;
+                    }
 
                     if (!CheckIfPasses(chestData, false))
                         continue;
@@ -127,8 +136,9 @@ namespace ArchipelagoEverhood.Logic
                 }
             }
 
-            if (showWarning)
-                Globals.Logging.Warning("Chests", $"Did not find any chest for the item {string.Join(", ", items.Keys)}. Missing?");
+            if (rewardOnVariable != null)
+                return rewardOnVariable;
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the item {string.Join(", ", items.Keys)}. Missing?");
             return null;
         }
 
@@ -137,7 +147,7 @@ namespace ArchipelagoEverhood.Logic
             if (_activeChestData == null)
                 return null;
 
-            bool showWarning = true;
+            ChestData? rewardOnVariable = null;
             foreach (var artifact in artifacts)
             {
                 var itemStr = artifact.ToString();
@@ -152,9 +162,13 @@ namespace ArchipelagoEverhood.Logic
 
                     if (chestData.Achieved)
                         continue;
-                    
+
                     if (chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                        showWarning = false;
+                    {
+                        if (rewardOnVariable == null && Globals.SessionHandler.LogicHandler!.IsScouted(chestData.LocationId))
+                            rewardOnVariable = chestData;
+                        continue;
+                    }
 
                     if (!CheckIfPasses(chestData, false))
                         continue;
@@ -164,8 +178,9 @@ namespace ArchipelagoEverhood.Logic
                 }
             }
 
-            if (showWarning)
-                Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts)}. Missing?");
+            if (rewardOnVariable != null)
+                return rewardOnVariable;
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the artifacts {string.Join(", ", artifacts)}. Missing?");
             return null;
         }
 
@@ -175,7 +190,7 @@ namespace ArchipelagoEverhood.Logic
                 return null;
 
             var weaponStr = weapon.ToString();
-            bool showWarning = true;
+            ChestData? rewardOnVariable = null;
             foreach (var chestData in _activeChestData.Values)
             {
                 if (chestData.Type != ChestType.Item)
@@ -186,9 +201,13 @@ namespace ArchipelagoEverhood.Logic
 
                 if (chestData.Achieved)
                     continue;
-                
+
                 if (chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    showWarning = false;
+                {
+                    if (rewardOnVariable == null && Globals.SessionHandler.LogicHandler!.IsScouted(chestData.LocationId))
+                        rewardOnVariable = chestData;
+                    continue;
+                }
 
                 if (!CheckIfPasses(chestData, false))
                     continue;
@@ -197,8 +216,9 @@ namespace ArchipelagoEverhood.Logic
                 return chestData;
             }
 
-            if (showWarning)
-                Globals.Logging.Warning("Chests", $"Did not find any chest for the weapon {weaponStr}. Missing?");
+            if (rewardOnVariable != null)
+                return rewardOnVariable;
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the weapon {weaponStr}. Missing?");
             return null;
         }
 
@@ -208,7 +228,7 @@ namespace ArchipelagoEverhood.Logic
                 return null;
 
             var xpStr = $"{xp}xp";
-            bool showWarning = true;
+            ChestData? rewardOnVariable = null;
             foreach (var chestData in _activeChestData.Values)
             {
                 if (chestData.Type != ChestType.XP)
@@ -221,7 +241,11 @@ namespace ArchipelagoEverhood.Logic
                     continue;
 
                 if (chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    showWarning = false;
+                {
+                    if (rewardOnVariable == null && Globals.SessionHandler.LogicHandler!.IsScouted(chestData.LocationId))
+                        rewardOnVariable = chestData;
+                    continue;
+                }
 
                 if (!CheckIfPasses(chestData, false))
                     continue;
@@ -230,8 +254,10 @@ namespace ArchipelagoEverhood.Logic
                 return chestData;
             }
 
-            if (showWarning)
-                Globals.Logging.Warning("Chests", $"Did not find any chest for the xp {xpStr}. Missing?");
+            if (rewardOnVariable != null)
+                return rewardOnVariable;
+
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the xp {xpStr}. Missing?");
             return null;
         }
 
@@ -244,13 +270,13 @@ namespace ArchipelagoEverhood.Logic
             {
                 if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
                     continue;
-                
+
                 if (chestData.VariableName != key)
                     continue;
-                
+
                 if (value != chestData.ExpectedValue)
                     continue;
-                
+
                 if (chestData.Achieved)
                     continue;
 
@@ -269,19 +295,19 @@ namespace ArchipelagoEverhood.Logic
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(chestData.VariableName, out var boolValue))
             {
                 if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    Globals.Logging.LogDebug("EverhoodChests",$"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (boolValue == chestData.ExpectedValue)
             {
                 if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    Globals.Logging.LogDebug("EverhoodChests",$"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
+                    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
                 return true;
             }
 
             if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                Globals.Logging.LogDebug("EverhoodChests",$"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
+                Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
             return false;
         }
 

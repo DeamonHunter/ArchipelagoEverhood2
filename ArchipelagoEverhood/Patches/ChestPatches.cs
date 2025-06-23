@@ -24,6 +24,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(itemInfo.item);
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (___showDialogue || data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
@@ -66,6 +72,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(new Dictionary<Item, int>() { { ___item, 1 } });
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
@@ -109,6 +121,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(artifactInfo.artifacts);
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (___showDialogue || data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
@@ -151,6 +169,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(new[] { ___artifact });
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
@@ -193,6 +217,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(new[] { ___artifact });
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
@@ -235,6 +265,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(___playerWeapon);
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
@@ -286,7 +322,7 @@ namespace ArchipelagoEverhood.Patches
                 if (data == null)
                     return true;
                 
-                if (data.Shown)
+                if (!data.Achieved || data.Shown)
                 {
                     __instance.Continue();
                     return false;
@@ -350,6 +386,12 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(xpRewardCount);
                 if (data == null)
                     return true;
+                
+                if (!data.Achieved)
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue) || ___showDialogue)
