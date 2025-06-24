@@ -144,7 +144,8 @@ namespace ArchipelagoEverhood.Logic
                                 }
                                 case "LevelLoad-MarzianPart2":
                                 {
-                                    var active = !EverhoodHelpers.HasFlag("GL_PortalBattleFinished") && _marzianKeys >= 2;
+                                    var active = EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") &&
+                                                 !EverhoodHelpers.HasFlag("GL_PortalBattleFinished") && _marzianKeys >= 2;
                                     transform.gameObject.SetActive(active);
                                     anyActive |= active;
                                     Globals.Logging.Log("Doors", $"2:{active}");
@@ -152,7 +153,8 @@ namespace ArchipelagoEverhood.Logic
                                 }
                                 case "LevelLoad-MarzianPart3":
                                 {
-                                    var active = !EverhoodHelpers.HasFlag("GL_M3_Apocalypse") && _marzianKeys >= 3;
+                                    var active = EverhoodHelpers.HasFlag("GL_PortalBattleFinished") &&
+                                                 !EverhoodHelpers.HasFlag("GL_M3_Apocalypse") && _marzianKeys >= 3;
                                     transform.gameObject.SetActive(active);
                                     anyActive |= active;
                                     Globals.Logging.Log("Doors", $"3:{active}");
@@ -160,7 +162,8 @@ namespace ArchipelagoEverhood.Logic
                                 }
                                 case "LevelLoad-MarzianPart4":
                                 {
-                                    var active = !EverhoodHelpers.HasFlag("GL_M4_GorillaDefeated") && _marzianKeys >= 4;
+                                    var active = EverhoodHelpers.HasFlag("GL_M3_Apocalypse") &&
+                                                 !EverhoodHelpers.HasFlag("GL_M4_GorillaDefeated") && _marzianKeys >= 4;
                                     transform.gameObject.SetActive(active);
                                     anyActive |= active;
                                     Globals.Logging.Log("Doors", $"4:{active}");
@@ -185,13 +188,16 @@ namespace ArchipelagoEverhood.Logic
                                                 numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") && _marzianKeys >= 1);
                                                 break;
                                             case "Part2Numbers":
-                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_PortalBattleFinished") && _marzianKeys >= 2);
+                                                numberTransform.gameObject.SetActive(EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated") &&
+                                                                                     !EverhoodHelpers.HasFlag("GL_PortalBattleFinished") && _marzianKeys >= 2);
                                                 break;
                                             case "Part3Numbers":
-                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M3_Apocalypse") && _marzianKeys >= 3);
+                                                numberTransform.gameObject.SetActive(EverhoodHelpers.HasFlag("GL_PortalBattleFinished") &&
+                                                                                     !EverhoodHelpers.HasFlag("GL_M3_Apocalypse") && _marzianKeys >= 3);
                                                 break;
                                             case "Part4Numbers":
-                                                numberTransform.gameObject.SetActive(!EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
+                                                numberTransform.gameObject.SetActive(EverhoodHelpers.HasFlag("GL_M3_Apocalypse") &&
+                                                                                     !EverhoodHelpers.HasFlag("GL_M4_Something") && _marzianKeys >= 4);
                                                 break;
                                             case "Part5Numbers":
                                             case "Part6Numbers":
