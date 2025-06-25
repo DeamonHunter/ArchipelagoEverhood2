@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ArchipelagoEverhood.Data;
+using ArchipelagoEverhood.Patches;
 using ArchipelagoEverhood.Util;
+using Fungus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,10 +18,12 @@ namespace ArchipelagoEverhood.Archipelago
         public bool Overriding;
         public string Seed { get; private set; }
         public int PowerGemsRequired { get; private set; }
+        public bool ProcessPostMortems { get; set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
         private SoulColor _soulColor;
+        private int _frameCountdown;
 
         public void ArchipelagoConnected(string seed, SoulColor soulColor, int powerGemAmount)
         {
@@ -91,7 +95,21 @@ namespace ArchipelagoEverhood.Archipelago
                 case "Hometown_Festival":
                     OnEnterHometownFestival(scene);
                     break;
+                case "Neon_HotelEntrance":
+                    OnEnterHillbertHotel();
+                    break;
             }
+        }
+
+        public void Update()
+        {
+            if (_frameCountdown <= 0)
+                return;
+
+            _frameCountdown--;
+            if (_frameCountdown > 0)
+                return;
+            HillbertOverrides();
         }
 
         public bool HasSoulColor() => _soulColor != SoulColor.None;
@@ -169,6 +187,70 @@ namespace ArchipelagoEverhood.Archipelago
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'GAMEPLAY'.");
             if (EverhoodHelpers.TryGetChildWithName("Spotlight{NPC}", gameplay, out var spotlight))
                 spotlight.gameObject.SetActive(false);
+        }
+
+        private void OnEnterHillbertHotel()
+        {
+            _frameCountdown = 10;
+            ProcessPostMortems = true;
+        }
+
+        private void HillbertOverrides()
+        {
+            var scene = SceneManager.GetSceneByName("Neon_HotelEntrance");
+            if (!scene.isLoaded)
+                return;
+
+            if (SayDialog.ActiveSayDialog)
+            {
+                var canvas = SayDialog.ActiveSayDialog.GetComponent<Canvas>();
+                if (SayDialog.ActiveSayDialog.gameObject.activeInHierarchy && canvas && canvas.enabled)
+                {
+                    _frameCountdown++;
+                    return;
+                }
+            }
+            
+            if (!Globals.TopdownRoot!.Player.MovementState)
+            {
+                _frameCountdown++;
+                return;
+            }
+
+            ProcessPostMortems = false;
+            
+            if (!EverhoodHelpers.TryGetGameObjectWithName("FLOWCHARTS", scene.GetRootGameObjects(), out var flowcharts))
+                throw new Exception("Failed to edit Marzian Hallway: Could not find 'FLOWCHARTS'.");
+            if (!EverhoodHelpers.TryGetChildWithName("SproutFlowchart", flowcharts, out var sproutFlowchart))
+                throw new Exception("Failed to edit Marzian Hallway: Could not find 'SproutFlowchart'.");
+
+            var flowchart = sproutFlowchart.GetComponent<Flowchart>();
+            Globals.Logging.Error("Hillbert", string.Join(",", flowchart.GetComponents<Block>().Select(x => x.BlockName)));
+
+            if (!EverhoodHelpers.HasFlag("GL_2KeyShown"))
+            {
+                if (EverhoodHelpers.HasFlag("GL_EternalWarFinished") || EverhoodHelpers.HasFlag("GL_MarzianPart", 1))
+                    flowchart.ExecuteBlock("Quest1Next");
+                return;
+            }
+            if (!EverhoodHelpers.HasFlag("GL_3KeyShown"))
+            {
+                if (EverhoodHelpers.HasFlag("GL_MarzianPart", 2))
+                    flowchart.ExecuteBlock("Quest2Next");
+                return;
+            }
+            if (!EverhoodHelpers.HasFlag("GL_4KeyShown"))
+            {
+                if (EverhoodHelpers.HasFlag("GL_MarzianPart", 3))
+                    flowchart.ExecuteBlock("Quest3Next");
+                return;
+            }
+
+            if (!EverhoodHelpers.HasFlag("GL_5KeyShown"))
+            {
+                if (EverhoodHelpers.HasFlag("GL_1A_3D_VanguardDead"))
+                    flowchart.ExecuteBlock("Quest4Next");
+            }
         }
 
 

@@ -183,7 +183,7 @@ namespace ArchipelagoEverhood.Patches
                         if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
                             return false;
 
-                        if (FloorPostMortem(___variable, ___booleanData, out __result))
+                        if (Globals.EverhoodOverrides.ProcessPostMortems && FloorPostMortem(___variable, ___booleanData, out __result))
                             return false;
                         break;
                 }

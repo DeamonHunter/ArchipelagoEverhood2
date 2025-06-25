@@ -123,6 +123,7 @@ namespace ArchipelagoEverhood.Archipelago
             LogicHandler!.Update();
             ItemHandler!.Update();
             Globals.EverhoodDoors.Update();
+            Globals.EverhoodOverrides.Update();
         }
 
         public void QuitToMenu()
