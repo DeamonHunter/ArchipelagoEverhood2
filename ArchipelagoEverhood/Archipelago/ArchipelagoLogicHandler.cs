@@ -32,7 +32,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
             Globals.EverhoodDoors.ResetKeys();
-            
+
             var originalCount = _itemIndex;
             _itemIndex = _items.AllItemsReceived.Count;
             for (var i = 0; i < _itemIndex; i++)
@@ -116,12 +116,12 @@ namespace ArchipelagoEverhood.Archipelago
 
                 Globals.SessionHandler.ItemHandler!.HandleScoutedItem(info);
             }
+
             CheckLocationsInner(locationsToHint).ConfigureAwait(false);
         }
 
         private async Task CheckLocationsInner(List<long> locationsToHint)
         {
-
             await _locations.CompleteLocationChecksAsync(locationsToHint.ToArray());
         }
 

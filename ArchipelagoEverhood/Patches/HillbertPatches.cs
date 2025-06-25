@@ -83,10 +83,11 @@ namespace ArchipelagoEverhood.Patches
                             group.spacing = 35.24f;
                             break;
                     }
+
                     __result = false;
                     return true;
                 }
-                
+
                 Globals.Logging.Log("BK", targetBlock?.BlockName + " : " + ___nextOptionIndex);
                 if (___cachedButtons.Length < 7)
                 {
@@ -104,12 +105,13 @@ namespace ArchipelagoEverhood.Patches
                         var rect = child.GetComponent<RectTransform>();
                         rect.sizeDelta = new Vector2(80, rect.sizeDelta.y);
                     }
+
                     group.spacing = 5;
                 }
                 else
                     group.spacing = 35.24f;
-                
-                
+
+
                 __result = __instance.AddOption(text, interactable, hideOption, Do);
                 return false;
 
@@ -160,6 +162,51 @@ namespace ArchipelagoEverhood.Patches
             }
         }
     }
+    
+    [HarmonyPatch(typeof(Call), "OnEnter")]
+    public static class CallOnEnterPatch
+    {
+        private static bool Prefix(Call __instance, Block ___targetBlock)
+        {
+            if (!Globals.SessionHandler.LoggedIn || Globals.CurrentTopdownLevel != 15)
+                return true;
+
+            try
+            {
+                switch (___targetBlock.BlockName)
+                {
+                    case "Quest1Next":
+                        if (!EverhoodHelpers.HasFlag("GL_2KeyShown"))
+                            return true;
+                        break;
+                    case "Quest2Next":
+                        if (!EverhoodHelpers.HasFlag("GL_3KeyShown"))
+                            return true;
+                        break;
+                    case "Quest3Next":
+                        if (!EverhoodHelpers.HasFlag("GL_4KeyShown"))
+                            return true;
+                        break;
+                    case "Quest4Next":
+                        if (!EverhoodHelpers.HasFlag("GL_5KeyShown"))
+                            return true;
+                        break;
+                    
+                    default:
+                        return true;
+                }
+                
+                Globals.TopdownRoot!.Player.SetTopDownPlayerMovementState(true);
+                __instance.Continue();
+                return false;
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("Call", e);
+                return true;
+            }
+        }
+    }
 
     [HarmonyPatch(typeof(VariableCondition), "EvaluateCondition")]
     public class IfPatch
@@ -178,16 +225,13 @@ namespace ArchipelagoEverhood.Patches
                         if (HillbertQuestFlags(___variable, out __result))
                             return false;
                         break;
-                    
+
                     case 15:
                         if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
                             return false;
-
-                        if (Globals.EverhoodOverrides.ProcessPostMortems && FloorPostMortem(___variable, ___booleanData, out __result))
-                            return false;
                         break;
                 }
-                
+
 
                 return true;
             }
@@ -223,6 +267,7 @@ namespace ArchipelagoEverhood.Patches
                         result = false;
                         return true;
                     }
+
                     MenuDialogAddOptionPatch.ElevatorItem = null;
                     result = true;
                     return true;
@@ -234,6 +279,7 @@ namespace ArchipelagoEverhood.Patches
                         result = false;
                         return true;
                     }
+
                     MenuDialogAddOptionPatch.ElevatorItem = null;
                     result = true;
                     return true;
@@ -245,6 +291,7 @@ namespace ArchipelagoEverhood.Patches
                         result = false;
                         return true;
                     }
+
                     MenuDialogAddOptionPatch.ElevatorItem = null;
                     result = true;
                     return true;
@@ -256,66 +303,9 @@ namespace ArchipelagoEverhood.Patches
                         result = false;
                         return true;
                     }
+
                     MenuDialogAddOptionPatch.ElevatorItem = null;
                     result = true;
-                    return true;
-                }
-                default:
-                    return false;
-            }
-        }
-        
-        private static bool FloorPostMortem(Variable variable, BooleanData booleanData, out bool result)
-        {
-            result = false;
-            if (booleanData.Value)
-                return false;
-
-            switch (variable.Key)
-            {
-                case "GL_1PostMortem":
-                {
-                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                    if (EverhoodHelpers.HasFlag("GL_1FinishedHillbertQuest"))
-                        return false;
-
-                    result = true;
-                    return true;
-                }
-                case "GL_2PostMortem":
-                {
-                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                    if (EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest"))
-                        return false;
-
-                    result = false;
-                    return true;
-                }
-                case "GL_3PostMortem":
-                {
-                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                    if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest"))
-                        return false;
-
-                    result = false;
-                    return true;
-                }
-                case "GL_4PostMortem":
-                {
-                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                    if (EverhoodHelpers.HasFlag("GL_4FinishedHillbertQuest"))
-                        return false;
-
-                    result = false;
-                    return true;
-                }
-                case "GL_5PostMortem":
-                {
-                    Globals.Logging.LogDebug("EvaluateCondition", "Overriding Post Mortem check so other rewards can drop.");
-                    if (EverhoodHelpers.HasFlag("GL_5FinishedHillbertQuest"))
-                        return false;
-
-                    result = false;
                     return true;
                 }
                 default:

@@ -12,7 +12,7 @@ namespace ArchipelagoEverhood.Patches
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return;
-            
+
             try
             {
                 if (setOperator != SetOperator.Assign)
@@ -20,13 +20,13 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.OnBoolVariableSet(__instance.Key, value);
                 if (data == null)
                     return;
-                
+
                 //The very first artifact does this, and it saves *immediately* after which means we need to handle it *now*
                 if (__instance.Key == "GL_MovementTutorialBattle")
                     Globals.SessionHandler.ItemHandler!.ForceRewardItems();
-                
+
                 Globals.Logging.Log("BooleanVariableHook", $"Got Variable: {__instance.Key}");
-                
+
                 var itemText = Globals.EverhoodChests.GetItemName(data);
                 if (data.RewardConditions.HasFlag(RewardConditions.ForceShowDialogue))
                 {

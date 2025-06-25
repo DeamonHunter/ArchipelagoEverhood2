@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ArchipelagoEverhood.Data;
-using ArchipelagoEverhood.Patches;
 using ArchipelagoEverhood.Util;
 using Fungus;
 using TMPro;
@@ -166,10 +165,10 @@ namespace ArchipelagoEverhood.Archipelago
                 if (EverhoodHelpers.TryGetChildWithName("StoneGuardNeon[NPC]", clubGameplay, out var stoneGuard))
                     stoneGuard.transform.position = new Vector3(55.367f, -12.449f, 0);
             }
-            
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
                 throw new Exception("Failed to edit Neon District: Could not find 'GAMEPLAY'.");
-            
+
 
             if (EverhoodHelpers.TryGetChildWithName("FirstTime", gameplay, out var firstTime))
                 firstTime.gameObject.SetActive(false);
@@ -180,7 +179,7 @@ namespace ArchipelagoEverhood.Archipelago
             if (EverhoodHelpers.TryGetChildWithName("X1", infiniteTown, out var x1Minus))
                 x1Minus.gameObject.SetActive(false);
         }
-        
+
         private void OnEnterHometownFestival(Scene scene)
         {
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
@@ -210,7 +209,7 @@ namespace ArchipelagoEverhood.Archipelago
                     return;
                 }
             }
-            
+
             if (!Globals.TopdownRoot!.Player.MovementState)
             {
                 _frameCountdown++;
@@ -218,7 +217,7 @@ namespace ArchipelagoEverhood.Archipelago
             }
 
             ProcessPostMortems = false;
-            
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("FLOWCHARTS", scene.GetRootGameObjects(), out var flowcharts))
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'FLOWCHARTS'.");
             if (!EverhoodHelpers.TryGetChildWithName("SproutFlowchart", flowcharts, out var sproutFlowchart))
@@ -227,18 +226,50 @@ namespace ArchipelagoEverhood.Archipelago
             var flowchart = sproutFlowchart.GetComponent<Flowchart>();
             Globals.Logging.Error("Hillbert", string.Join(",", flowchart.GetComponents<Block>().Select(x => x.BlockName)));
 
+            if (EverhoodHelpers.HasFlag("GL_1FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post1Mortem"))
+            {
+                flowchart.ExecuteBlock("Quest1Check");
+                return;
+            }
+            if (EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post2Mortem"))
+            {
+                flowchart.ExecuteBlock("Quest2Check");
+                Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post2Mortem"] = true;
+                return;
+            }
+            if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post3Mortem"))
+            {
+                flowchart.ExecuteBlock("Quest3Check");
+                Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post3Mortem"] = true;
+                return;
+            }
+            if (EverhoodHelpers.HasFlag("GL_4FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post4Mortem"))
+            {
+                flowchart.ExecuteBlock("Quest4Check");
+                Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post4Mortem"] = true;
+                return;
+            }
+            if (EverhoodHelpers.HasFlag("GL_5FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post5Mortem"))
+            {
+                flowchart.ExecuteBlock("Quest5Check");
+                Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post5Mortem"] = true;
+                return;
+            }
+            
             if (!EverhoodHelpers.HasFlag("GL_2KeyShown"))
             {
                 if (EverhoodHelpers.HasFlag("GL_EternalWarFinished") || EverhoodHelpers.HasFlag("GL_MarzianPart", 1))
                     flowchart.ExecuteBlock("Quest1Next");
                 return;
             }
+
             if (!EverhoodHelpers.HasFlag("GL_3KeyShown"))
             {
                 if (EverhoodHelpers.HasFlag("GL_MarzianPart", 2))
                     flowchart.ExecuteBlock("Quest2Next");
                 return;
             }
+
             if (!EverhoodHelpers.HasFlag("GL_4KeyShown"))
             {
                 if (EverhoodHelpers.HasFlag("GL_MarzianPart", 3))
@@ -252,7 +283,6 @@ namespace ArchipelagoEverhood.Archipelago
                     flowchart.ExecuteBlock("Quest4Next");
             }
         }
-
 
 #region Main Menu
 
