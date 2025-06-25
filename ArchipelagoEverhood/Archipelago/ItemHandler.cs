@@ -10,6 +10,7 @@ using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Patches;
 using Fungus;
 using TMPro;
+using UnityEngine;
 
 namespace ArchipelagoEverhood.Archipelago
 {
@@ -132,7 +133,8 @@ namespace ArchipelagoEverhood.Archipelago
 
             if (SayDialog.ActiveSayDialog)
             {
-                if (SayDialog.ActiveSayDialog.gameObject.activeInHierarchy)
+                var canvas = SayDialog.ActiveSayDialog.GetComponent<Canvas>();
+                if (SayDialog.ActiveSayDialog.gameObject.activeInHierarchy && canvas && canvas.enabled)
                     return;
 
                 if (SayOnEnterPatch.OverridenDialogue)
