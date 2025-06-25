@@ -107,11 +107,6 @@ namespace ArchipelagoEverhood.Archipelago
         public void CheckLocations(List<long> locationsToHint)
         {
             Globals.Logging.Log("CheckLocations", $"Calling for location checks {string.Join(", ", locationsToHint)}");
-            CheckLocationsInner(locationsToHint).ConfigureAwait(false);
-        }
-
-        private async Task CheckLocationsInner(List<long> locationsToHint)
-        {
             foreach (var location in locationsToHint)
             {
                 if (!Scouts.TryGetValue(location, out var info))
@@ -119,6 +114,11 @@ namespace ArchipelagoEverhood.Archipelago
 
                 Globals.SessionHandler.ItemHandler!.HandleScoutedItem(info);
             }
+            CheckLocationsInner(locationsToHint).ConfigureAwait(false);
+        }
+
+        private async Task CheckLocationsInner(List<long> locationsToHint)
+        {
 
             await _locations.CompleteLocationChecksAsync(locationsToHint.ToArray());
         }

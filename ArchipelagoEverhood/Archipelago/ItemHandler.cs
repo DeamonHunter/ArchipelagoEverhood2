@@ -153,6 +153,12 @@ namespace ArchipelagoEverhood.Archipelago
                 SayOnEnterPatch.ForceShowDialogue($"You found your {sayItem.DisplayName}!", null);
         }
 
+        public void ForceRewardItems()
+        {
+            while (_itemsToAdd.TryDequeue(out var item))
+                UnlockItem(item);
+        }
+
         private void UnlockItem(ItemUnlock itemUnlock)
         {
             Globals.Logging.LogDebug("ItemHandler", $"Looking to unlock: {itemUnlock.DisplayName}");

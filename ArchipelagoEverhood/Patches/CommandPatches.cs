@@ -21,6 +21,10 @@ namespace ArchipelagoEverhood.Patches
                 if (data == null)
                     return;
                 
+                //The very first artifact does this, and it saves *immediately* after which means we need to handle it *now*
+                if (__instance.Key == "GL_MovementTutorialBattle")
+                    Globals.SessionHandler.ItemHandler!.ForceRewardItems();
+                
                 Globals.Logging.Log("BooleanVariableHook", $"Got Variable: {__instance.Key}");
                 
                 var itemText = Globals.EverhoodChests.GetItemName(data);
