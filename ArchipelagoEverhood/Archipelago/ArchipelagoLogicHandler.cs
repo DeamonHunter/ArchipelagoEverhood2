@@ -31,6 +31,8 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
 
             //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
+            Globals.EverhoodDoors.ResetKeys();
+            
             var originalCount = _itemIndex;
             _itemIndex = _items.AllItemsReceived.Count;
             for (var i = 0; i < _itemIndex; i++)

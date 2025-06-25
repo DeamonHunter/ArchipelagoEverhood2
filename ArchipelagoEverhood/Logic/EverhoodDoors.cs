@@ -50,6 +50,15 @@ namespace ArchipelagoEverhood.Logic
             ChangeDoorsMainHub(scene);
         }
 
+        public void ResetKeys()
+        {
+            _activeDoors.Clear();
+            _marzianKeys = 0;
+            var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
+            if (scene.isLoaded)
+                ChangeDoorsMainHub(scene);
+        }
+
         public void OnReceiveDoorKey(long keyId)
         {
             _activeDoors.Add(keyId);
