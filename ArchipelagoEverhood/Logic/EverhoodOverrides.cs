@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ArchipelagoEverhood.Data;
+using ArchipelagoEverhood.Patches;
 using ArchipelagoEverhood.Util;
 using Fungus;
 using TMPro;
@@ -18,13 +19,16 @@ namespace ArchipelagoEverhood.Archipelago
         public string Seed { get; private set; }
         public int PowerGemsRequired { get; private set; }
         public bool ProcessPostMortems { get; set; }
+        public bool Colorsanity{ get; private set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
-        private SoulColor _soulColor;
+        public SoulColor SoulColor { get; private set; }
+        public int ColorSanityMask { get; set; }
+        
         private int _frameCountdown;
 
-        public void ArchipelagoConnected(string seed, SoulColor soulColor, int powerGemAmount)
+        public void ArchipelagoConnected(string seed, SoulColor soulColor, int powerGemAmount, bool colorSanity)
         {
             if (Overriding)
             {
@@ -34,8 +38,9 @@ namespace ArchipelagoEverhood.Archipelago
 
             Overriding = true;
             Seed = seed;
-            _soulColor = soulColor;
+            SoulColor = soulColor;
             PowerGemsRequired = powerGemAmount;
+            Colorsanity = colorSanity;
             Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
 
             var infProjExperience = typeof(InfinityProjectExperience);
@@ -100,6 +105,10 @@ namespace ArchipelagoEverhood.Archipelago
             }
         }
 
+
+        public void ReceivedColor(ItemData.EverhoodItemInfo value) => ColorSanityMask |= 1 << (int)value.Color;
+        public void ResetMask() => ColorSanityMask = Colorsanity ? 0 : int.MaxValue;
+
         public void Update()
         {
             if (_frameCountdown <= 0)
@@ -111,8 +120,6 @@ namespace ArchipelagoEverhood.Archipelago
             HillbertOverrides();
         }
 
-        public bool HasSoulColor() => _soulColor != SoulColor.None;
-
         public void SetQuestionnaire()
         {
             //Set the player position to the correct point.
@@ -122,7 +129,7 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_PlayerAge"] = 15; //Not exactly used but set anyway to ensure nothing breaks.
 
             Globals.ServicesRoot!.GameData.GeneralData.EquipWeapon(Weapon.Unarmed);
-            switch (_soulColor)
+            switch (SoulColor)
             {
                 case SoulColor.None:
                 case SoulColor.Blue:

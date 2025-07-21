@@ -43,6 +43,9 @@
         <Reference Include="UnityEngine.InputLegacyModule">
             <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.ParticleSystemModule">
+          <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
           <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
@@ -72,6 +75,10 @@
         <EmbeddedResource Include="Assets\LoginBackground.png"/>
         <None Remove="Assets\APIcons.png"/>
         <EmbeddedResource Include="Assets\APIcons.png"/>
+        <None Remove="Assets\HalfMoonBlack.png" />
+        <EmbeddedResource Include="Assets\HalfMoonBlack.png" />
+        <None Remove="Assets\RedMarker.png" />
+        <EmbeddedResource Include="Assets\RedMarker.png" />
     </ItemGroup>
 
     <ItemGroup>

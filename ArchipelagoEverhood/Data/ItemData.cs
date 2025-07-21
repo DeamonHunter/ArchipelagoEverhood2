@@ -127,6 +127,17 @@ namespace ArchipelagoEverhood.Data
             //{ 307, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 7} },
             //{ 308, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 8} },
         };
+        
+        public static Dictionary<long, EverhoodItemInfo> ColorsById = new()
+        {
+            { 350, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Blue", Color = ProjectileColor.Blue } },
+            { 351, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Red",  Color = ProjectileColor.Red } },
+            { 352, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Green",  Color = ProjectileColor.Green } },
+            { 353, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Yellow",  Color = ProjectileColor.Yellow } },
+            { 354, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Brown",  Color = ProjectileColor.Brown } },
+            { 355, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Purple",  Color = ProjectileColor.Purple } },
+            { 356, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Orange",  Color = ProjectileColor.Orange } },
+        };
 
         public static Dictionary<long, EverhoodItemInfo> CosmeticsById = new()
         {
@@ -201,6 +212,7 @@ namespace ArchipelagoEverhood.Data
             public int Xp;
             public Weapon Weapon;
             public int DoorId;
+            public ProjectileColor Color;
 
             public string ItemName;
             public ItemFlags ItemFlags;

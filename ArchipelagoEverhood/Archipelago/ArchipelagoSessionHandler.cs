@@ -82,7 +82,11 @@ namespace ArchipelagoEverhood.Archipelago
             if (_slotData.TryGetValue("DragonGems", out var powerGemObj))
                 powerGemAmount = (long)powerGemObj;
 
-            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor, (int)powerGemAmount);
+            var colorsanity = false;
+            if (_slotData.TryGetValue("Colorsanity", out var color))
+                colorsanity = (bool)color;
+
+            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor, (int)powerGemAmount, colorsanity);
         }
 
         private void FindObjects()

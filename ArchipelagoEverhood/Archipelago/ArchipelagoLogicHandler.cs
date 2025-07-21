@@ -32,6 +32,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
             Globals.EverhoodDoors.ResetKeys();
+            Globals.EverhoodOverrides.ResetMask();
 
             var originalCount = _itemIndex;
             _itemIndex = _items.AllItemsReceived.Count;
@@ -47,6 +48,15 @@ namespace ArchipelagoEverhood.Archipelago
                 if (ItemData.DoorKeysById.TryGetValue(item.ItemId, out var doorKey))
                 {
                     Globals.EverhoodDoors.OnReceiveDoorKey(doorKey.DoorId);
+                    MarkItemAdded(item.ItemId, i);
+                    continue;
+                }
+                
+                if (ItemData.ColorsById.TryGetValue(item.ItemId, out var color))
+                {
+                    Globals.Logging.LogDebug("LogicHandler", $"Color Mask Before: {Globals.EverhoodOverrides.ColorSanityMask}");
+                    Globals.EverhoodOverrides.ReceivedColor(color);
+                    Globals.Logging.LogDebug("LogicHandler", $"Color Mask After: {Globals.EverhoodOverrides.ColorSanityMask}");
                     MarkItemAdded(item.ItemId, i);
                     continue;
                 }

@@ -22,7 +22,8 @@ namespace ArchipelagoEverhood
             Globals.Logging = new ArchLogger();
             Globals.LoginHandler = new ArchipelagoLogin(Info.Version, Info.Version);
 
-
+            Globals.BlackHalfMoonTexture = AssetHelpers.LoadTexture("ArchipelagoEverhood.Assets.HalfMoonBlack.png");
+            
             //Sets up the textures for ap assets
             TMP_Settings.defaultSpriteAsset.spriteSheet = AssetHelpers.OverwriteTextureWithTexture("ArchipelagoEverhood.Assets.APIcons.png",
                 (Texture2D)TMP_Settings.defaultSpriteAsset.spriteSheet, 128, 0, 64, 16);

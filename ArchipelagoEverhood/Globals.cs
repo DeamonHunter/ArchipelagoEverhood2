@@ -16,6 +16,9 @@ namespace ArchipelagoEverhood
         //Easy Access Everhood Stuff
         public static GameObject ExitToHubButton;
         public static int CurrentTopdownLevel;
+        
+        //Easy Access Patch Stuff
+        public static Texture2D? BlackHalfMoonTexture { get; set; }
 
         //Victory Screen Stuff
         public static BattleVictoryResult? BattleVictoryResult;

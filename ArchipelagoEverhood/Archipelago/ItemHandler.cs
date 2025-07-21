@@ -210,6 +210,12 @@ namespace ArchipelagoEverhood.Archipelago
                 if (itemUnlock.Remote)
                     _queuedSays.Enqueue(itemUnlock);
             }
+            else if (ItemData.ColorsById.TryGetValue(itemUnlock.ItemId, out var color))
+            {
+                Globals.EverhoodOverrides.ReceivedColor(color);
+                if (itemUnlock.Remote)
+                    _queuedSays.Enqueue(itemUnlock);
+            }
             else if (ItemData.XpsById.TryGetValue(itemUnlock.ItemId, out var xp))
             {
                 if (Globals.GameplayRoot!.IsRootAvailable() && Globals.BattleVictoryResult!.Executing && Globals.VictoryScreenCanvas!.gameObject.activeSelf)
