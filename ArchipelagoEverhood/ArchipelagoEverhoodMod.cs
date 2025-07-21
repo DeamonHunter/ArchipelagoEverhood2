@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[assembly: MelonInfo(typeof(ArchipelagoEverhoodMod), "Archipelago Everhood 2", "0.2.2", "DeamonHunter")]
+[assembly: MelonInfo(typeof(ArchipelagoEverhoodMod), "Archipelago Everhood 2", "0.3.0", "DeamonHunter")]
 [assembly: MelonGame("Foreign Gnomes", "Everhood 2")]
 [assembly: MelonPriority(100)]
 
