@@ -30,6 +30,7 @@ namespace ArchipelagoEverhood.Patches
                 return;
 
             Globals.SessionHandler.SaveFileLoaded();
+            Globals.TopdownRoot!.Player.SetTopDownPlayerMovementState(true);
         }
     }
     
@@ -42,6 +43,7 @@ namespace ArchipelagoEverhood.Patches
                 return;
 
             Globals.SessionHandler.SaveFileLoaded();
+            Globals.TopdownRoot!.Player.SetTopDownPlayerMovementState(true);
         }
     }
 
