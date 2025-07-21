@@ -3,8 +3,8 @@
     public enum SoulColor
     {
         None,
-        Red,
         Blue,
-        Green
+        Green,
+        Red,
     }
 }
