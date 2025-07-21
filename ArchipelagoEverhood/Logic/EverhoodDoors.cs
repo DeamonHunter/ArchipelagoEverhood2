@@ -32,7 +32,7 @@ namespace ArchipelagoEverhood.Logic
         {
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["Archipelago_ReachedMain"] = true;
             SpawnMarzianEra0Door(scene);
-            _frameCountdown = 5;
+            _frameCountdown = 6; //This is kinda gross, but the home town door change is very late.
         }
 
         public void Update()
