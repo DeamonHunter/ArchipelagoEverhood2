@@ -51,7 +51,7 @@ namespace ArchipelagoEverhood.Archipelago
                     MarkItemAdded(item.ItemId, i);
                     continue;
                 }
-                
+
                 if (ItemData.ColorsById.TryGetValue(item.ItemId, out var color))
                 {
                     Globals.Logging.LogDebug("LogicHandler", $"Color Mask Before: {Globals.EverhoodOverrides.ColorSanityMask}");

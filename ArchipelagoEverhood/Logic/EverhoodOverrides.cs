@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ArchipelagoEverhood.Data;
-using ArchipelagoEverhood.Patches;
 using ArchipelagoEverhood.Util;
 using Fungus;
 using TMPro;
@@ -19,13 +18,13 @@ namespace ArchipelagoEverhood.Archipelago
         public string Seed { get; private set; }
         public int PowerGemsRequired { get; private set; }
         public bool ProcessPostMortems { get; set; }
-        public bool Colorsanity{ get; private set; }
+        public bool Colorsanity { get; private set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
         public SoulColor SoulColor { get; private set; }
         public int ColorSanityMask { get; set; }
-        
+
         private int _frameCountdown;
 
         public void ArchipelagoConnected(string seed, SoulColor soulColor, int powerGemAmount, bool colorSanity)
@@ -104,7 +103,6 @@ namespace ArchipelagoEverhood.Archipelago
                     break;
             }
         }
-
 
         public void ReceivedColor(ItemData.EverhoodItemInfo value) => ColorSanityMask |= 1 << (int)value.Color;
         public void ResetMask() => ColorSanityMask = Colorsanity ? 0 : int.MaxValue;
@@ -238,31 +236,35 @@ namespace ArchipelagoEverhood.Archipelago
                 flowchart.ExecuteBlock("Quest1Check");
                 return;
             }
+
             if (EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post2Mortem"))
             {
                 flowchart.ExecuteBlock("Quest2Check");
                 Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post2Mortem"] = true;
                 return;
             }
+
             if (EverhoodHelpers.HasFlag("GL_3FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post3Mortem"))
             {
                 flowchart.ExecuteBlock("Quest3Check");
                 Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post3Mortem"] = true;
                 return;
             }
+
             if (EverhoodHelpers.HasFlag("GL_4FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post4Mortem"))
             {
                 flowchart.ExecuteBlock("Quest4Check");
                 Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post4Mortem"] = true;
                 return;
             }
+
             if (EverhoodHelpers.HasFlag("GL_5FinishedHillbertQuest") && !EverhoodHelpers.HasFlag("GL_Post5Mortem"))
             {
                 flowchart.ExecuteBlock("Quest5Check");
                 Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_Post5Mortem"] = true;
                 return;
             }
-            
+
             if (!EverhoodHelpers.HasFlag("GL_2KeyShown"))
             {
                 if (EverhoodHelpers.HasFlag("GL_EternalWarFinished") || EverhoodHelpers.HasFlag("GL_MarzianPart", 1))

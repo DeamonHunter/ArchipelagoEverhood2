@@ -72,6 +72,24 @@ namespace ArchipelagoEverhood.Util
             found = null;
             return false;
         }
+        
+        public static bool TryGetActiveChildWithName(string name, GameObject gameObject, [NotNullWhen(returnValue: true)] out Transform? found)
+            => TryGetActiveChildWithName(name, gameObject.transform, out found);
+
+        public static bool TryGetActiveChildWithName(string name, Transform transform, [NotNullWhen(returnValue: true)] out Transform? found)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.name != name || !child.gameObject.activeSelf)
+                    continue;
+
+                found = child;
+                return true;
+            }
+
+            found = null;
+            return false;
+        }
 
         public static bool HasFlag(string flag)
         {
