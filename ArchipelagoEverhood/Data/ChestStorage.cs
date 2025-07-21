@@ -45,7 +45,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 27, "Neon_HotelEntrance", "100xp", "GL_1A_HHe_ChestOpen", ChestType.XP, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 28, "Neon_HotelEntrance", "CatEarsBald", "GL_1A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 29, "Neon_HotelEntrance", "CatEarsHair", "GL_1A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
-            new ChestData(_itemStartId + 30, "GL_2RoomKeyInventory", "RoomKeyGold", "GL_2RoomKeyInventory", ChestType.Item), //Requires beating 2 starting areas
+            new ChestData(_itemStartId + 30, "Neon_HotelEntrance", "RoomKeyGold", "GL_2RoomKeyInventory", ChestType.Item), //Requires beating 2 starting areas
             new ChestData(_itemStartId + 31, "Neon_HotelEntrance", "50xp", "GL_2A_HHe_ChestOpen", ChestType.XP, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 32, "Neon_HotelEntrance", "Hairstyle7_OingoBoingo", "GL_2A_HHe_ChestOpen", ChestType.Cosmetic, RewardConditions.DontSetVariableOnGiven),
 
@@ -151,9 +151,9 @@ namespace ArchipelagoEverhood.Data
             //Torment Room 222 883
             new ChestData(_itemStartId + 109, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
             //new ChestData(_itemStartId + 110, "Raven Hub", "SoulWeapon", "GL_DE_DeathCoin", ChestType.Item),
-            new ChestData(_itemStartId + 112, "Hometown_Festival", "5xp", "GL_OrangeCatPetted", ChestType.XP),
-            new ChestData(_itemStartId + 113, "Hometown_Festival", "5xp", "GL_GreyCatPetted", ChestType.XP),
-            new ChestData(_itemStartId + 114, "Hometown_Festival", "-2xp", "GL_BlackCatPetted", ChestType.XP),
+            new ChestData(_itemStartId + 112, "Hometown_Festival", "5xp", "GL_OrangeCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
+            new ChestData(_itemStartId + 113, "Hometown_Festival", "5xp", "GL_GreyCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
+            new ChestData(_itemStartId + 114, "Hometown_Festival", "-2xp", "GL_BlackCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 115, "Hometown_Festival", "Braclet", "GL_HT_SoulDetermined", ChestType.Item),
         };
     }
