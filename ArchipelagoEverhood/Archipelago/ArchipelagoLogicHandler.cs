@@ -29,8 +29,11 @@ namespace ArchipelagoEverhood.Archipelago
             _acceptingItems = acceptingItems;
             if (!acceptingItems)
                 return;
+            
+            Globals.Logging.Log("LogicHandler", "Reset Initiated, double checking items.");
 
             //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
+            Globals.SessionHandler.ItemHandler!.ClearBlocks();
             Globals.EverhoodDoors.ResetKeys();
             Globals.EverhoodOverrides.ResetMask();
 
