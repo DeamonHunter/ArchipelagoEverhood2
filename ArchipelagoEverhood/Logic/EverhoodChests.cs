@@ -294,20 +294,20 @@ namespace ArchipelagoEverhood.Logic
 
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(chestData.VariableName, out var boolValue))
             {
-                if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                //if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
+                //    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (boolValue == chestData.ExpectedValue)
             {
-                if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
+                //if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
+                //    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
                 return true;
             }
 
-            if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
-                Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
+            //if (!chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
+            //    Globals.Logging.LogDebug("EverhoodChests", $"{chestData.VariableName} not successfully unlocked. {boolValue}/{chestData.ExpectedValue}");
             return false;
         }
 

@@ -134,33 +134,33 @@ namespace ArchipelagoEverhood.Logic
             {
                 if (!Globals.ServicesRoot!.GameData.GeneralData.intVariables.TryGetValue(battleData.VariableName, out var intValue))
                 {
-                    Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                    //Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                     return false;
                 }
 
                 if (intValue >= battleData.IntegerCount.Value)
                 {
-                    Globals.Logging.LogDebug("EverhoodBattles",$"{battleData.VariableName} successfully unlocked. {intValue}/{battleData.IntegerCount}");
+                    //Globals.Logging.LogDebug("EverhoodBattles",$"{battleData.VariableName} successfully unlocked. {intValue}/{battleData.IntegerCount}");
                     return true;
                 }
 
-                Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked. {intValue}/{battleData.IntegerCount}");
+                //Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked. {intValue}/{battleData.IntegerCount}");
                 return false;
             }
 
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(battleData.VariableName, out var boolValue))
             {
-                Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
+                //Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked: Variable doesn't exist yet.");
                 return false;
             }
 
             if (boolValue)
             {
-                Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} successfully unlocked. {boolValue}/True");
+                //Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} successfully unlocked. {boolValue}/True");
                 return true;
             }
 
-            Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked. {boolValue}/True");
+            //Globals.Logging.LogDebug("EverhoodBattles", $"{battleData.VariableName} not successfully unlocked. {boolValue}/True");
             return false;
         }
     }
