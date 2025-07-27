@@ -109,7 +109,7 @@ namespace ArchipelagoEverhood.Logic
                 SayOnEnterPatch.SetOverrideText("{rcolor}Congrats you've won!\nThanks for Testing!");
                 return null;
             }
-            
+
             if (CurrentBattle == null)
             {
                 Globals.Logging.Warning("Battles", "No active battle loaded. Not unlocking anything.");

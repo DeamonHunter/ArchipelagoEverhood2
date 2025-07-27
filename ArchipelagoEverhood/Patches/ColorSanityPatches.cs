@@ -190,7 +190,7 @@ namespace ArchipelagoEverhood.Patches
             var flag = 1 << (int)(projectile.projectileColor);
             if ((Globals.EverhoodOverrides.ColorSanityMask & flag) != 0)
                 return;
-            
+
             var originalColor = projectile.projectileColor;
             projectile.projectileColor = ProjectileColor.Black;
             if (EverhoodHelpers.TryGetChildWithName("Sabre", prefab, out var saber))
@@ -226,7 +226,7 @@ namespace ArchipelagoEverhood.Patches
                     keys.colorKeys[i] = new GradientColorKey(new Color(0, 0, 0), keys.colorKeys[i].time);
                 color.gradient = keys;
                 colorOverLifetime.color = color;
-                
+
                 var renderer = skull.GetComponent<ParticleSystemRenderer>();
                 renderer.material.shader = Shader.Find("Mobile/Particles/Alpha Blended");
                 renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
@@ -254,13 +254,14 @@ namespace ArchipelagoEverhood.Patches
                     var colors = _energyColors[setColor];
                     var copy = new GradientColorKey[colors.Length + 1];
                     copy[0] = keys.colorKeys[0];
-                    
+
                     copy[1] = new GradientColorKey(colors[0], keys.colorKeys[1].time);
                     if (colors.Length > 1)
                         copy[2] = new GradientColorKey(colors[1], 1);
                     keys.colorKeys = copy;
                     color.gradient = keys;
                 }
+
                 colorOverLifetime.color = color;
             }
 
@@ -282,13 +283,14 @@ namespace ArchipelagoEverhood.Patches
                     var colors = _mirrorColors[setColor];
                     var copy = new GradientColorKey[colors.Length + 1];
                     copy[0] = keys.colorKeys[0];
-                    
+
                     copy[1] = new GradientColorKey(colors[0], keys.colorKeys[1].time);
                     if (colors.Length > 1)
                         copy[2] = new GradientColorKey(colors[1], 1);
                     keys.colorKeys = copy;
                     color.gradient = keys;
                 }
+
                 colorOverLifetime.color = color;
             }
 

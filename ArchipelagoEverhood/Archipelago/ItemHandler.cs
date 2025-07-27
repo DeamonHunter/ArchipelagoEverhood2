@@ -88,7 +88,7 @@ namespace ArchipelagoEverhood.Archipelago
             _itemsToAdd.Enqueue(new ItemUnlock(info, true));
         }
 
-        public void RemoveBlockedItems(global::Archipelago.MultiClient.Net.Models.ItemInfo info) 
+        public void RemoveBlockedItems(global::Archipelago.MultiClient.Net.Models.ItemInfo info)
             => _blockedItems.RemoveWhere(x => x.ItemId == info.ItemId && x.LocationId == info.LocationId && x.Player.Slot == info.Player.Slot);
 
         public void ClearBlocks() => _blockedItems.Clear();
@@ -255,7 +255,7 @@ namespace ArchipelagoEverhood.Archipelago
                 Globals.Logging.Error("ItemHandler", $"Tried to Unlock someone else's item. {itemInfo.ItemDisplayName} : {itemInfo.ItemId} : {itemInfo.Player.Slot}");
                 return;
             }
-            
+
             RemoveBlockedItems(itemInfo);
 
             var data = Globals.ServicesRoot!.GameData.GeneralData;

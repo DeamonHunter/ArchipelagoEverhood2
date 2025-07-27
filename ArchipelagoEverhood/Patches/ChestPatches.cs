@@ -24,7 +24,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(itemInfo.item);
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -72,7 +72,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(new Dictionary<Item, int>() { { ___item, 1 } });
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -121,7 +121,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(artifactInfo.artifacts);
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -169,7 +169,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(new[] { ___artifact });
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -217,7 +217,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(new[] { ___artifact });
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -265,7 +265,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(___playerWeapon);
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -312,7 +312,7 @@ namespace ArchipelagoEverhood.Patches
             Cosmetics.Hairstyle5_Natural,
             Cosmetics.Hairstyle6_Afro,
         };
-        
+
         private static bool Prefix(UnlockCosmetic __instance, Cosmetics ___cosmetic)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -342,7 +342,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(___cosmetic);
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved || data.Shown)
                 {
                     __instance.Continue();
@@ -407,7 +407,7 @@ namespace ArchipelagoEverhood.Patches
                 var data = Globals.EverhoodChests.ChestOpened(xpRewardCount);
                 if (data == null)
                     return true;
-                
+
                 if (!data.Achieved)
                 {
                     __instance.Continue();
@@ -514,7 +514,7 @@ namespace ArchipelagoEverhood.Patches
                     dialog.Writer.SetDisableInstanteComplete(false);
                     if (unlockMovement)
                         topDown.Player.SetTopDownPlayerMovementState(true);
-                    
+
                     dialog.ClearContinue();
                     dialog.SetActive(false);
                     if (!callingCommand)

@@ -34,7 +34,7 @@ namespace ArchipelagoEverhood.Archipelago
                 Debug.LogError("We are somehow overriding twice? Did we log in again?");
                 return;
             }
-            
+
             Globals.Logging.Log("EverhoodOverrides", $"Connected to Archipelago: {seed}, {soulColor}, {powerGemAmount}, {colorSanity}");
 
             Overriding = true;
