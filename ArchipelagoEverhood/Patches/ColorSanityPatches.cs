@@ -152,7 +152,7 @@ namespace ArchipelagoEverhood.Patches
                     typeof(ShootProjectileFromNoteEventCommand).GetField("projectilPrefabBlue", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, projectilePrefabRed);
                     typeof(ShootProjectileFromNoteEventCommand).GetField("projectilPrefabRed", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, projectilePrefabGreen);
                     typeof(ShootProjectileFromNoteEventCommand).GetField("projectilPrefabGreen", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, projectilePrefabBlue);
-                    return true;
+                    break;
                 case "Capsicum-Battle":
                     if (Globals.EverhoodOverrides.SoulColor == SoulColor.Red && !projectilePrefab.name.Contains("Power"))
                     {
