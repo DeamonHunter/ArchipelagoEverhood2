@@ -51,7 +51,7 @@ namespace ArchipelagoEverhood.Patches
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("UnlockCosmetic", e);
+                Globals.Logging.Error("GivePlayerItem", e);
             }
 
             return false;
@@ -99,7 +99,7 @@ namespace ArchipelagoEverhood.Patches
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("UnlockCosmetic", e);
+                Globals.Logging.Error("PickItem", e);
             }
 
             return false;
@@ -148,7 +148,7 @@ namespace ArchipelagoEverhood.Patches
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("UnlockCosmetic", e);
+                Globals.Logging.Error("GivePlayerArtifact", e);
             }
 
             return false;
@@ -196,7 +196,7 @@ namespace ArchipelagoEverhood.Patches
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("UnlockCosmetic", e);
+                Globals.Logging.Error("PickArtifact", e);
             }
 
             return false;
@@ -302,6 +302,17 @@ namespace ArchipelagoEverhood.Patches
     [HarmonyPatch(typeof(UnlockCosmetic), "OnEnter")]
     public static class UnlockCosmeticPatch
     {
+        private static readonly HashSet<Cosmetics> _allowedNeonDistrictCosmetics = new()
+        {
+            Cosmetics.Hairstyle1_Anime,
+            Cosmetics.Mage_Hat,
+            Cosmetics.Hairstyle2_Wild,
+            Cosmetics.Hairstyle3_Backslick,
+            Cosmetics.Hairstyle4_Stylish,
+            Cosmetics.Hairstyle5_Natural,
+            Cosmetics.Hairstyle6_Afro,
+        };
+        
         private static bool Prefix(UnlockCosmetic __instance, Cosmetics ___cosmetic)
         {
             if (!Globals.SessionHandler.LoggedIn)
@@ -315,6 +326,16 @@ namespace ArchipelagoEverhood.Patches
                     Globals.Logging.Msg($"Used Mirror to try and unlock Cosmetic.");
                     __instance.Continue();
                     return false;
+                }
+
+                scene = SceneManager.GetSceneByName("Neon_NeonDistrict");
+                if (scene.isLoaded)
+                {
+                    if (!_allowedNeonDistrictCosmetics.Contains(___cosmetic))
+                    {
+                        Globals.Logging.Log("UnlockCosmetic", $"Not unlocking '{___cosmetic}' as it is not a default cosmetic in the Neon District.");
+                        return true;
+                    }
                 }
 
                 Globals.Logging.Msg($"Unlocking Cosmetic: {___cosmetic}");
@@ -407,7 +428,7 @@ namespace ArchipelagoEverhood.Patches
             }
             catch (Exception e)
             {
-                Globals.Logging.Error("UnlockCosmetic", e);
+                Globals.Logging.Error("GivePlayerXP", e);
             }
 
             return false;
