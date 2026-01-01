@@ -12,6 +12,7 @@ namespace ArchipelagoEverhood.Archipelago
         public long PowerGemAmount { get; } = 3;
         public bool ColorSanity { get; }
         public bool PreventDragon { get; }
+        public float HealthMultiplier { get; }
         
         public ArchipelagoSettings(string seed, Dictionary<string, object> slotData)
         {
@@ -30,6 +31,9 @@ namespace ArchipelagoEverhood.Archipelago
             
             if (slotData.TryGetValue("PreventDragon", out var dragon))
                 PreventDragon = (bool)dragon;
+            
+            if (slotData.TryGetValue("HealthMultiplier", out var healthMultiplier))
+                HealthMultiplier = ((long)healthMultiplier / 100f);
         }
 
         public override string ToString()

@@ -34,6 +34,29 @@ namespace ArchipelagoEverhood.Patches
             }
         }
     }
+    
+    [HarmonyPatch(typeof(GameplayEnemy), "Start")]
+    public static class GameplayEnemyStartPatch
+    {
+        private static void Postfix(GameplayEnemy __instance)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return;
+            
+            try
+            {
+                var newHp = Mathf.FloorToInt(__instance.StartHp * Globals.EverhoodOverrides.Settings.HealthMultiplier);
+                Globals.Logging.Log("GameplayEnemy", $"Enemy Activated by Start: Adjusting HP {__instance.StartHp}->{newHp}");
+                __instance.SetStartHp(newHp);
+            }
+            catch (Exception e)
+            {
+                Globals.Logging.Error("GameplayEnemy", e);
+            }
+        }
+    }
+    
+    
 
     [HarmonyPatch(typeof(Main_GameplayRoot), "GameplayEnemyDefeated")]
     public static class Main_GameplayRootGameplayEnemyDefeatedPatch
