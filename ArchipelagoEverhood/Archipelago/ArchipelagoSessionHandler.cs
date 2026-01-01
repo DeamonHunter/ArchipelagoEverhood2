@@ -15,6 +15,7 @@ namespace ArchipelagoEverhood.Archipelago
         public bool LoggedIn { get; private set; }
         public ArchipelagoLogicHandler? LogicHandler;
         public ArchipelagoItemHandler? ItemHandler;
+        public ArchipelagoSettings? Settings;
 
         private ArchipelagoSession? _currentSession;
         public int Slot { get; private set; }
@@ -68,25 +69,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             LogicHandler = new ArchipelagoLogicHandler(_currentSession!);
             ItemHandler = new ArchipelagoItemHandler(_currentSession!.ConnectionInfo.Slot, _currentSession!.ConnectionInfo.Team);
-
-            SoulColor soulColor;
-            if (_slotData!.TryGetValue("SoulColor", out var colorObj))
-                soulColor = (SoulColor)((long)colorObj);
-            else
-                soulColor = SoulColor.None;
-
-            if (_slotData.TryGetValue("DoorKeys", out var doorKeys))
-                Globals.EverhoodDoors.DoorRandoEnabled = (bool)doorKeys;
-
-            long powerGemAmount = 3;
-            if (_slotData.TryGetValue("DragonGems", out var powerGemObj))
-                powerGemAmount = (long)powerGemObj;
-
-            var colorsanity = false;
-            if (_slotData.TryGetValue("Colorsanity", out var color))
-                colorsanity = (bool)color;
-
-            Globals.EverhoodOverrides.ArchipelagoConnected(_currentSession!.RoomState.Seed, soulColor, (int)powerGemAmount, colorsanity);
+            Globals.EverhoodOverrides.ArchipelagoConnected(new ArchipelagoSettings(_currentSession!.RoomState.Seed, _slotData!));
         }
 
         private void FindObjects()
@@ -110,6 +93,7 @@ namespace ArchipelagoEverhood.Archipelago
             {
                 Globals.EverhoodBattles.CompleteChecksLoadedFromSave(_currentSession.Locations);
                 Globals.EverhoodChests.CompleteChecksLoadedFromSave(_currentSession.Locations);
+                Globals.EverhoodOverrides.OnSaveLoaded();
                 LogicHandler!.SetAcceptingItems(true);
                 _activateUpdate = true;
             }
@@ -152,6 +136,7 @@ namespace ArchipelagoEverhood.Archipelago
                     await _currentSession.Socket.DisconnectAsync();
                 Globals.EverhoodOverrides?.ArchipelagoDisconnected();
                 LoggedIn = false;
+                Settings = null;
                 LogicHandler = null;
                 ItemHandler = null;
                 _currentSession = null;

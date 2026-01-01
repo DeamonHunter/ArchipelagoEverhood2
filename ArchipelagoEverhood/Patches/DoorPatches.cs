@@ -23,11 +23,11 @@ namespace ArchipelagoEverhood.Patches
                 switch (____targetObject.Value.name)
                 {
                     case "HallOfCon_Door":
-                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= Globals.EverhoodOverrides.PowerGemsRequired)
+                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= Globals.EverhoodOverrides.Settings.PowerGemAmount)
                             return true;
 
                         __instance.IsExecuting = true;
-                        SayOnEnterPatch.ForceShowDialogue($"You need {Globals.EverhoodOverrides.PowerGemsRequired} {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, false)} in total to fight the dragon! You have {EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken))}.", __instance);
+                        SayOnEnterPatch.ForceShowDialogue($"You need {Globals.EverhoodOverrides.Settings.PowerGemAmount} {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, false)} in total to fight the dragon! You have {EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken))}.", __instance);
                         return false;
                 }
 
@@ -58,7 +58,7 @@ namespace ArchipelagoEverhood.Patches
                     case "LevelLoad-HallOfCon-Mirror":
                     case "LevelLoad-HallOfCon-PostDragon":
                     case "PortalEffect_HallOfCon":
-                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= Globals.EverhoodOverrides.PowerGemsRequired)
+                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= Globals.EverhoodOverrides.Settings.PowerGemAmount)
                             return true;
 
                         __instance.Continue();

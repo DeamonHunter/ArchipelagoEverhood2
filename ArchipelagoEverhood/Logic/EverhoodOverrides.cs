@@ -16,18 +16,17 @@ namespace ArchipelagoEverhood.Archipelago
     {
         public bool Overriding;
         public string Seed { get; private set; }
-        public int PowerGemsRequired { get; private set; }
+        public ArchipelagoSettings Settings { get; private set; }
+        
         public bool ProcessPostMortems { get; set; }
-        public bool Colorsanity { get; private set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
-        public SoulColor SoulColor { get; private set; }
         public int ColorSanityMask { get; set; }
 
         private int _frameCountdown;
 
-        public void ArchipelagoConnected(string seed, SoulColor soulColor, int powerGemAmount, bool colorSanity)
+        public void ArchipelagoConnected(ArchipelagoSettings settings)
         {
             if (Overriding)
             {
@@ -35,13 +34,10 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             }
 
-            Globals.Logging.Log("EverhoodOverrides", $"Connected to Archipelago: {seed}, {soulColor}, {powerGemAmount}, {colorSanity}");
+            Globals.Logging.Log("EverhoodOverrides", $"Connected to Archipelago: {settings}");
 
             Overriding = true;
-            Seed = seed;
-            SoulColor = soulColor;
-            PowerGemsRequired = powerGemAmount;
-            Colorsanity = colorSanity;
+            Settings = settings;
             Globals.ServicesRoot = GameObject.FindObjectsByType<ServicesRoot>(FindObjectsInactive.Include, FindObjectsSortMode.None).First();
 
             var infProjExperience = typeof(InfinityProjectExperience);
@@ -107,7 +103,7 @@ namespace ArchipelagoEverhood.Archipelago
         }
 
         public void ReceivedColor(ItemData.EverhoodItemInfo value) => ColorSanityMask |= 1 << (int)value.Color;
-        public void ResetMask() => ColorSanityMask = Colorsanity ? 0 : int.MaxValue;
+        public void ResetMask() => ColorSanityMask = Settings.ColorSanity ? 0 : int.MaxValue;
 
         public void Update()
         {
@@ -119,6 +115,14 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             HillbertOverrides();
         }
+        
+        public void OnSaveLoaded()
+        {
+            if (Settings.PreventDragon)
+                Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_DragonPart3Counter"] = 2;
+            
+            
+        }
 
         public void SetQuestionnaire()
         {
@@ -129,7 +133,7 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_PlayerAge"] = 15; //Not exactly used but set anyway to ensure nothing breaks.
 
             Globals.ServicesRoot!.GameData.GeneralData.EquipWeapon(Weapon.Unarmed);
-            switch (SoulColor)
+            switch (Settings.SoulColor)
             {
                 case SoulColor.None:
                 case SoulColor.Blue:
