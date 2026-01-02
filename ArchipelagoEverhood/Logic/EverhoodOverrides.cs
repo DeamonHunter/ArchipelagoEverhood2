@@ -15,9 +15,9 @@ namespace ArchipelagoEverhood.Archipelago
     public class EverhoodOverrides
     {
         public bool Overriding;
-        public string Seed { get; private set; }
-        public ArchipelagoSettings Settings { get; private set; }
-        
+        public string? Seed { get; private set; }
+        public ArchipelagoSettings? Settings { get; private set; }
+
         public bool ProcessPostMortems { get; set; }
 
         public Dictionary<string, int> OriginalXpLevels = new();
@@ -103,7 +103,7 @@ namespace ArchipelagoEverhood.Archipelago
         }
 
         public void ReceivedColor(ItemData.EverhoodItemInfo value) => ColorSanityMask |= 1 << (int)value.Color;
-        public void ResetMask() => ColorSanityMask = Settings.ColorSanity ? 0 : int.MaxValue;
+        public void ResetMask() => ColorSanityMask = (Settings?.ColorSanity ?? false) ? 0 : int.MaxValue;
 
         public void Update()
         {
@@ -115,13 +115,11 @@ namespace ArchipelagoEverhood.Archipelago
                 return;
             HillbertOverrides();
         }
-        
+
         public void OnSaveLoaded()
         {
-            if (Settings.PreventDragon)
+            if (Settings is { PreventDragon: true })
                 Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_DragonPart3Counter"] = 2;
-            
-            
         }
 
         public void SetQuestionnaire()
@@ -133,6 +131,9 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_PlayerAge"] = 15; //Not exactly used but set anyway to ensure nothing breaks.
 
             Globals.ServicesRoot!.GameData.GeneralData.EquipWeapon(Weapon.Unarmed);
+            if (Settings == null)
+                return;
+
             switch (Settings.SoulColor)
             {
                 case SoulColor.None:

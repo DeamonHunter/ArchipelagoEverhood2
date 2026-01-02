@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Reflection;
 using Archipelago.MultiClient.Net.Enums;
 using ArchipelagoEverhood.Util;
 using Fungus;
 using HarmonyLib;
-using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -20,14 +16,19 @@ namespace ArchipelagoEverhood.Patches
                 if (!Globals.SessionHandler.LoggedIn || !____targetObject.gameObjectVal)
                     return true;
 
+                if (Globals.EverhoodOverrides.Settings == null)
+                    return true;
+
                 switch (____targetObject.Value.name)
                 {
                     case "HallOfCon_Door":
-                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= Globals.EverhoodOverrides.Settings.PowerGemAmount)
+                        if (EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken)) >= Globals.EverhoodOverrides.Settings?.PowerGemAmount)
                             return true;
 
                         __instance.IsExecuting = true;
-                        SayOnEnterPatch.ForceShowDialogue($"You need {Globals.EverhoodOverrides.Settings.PowerGemAmount} {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, false)} in total to fight the dragon! You have {EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken))}.", __instance);
+                        SayOnEnterPatch.ForceShowDialogue(
+                            $"You need {Globals.EverhoodOverrides.Settings!.PowerGemAmount} {EverhoodHelpers.ConstructItemText("Power Gems", ItemFlags.Advancement, false)} in total to fight the dragon! You have {EverhoodHelpers.GetItemCount(nameof(Item.WeaponToken))}.",
+                            __instance);
                         return false;
                 }
 

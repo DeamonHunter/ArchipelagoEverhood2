@@ -9,8 +9,6 @@ namespace ArchipelagoEverhood.Logic
 {
     public class EverhoodDoors
     {
-        public bool DoorRandoEnabled = false;
-
         private HashSet<long> _activeDoors = new();
 
         private int _marzianKeys;
@@ -40,6 +38,7 @@ namespace ArchipelagoEverhood.Logic
             if (_frameCountdown <= 0)
                 return;
 
+            Globals.Logging.LogDebug("EverhoodDoors", $"Frame Countdown: {_frameCountdown}");
             _frameCountdown--;
             if (_frameCountdown > 0)
                 return;
@@ -77,8 +76,11 @@ namespace ArchipelagoEverhood.Logic
 
         private void ChangeDoorsMainHub(Scene scene)
         {
-            if (!DoorRandoEnabled)
+            Globals.Logging.LogDebug("EverhoodDoors", "Attempting Change to Cosmic hub doors.");
+            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
                 return;
+
+            Globals.Logging.Log("EverhoodDoors", "Changing Cosmic hub doors.");
 
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
             {

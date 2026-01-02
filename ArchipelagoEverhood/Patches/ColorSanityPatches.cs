@@ -85,7 +85,7 @@ namespace ArchipelagoEverhood.Patches
             ref GameObject ___projectilPrefabGreen, ref GameObject ___projectilPrefabRed, out GameObject[]? __state)
         {
             __state = null;
-            if (!Globals.SessionHandler.LoggedIn || !Globals.EverhoodOverrides.Settings.ColorSanity)
+            if (!Globals.SessionHandler.LoggedIn || Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.ColorSanity)
                 return;
             try
             {
@@ -154,7 +154,7 @@ namespace ArchipelagoEverhood.Patches
                     typeof(ShootProjectileFromNoteEventCommand).GetField("projectilPrefabGreen", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, projectilePrefabBlue);
                     break;
                 case "Capsicum-Battle":
-                    if (Globals.EverhoodOverrides.Settings.SoulColor == SoulColor.Red && !projectilePrefab.name.Contains("Power"))
+                    if (Globals.EverhoodOverrides.Settings!.SoulColor == SoulColor.Red && !projectilePrefab.name.Contains("Power"))
                     {
                         AdjustToColor(projectilePrefab, ProjectileColor.Red);
                         return true;
@@ -162,7 +162,7 @@ namespace ArchipelagoEverhood.Patches
 
                     break;
                 case "JuiceMaster-Battle":
-                    if (Globals.EverhoodOverrides.Settings.SoulColor == SoulColor.Red)
+                    if (Globals.EverhoodOverrides.Settings!.SoulColor == SoulColor.Red)
                     {
                         var comp = projectilePrefab.GetComponent<NoteProjectileColorData>();
                         if (comp && comp.projectileColor == ProjectileColor.Blue)

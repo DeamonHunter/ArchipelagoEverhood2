@@ -34,7 +34,7 @@ namespace ArchipelagoEverhood.Patches
             }
         }
     }
-    
+
     [HarmonyPatch(typeof(GameplayEnemy), "Start")]
     public static class GameplayEnemyStartPatch
     {
@@ -42,10 +42,10 @@ namespace ArchipelagoEverhood.Patches
         {
             if (!Globals.SessionHandler.LoggedIn)
                 return;
-            
+
             try
             {
-                var newHp = Mathf.FloorToInt(__instance.StartHp * Globals.EverhoodOverrides.Settings.HealthMultiplier);
+                var newHp = Mathf.FloorToInt(__instance.StartHp * Globals.EverhoodOverrides.Settings?.HealthMultiplier ?? 1);
                 Globals.Logging.Log("GameplayEnemy", $"Enemy Activated by Start: Adjusting HP {__instance.StartHp}->{newHp}");
                 __instance.SetStartHp(newHp);
             }
@@ -55,8 +55,6 @@ namespace ArchipelagoEverhood.Patches
             }
         }
     }
-    
-    
 
     [HarmonyPatch(typeof(Main_GameplayRoot), "GameplayEnemyDefeated")]
     public static class Main_GameplayRootGameplayEnemyDefeatedPatch

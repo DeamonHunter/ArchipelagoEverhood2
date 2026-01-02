@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Enums;
-using ArchipelagoEverhood.Data;
 using UnityEngine;
 
 namespace ArchipelagoEverhood.Archipelago
@@ -15,7 +14,6 @@ namespace ArchipelagoEverhood.Archipelago
         public bool LoggedIn { get; private set; }
         public ArchipelagoLogicHandler? LogicHandler;
         public ArchipelagoItemHandler? ItemHandler;
-        public ArchipelagoSettings? Settings;
 
         private ArchipelagoSession? _currentSession;
         public int Slot { get; private set; }
@@ -136,7 +134,6 @@ namespace ArchipelagoEverhood.Archipelago
                     await _currentSession.Socket.DisconnectAsync();
                 Globals.EverhoodOverrides?.ArchipelagoDisconnected();
                 LoggedIn = false;
-                Settings = null;
                 LogicHandler = null;
                 ItemHandler = null;
                 _currentSession = null;
