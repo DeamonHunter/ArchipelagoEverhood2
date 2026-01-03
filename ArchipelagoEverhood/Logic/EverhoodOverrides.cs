@@ -87,6 +87,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "CosmicHubInfinity":
                     Globals.EverhoodDoors.OnEnterMainHub(scene);
                     break;
+                case "TimeHubInfinity":
+                    Globals.EverhoodDoors.OnEnterTimeHub(scene);
+                    break;
                 case "Marzian_Part1Hero_MinesHallway":
                     OnEnterMarzianHallway(scene);
                     break;
@@ -97,6 +100,9 @@ namespace ArchipelagoEverhood.Archipelago
                     OnEnterHometownFestival(scene);
                     break;
                 case "Neon_HotelEntrance":
+                    OnEnterHillbertHotel();
+                    break;
+                case "MushroomForest_Entrance":
                     OnEnterHillbertHotel();
                     break;
             }
@@ -298,6 +304,20 @@ namespace ArchipelagoEverhood.Archipelago
                 if (EverhoodHelpers.HasFlag("GL_1A_3D_VanguardDead"))
                     flowchart.ExecuteBlock("Quest4Next");
             }
+        }
+        
+        
+        private void OnEnterMushroomForest(Scene scene)
+        {
+            //Todo: Timing
+            if (!EverhoodHelpers.TryGetGameObjectWithName("WORLD", scene.GetRootGameObjects(), out var world))
+                throw new Exception("Failed to edit Mushroom Forest: Could not find 'WORLD'.");
+            if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
+                throw new Exception("Failed to edit Mushroom Forest: Could not find 'TRIGGERBOX'.");
+            if (EverhoodHelpers.TryGetChildWithName("MushroomBureauEntrance", world, out var entrance))
+                entrance.gameObject.SetActive(true);
+            if (EverhoodHelpers.TryGetChildWithName("LevelLoad-MushroomBureauHallway", triggers, out var load))
+                load.gameObject.SetActive(true);
         }
 
 #region Main Menu

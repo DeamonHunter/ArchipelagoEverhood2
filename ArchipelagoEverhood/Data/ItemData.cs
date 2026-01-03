@@ -123,9 +123,9 @@ namespace ArchipelagoEverhood.Data
             { 303, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Smega Console Key", DoorId = 3 } },
             { 304, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Lab Key", DoorId = 4 } },
             { 305, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Home Town Key", DoorId = 5 } },
-            //{ 306, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 6} },
-            //{ 307, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 7} },
-            //{ 308, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Neon Forest Key", DoorId = 8} },
+            { 306, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Mushroom Door Key", DoorId = 7} },
+            { 307, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "3 Dimensional Key", DoorId = 8} },
+            { 308, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Smelly Key", DoorId = 9} },
         };
 
         public static Dictionary<long, EverhoodItemInfo> ColorsById = new()

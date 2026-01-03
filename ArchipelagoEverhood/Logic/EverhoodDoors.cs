@@ -14,6 +14,7 @@ namespace ArchipelagoEverhood.Logic
         private int _marzianKeys;
         private const long marzian_key_id = 1;
         private int _frameCountdown;
+        private Hub _loadingHub;
 
         private static readonly Dictionary<long, string> _keysToDoors = new()
         {
@@ -24,13 +25,31 @@ namespace ArchipelagoEverhood.Logic
             { 4, "TheLab" }, //Post Dragon Content
             { 5, "HomeTown_Door" }, //Post Dragon Content
             { 6, "Hall Of Con" }, //Dragon door. Should probably always be available.
+            
+            { 7, "MushroomDoor" },
+            { 8, "3DDoor" },
+            { 9, "SmellyDoor" },
         };
+        
+        private enum Hub
+        {
+            CosmicHub,
+            TimeHub
+        }
 
         public void OnEnterMainHub(Scene scene)
         {
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["Archipelago_ReachedMain"] = true;
             SpawnMarzianEra0Door(scene);
             _frameCountdown = 6; //This is kinda gross, but the home town door change is very late.
+            _loadingHub = Hub.CosmicHub;
+        }
+
+        public void OnEnterTimeHub(Scene scene)
+        {
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["Archipelago_ReachedTime"] = true;
+            _frameCountdown = 6; //This is kinda gross, but the home town door change is very late.
+            _loadingHub = Hub.TimeHub;
         }
 
         public void Update()
@@ -43,10 +62,25 @@ namespace ArchipelagoEverhood.Logic
             if (_frameCountdown > 0)
                 return;
 
-            var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
-            if (!scene.isLoaded)
-                throw new Exception("Failed to load the hub even though we are in it???");
-            ChangeDoorsMainHub(scene);
+            switch (_loadingHub)
+            {
+                case Hub.CosmicHub:
+                {
+                    var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
+                    if (!scene.isLoaded)
+                        throw new Exception("Failed to load the hub even though we are in it???");
+                    ChangeDoorsMainHub(scene);
+                    break;
+                }
+                case Hub.TimeHub:
+                {
+                    var scene = SceneManager.GetSceneByName("TimeHubInfinity");
+                    if (!scene.isLoaded)
+                        throw new Exception("Failed to load the hub even though we are in it???");
+                    ChangeDoorsMainHub(scene);
+                    break;
+                }
+            }
         }
 
         public void ResetKeys()
@@ -56,6 +90,9 @@ namespace ArchipelagoEverhood.Logic
             var scene = SceneManager.GetSceneByName("CosmicHubInfinity");
             if (scene.isLoaded)
                 ChangeDoorsMainHub(scene);
+            scene = SceneManager.GetSceneByName("TimeHubInfinity");
+            if (scene.isLoaded)
+                ChangeDoorsTimeHub(scene);
         }
 
         public void OnReceiveDoorKey(long keyId)
@@ -74,6 +111,8 @@ namespace ArchipelagoEverhood.Logic
                 ChangeDoorsMainHub(scene);
         }
 
+#region CosmicHub
+        
         private void ChangeDoorsMainHub(Scene scene)
         {
             Globals.Logging.LogDebug("EverhoodDoors", "Attempting Change to Cosmic hub doors.");
@@ -282,5 +321,92 @@ namespace ArchipelagoEverhood.Logic
                 }
             }
         }
+
+#endregion
+
+#region TimeHub
+
+
+        private void ChangeDoorsTimeHub(Scene scene)
+        {
+            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
+                return;
+
+            if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
+            {
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'GAMEPLAY'.");
+                return;
+            }
+
+            AdjustTimeHubTriggers(scene);
+
+            foreach (Transform child in gameplay.transform)
+            {
+                var value = _keysToDoors.FirstOrDefault(x => x.Value == child.name);
+                if (value.Value is null)
+                    continue;
+
+                var active = _activeDoors.Contains(value.Key);
+                switch (value.Value)
+                {
+                    default:
+                        child.gameObject.SetActive(active);
+                        break;
+
+                    case "3DDoor":
+                    {
+                        child.gameObject.SetActive(true);
+                        child.position = new Vector3(1.825f, -2.63f, 0.28f);
+                        
+                        if (EverhoodHelpers.TryGetChildWithName("Locked3D", child, out var locked))
+                            locked.gameObject.SetActive(!active);
+                        
+                        if (EverhoodHelpers.TryGetChildWithName("RightPillar", child, out var rightPillar))
+                            if (EverhoodHelpers.TryGetChildWithName("3DPortal", rightPillar, out var portal))
+                                portal.gameObject.SetActive(active);
+                        
+                        
+                        /*
+                        if (_activeDoors.Contains(value.Key))
+                        {
+                            child.transform.position = new Vector3(1.8f, -2.45f, 0f);
+                            child.gameObject.SetActive(true);
+                        }
+                        else
+                            child.gameObject.SetActive(false);
+                        */
+
+                        
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void AdjustTimeHubTriggers(Scene scene)
+        {
+            if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
+            {
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'TRIGGERBOX'.");
+                return;
+            }
+            
+            if (EverhoodHelpers.TryGetChildWithName("Intro-RavenLockingGate", triggers, out var ravenLock))
+                ravenLock.gameObject.SetActive(false);
+            else
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'Intro-RavenLockingGate'.");
+            
+            if (EverhoodHelpers.TryGetChildWithName("LevelLoad-3DDimension", triggers, out var threeDLoad))
+                threeDLoad.gameObject.SetActive(_activeDoors.Contains(8));
+            else
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'LevelLoad-3DDimension'.");
+            
+            if (EverhoodHelpers.TryGetChildWithName("GotCoinsTrigger", triggers, out var gotcoins))
+                gotcoins.gameObject.SetActive(false);
+            else
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'GotCoinsTrigger'.");
+        }
+
+#endregion
     }
 }

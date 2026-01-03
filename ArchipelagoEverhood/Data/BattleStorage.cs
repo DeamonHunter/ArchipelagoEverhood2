@@ -94,7 +94,8 @@ namespace ArchipelagoEverhood.Data
             //Mushroom Forest (unlocked after Dragon) 
             new BattleData(_battleStartId + 63, "BrownSlowMushroom-Battle", "GL_MBs_1A_SlowBrownMushroomBattle", 50), // Sun path, required
             new BattleData(_battleStartId + 64, "HydraMushroom-Battle", "HydraMushroomAwaken", 50), // Moon path, believe this is a trash fight
-            new BattleData(_battleStartId + 65, "SmellyGasMushroom-Battle", "SmellyGasMushroom-Battle", 50), // Moon path, required, fight as Cube
+            new BattleData(_battleStartId + 137, "SmellyGasMushroom-Battle", "GL_1A_MBm_SmellyGasDead", 50), // Moon path, not required
+            new BattleData(_battleStartId + 65, "SmellyGasMushroom-Battle", "GL_1B_MBm_SmellyGasDead", 50), // Moon path, required, fight as Cube
             new BattleData(_battleStartId + 66, "BrownSlowMushroom-Battle", "GL_1B_MBm_SlowBrownDead", 50), // Moon path, required, fight as Cube
             new BattleData(_battleStartId + 67, "MB_SunKnight-Battle", "GL_1B_MBm_SunKnightDead", 100), // Moon path, required, fight as Cube
             new BattleData(_battleStartId + 68, "GL_MB_BureauGone", "GL_MushroomBureauFinished", 100), // Mushroom Bureau Fight after getting an Insignia, Judge Mushroom fight. Does not end normally

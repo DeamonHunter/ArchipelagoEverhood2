@@ -78,6 +78,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 53, "MushroomBureau_MoonPath", "WeaponToken", "GL_1A_MBm_ChestOpen", ChestType.Item),
             new ChestData(_itemStartId + 54, "MushroomBureau_MoonPath", "MoonInsignia", "GL_MB_Moon", ChestType.Item),
             new ChestData(_itemStartId + 55, "MushroomBureau_MoonPath", "DeathCoin", "GL_MB_DeathCoinPickedUp", ChestType.Item),
+            new ChestData(_itemStartId + 116, "MushroomBureau_MoonPath", "MushroomHat", null, ChestType.Cosmetic),
             //Lucy Room 266 888
             new ChestData(_itemStartId + 56, "LucyRoom", "Duality", "GL_HH_LucyEncounterOutro", ChestType.Item),
             //Sam's Room 111 568
