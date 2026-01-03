@@ -25,6 +25,7 @@ namespace ArchipelagoEverhood.Archipelago
         public int ColorSanityMask { get; set; }
 
         private int _frameCountdown;
+        private Action? _frameCountdownAction;
 
         public void ArchipelagoConnected(ArchipelagoSettings settings)
         {
@@ -103,7 +104,7 @@ namespace ArchipelagoEverhood.Archipelago
                     OnEnterHillbertHotel();
                     break;
                 case "MushroomForest_Entrance":
-                    OnEnterHillbertHotel();
+                    OnEnterMushroomForest();
                     break;
             }
         }
@@ -119,7 +120,7 @@ namespace ArchipelagoEverhood.Archipelago
             _frameCountdown--;
             if (_frameCountdown > 0)
                 return;
-            HillbertOverrides();
+            _frameCountdownAction?.Invoke();
         }
 
         public void OnSaveLoaded()
@@ -210,6 +211,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             _frameCountdown = 10;
             ProcessPostMortems = true;
+            _frameCountdownAction = HillbertOverrides;
         }
 
         private void HillbertOverrides()
@@ -307,9 +309,20 @@ namespace ArchipelagoEverhood.Archipelago
         }
         
         
-        private void OnEnterMushroomForest(Scene scene)
+        private void OnEnterMushroomForest()
         {
-            //Todo: Timing
+            _frameCountdown = 5;
+            _frameCountdownAction = ForestOverrides;
+            Globals.Logging.LogDebug("Everhood Overrides", "Entered Mushroom Forest Update");
+        }
+
+        private void ForestOverrides()
+        {
+            Globals.Logging.LogDebug("Everhood Overrides", "Triggered Mushroom Forest Update");
+            var scene = SceneManager.GetSceneByName("MushroomForest_Entrance");
+            if (!scene.isLoaded)
+                return;
+            
             if (!EverhoodHelpers.TryGetGameObjectWithName("WORLD", scene.GetRootGameObjects(), out var world))
                 throw new Exception("Failed to edit Mushroom Forest: Could not find 'WORLD'.");
             if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
