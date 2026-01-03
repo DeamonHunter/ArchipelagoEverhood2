@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using ArchipelagoEverhood.Util;
+using Fungus;
+using Trisibo;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -387,12 +390,17 @@ namespace ArchipelagoEverhood.Logic
                         
                         if (EverhoodHelpers.TryGetChildWithName("Locked3D", child, out var locked))
                             locked.gameObject.SetActive(!active);
-                        
-                        if (EverhoodHelpers.TryGetChildWithName("RightPillar", child, out var rightPillar))
-                            if (EverhoodHelpers.TryGetChildWithName("3DPortal", rightPillar, out var portal))
-                                portal.gameObject.SetActive(active);
-                        
-                        
+
+                        if (EverhoodHelpers.TryGetChildWithName("Visuals", child, out var visuals))
+                        {
+                            if (EverhoodHelpers.TryGetChildWithName("RightPillar", visuals, out var rightPillar))
+                            {
+                                if (EverhoodHelpers.TryGetChildWithName("3DPortal", rightPillar, out var portal))
+                                    portal.gameObject.SetActive(active);
+                            }
+                        }
+
+
                         /*
                         if (_activeDoors.Contains(value.Key))
                         {
