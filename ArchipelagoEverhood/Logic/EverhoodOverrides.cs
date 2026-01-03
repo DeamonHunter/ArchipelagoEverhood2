@@ -91,6 +91,12 @@ namespace ArchipelagoEverhood.Archipelago
                 case "TimeHubInfinity":
                     Globals.EverhoodDoors.OnEnterTimeHub(scene);
                     break;
+                case "3DDimension_Game":
+                    Globals.EverhoodDoors.OnEnter3DDimension(scene);
+                    break;
+                case "BirdIsland_Hub":
+                    Globals.EverhoodDoors.OnEnterBirdIsland(scene);
+                    break;
                 case "Marzian_Part1Hero_MinesHallway":
                     OnEnterMarzianHallway(scene);
                     break;
