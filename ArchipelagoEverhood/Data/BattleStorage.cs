@@ -145,6 +145,7 @@ namespace ArchipelagoEverhood.Data
             //Death Mountain. Fights respawn upon re-entering but give 0xp (unlocked after Mushroom Forest)
             new BattleData(_battleStartId + 103, "Rock-Battle", "GL_1A_BI_RockDead", 200),
             new BattleData(_battleStartId + 104, "Rock-Battle", "GL_2A_BI_RockDead", 200),
+            new BattleData(_battleStartId + 138, "Rock-Battle", "GL_3A_BI_RockDead", 200),
             new BattleData(_battleStartId + 105, "MimicChest-Battle", "GL_1A_BI_MimicChestDead", 250),
             new BattleData(_battleStartId + 106, "MimicApple-Battle", "GL_1A_BI_MimicAppleDead", 300),
             new BattleData(_battleStartId + 107, "Harpy-Battle", "GL_1A_BI_HarpyDead", 250),
