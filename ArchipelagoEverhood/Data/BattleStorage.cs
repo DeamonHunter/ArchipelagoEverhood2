@@ -198,13 +198,5 @@ namespace ArchipelagoEverhood.Data
             "SamFake-Battle", //Not really a battle
             "DragonPart1-Battle"
         };
-
-        //Todo: Determine Goal [Dot] A Goal should be ShadePostCredits-Battle.
-        public static readonly HashSet<string> VictoryBattles = new()
-        {
-            "DragonPart2-Battle"
-            // new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", 0),
-            // CatGodHairball-Battle //777xp
-        };
     }
 }

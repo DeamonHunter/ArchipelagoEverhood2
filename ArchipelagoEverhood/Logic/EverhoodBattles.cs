@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Archipelago.MultiClient.Net.Helpers;
+using ArchipelagoEverhood.Archipelago;
 using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Patches;
 
@@ -70,11 +71,27 @@ namespace ArchipelagoEverhood.Logic
                 if (BattleStorage.SkipBattles.Contains(battleSceneName))
                     return;
 
-                if (BattleStorage.VictoryBattles.Contains(battleSceneName))
+                switch (Globals.EverhoodOverrides.Settings!.Goal)
                 {
-                    Globals.Logging.Warning("EverhoodBattles", $"Starting Victory fight!");
-                    InVictoryBattle = true;
-                    return;
+                    default:
+                    case EverhoodGoal.Dragon:
+                        if (battleSceneName == "DragonPart2-Battle")
+                        {
+                            Globals.Logging.Warning("EverhoodBattles", $"Starting Victory fight!");
+                            InVictoryBattle = true;
+                            return;
+                        }
+                        break;
+                    case EverhoodGoal.JudgeCreation:
+                        if (battleSceneName == "JudgeCreation-Battle")
+                        {
+                            Globals.Logging.Warning("EverhoodBattles", $"Starting Victory fight!");
+                            InVictoryBattle = true;
+                            return;
+                        }
+                        break;
+                    // new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", 0),
+                    // CatGodHairball-Battle //777xp
                 }
 
                 var relevantData = _activeBattleData!.Where(x => x.Value.SceneName == battleSceneName).Select(x => x.Value).ToList();

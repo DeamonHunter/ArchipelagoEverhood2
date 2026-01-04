@@ -6,6 +6,8 @@ namespace ArchipelagoEverhood.Archipelago
     public class ArchipelagoSettings
     {
         public string Seed { get; }
+
+        public EverhoodGoal Goal { get; } = EverhoodGoal.Dragon;
         
         public SoulColor SoulColor { get; } = SoulColor.None;
         public bool DoorKeys { get; }
@@ -34,6 +36,9 @@ namespace ArchipelagoEverhood.Archipelago
             
             if (slotData.TryGetValue("HealthMultiplier", out var healthMultiplier))
                 HealthMultiplier = ((long)healthMultiplier / 100f);
+            
+            if (slotData.TryGetValue("Goal", out var goal))
+                Goal = (EverhoodGoal)((long)goal);
         }
 
         public override string ToString()
