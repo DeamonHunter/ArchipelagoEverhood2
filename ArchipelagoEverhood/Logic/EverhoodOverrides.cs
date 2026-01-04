@@ -97,6 +97,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "BirdIsland_Hub":
                     Globals.EverhoodDoors.OnEnterBirdIsland(scene);
                     break;
+                case "Tutorial_Spaceship-Intermission":
+                    Globals.EverhoodDoors.OnEnterTutorialSpaceShipIntermission(scene);
+                    break;
                 case "Marzian_Part1Hero_MinesHallway":
                     OnEnterMarzianHallway(scene);
                     break;
@@ -111,6 +114,9 @@ namespace ArchipelagoEverhood.Archipelago
                     break;
                 case "MushroomForest_Entrance":
                     OnEnterMushroomForest();
+                    break;
+                case "DarkEverhood_MushroomForest":
+                    OnEnterEverhood1();
                     break;
             }
         }
@@ -337,6 +343,12 @@ namespace ArchipelagoEverhood.Archipelago
                 entrance.gameObject.SetActive(true);
             if (EverhoodHelpers.TryGetChildWithName("LevelLoad-MushroomBureauHallway", triggers, out var load))
                 load.gameObject.SetActive(true);
+        }
+
+        private void OnEnterEverhood1()
+        {
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_BusSummoned"] = false;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_MidnightIntro"] = false;
         }
 
 #region Main Menu

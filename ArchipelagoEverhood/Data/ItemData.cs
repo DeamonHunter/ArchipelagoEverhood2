@@ -8,7 +8,7 @@ namespace ArchipelagoEverhood.Data
         public static Dictionary<long, EverhoodItemInfo> ItemsById = new()
         {
             { 100, new EverhoodItemInfo { Item = Item.WeaponToken, ItemFlags = ItemFlags.Advancement, ItemName = "Power Gem" } },
-            { 101, new EverhoodItemInfo { Item = Item.DeathCoin, ItemFlags = ItemFlags.Advancement, ItemName = "Soul Coin" } },
+            { 101, new EverhoodItemInfo { Item = Item.DeathCoin, ItemFlags = ItemFlags.Advancement, ItemName = "Death Coin" } },
             { 106, new EverhoodItemInfo { Item = Item.RoomKey23, ItemFlags = ItemFlags.Advancement, ItemName = "Floor 23 Key" } },
             { 107, new EverhoodItemInfo { Item = Item.RoomKeyGold, ItemFlags = ItemFlags.Advancement, ItemName = "Gold Key" } },
             { 108, new EverhoodItemInfo { Item = Item.RoomKeyGreen, ItemFlags = ItemFlags.Advancement, ItemName = "Green Key" } },
@@ -23,6 +23,9 @@ namespace ArchipelagoEverhood.Data
             { 3, new EverhoodItemInfo { Item = Item.FrogKey, ItemFlags = ItemFlags.NeverExclude, ItemName = "Frog Hub Key" } },
             { 4, new EverhoodItemInfo { Item = Item.CrystalKey, ItemFlags = ItemFlags.Advancement, ItemName = "Crystal Key" } },
             { 5, new EverhoodItemInfo { Item = Item.PandemoniumKey, ItemFlags = ItemFlags.NeverExclude, ItemName = "Pandemonium Key" } },
+            
+            { 120, new EverhoodItemInfo { Item = Item.VIPTicket, ItemFlags = ItemFlags.None, ItemName = "V.I.P. Card" } },
+            { 121, new EverhoodItemInfo { Item = Item.YellowMask, ItemFlags = ItemFlags.None, ItemName = "Yellow Mask" } },
 
 
             /*
