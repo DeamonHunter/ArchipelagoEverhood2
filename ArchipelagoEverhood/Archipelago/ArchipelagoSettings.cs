@@ -12,7 +12,7 @@ namespace ArchipelagoEverhood.Archipelago
         public long PowerGemAmount { get; } = 3;
         public bool ColorSanity { get; }
         public bool PreventDragon { get; }
-        public float HealthMultiplier { get; }
+        public float HealthMultiplier { get; } = 1f;
         
         public ArchipelagoSettings(string seed, Dictionary<string, object> slotData)
         {
