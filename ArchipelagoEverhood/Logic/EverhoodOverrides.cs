@@ -15,7 +15,6 @@ namespace ArchipelagoEverhood.Archipelago
     public class EverhoodOverrides
     {
         public bool Overriding;
-        public string? Seed { get; private set; }
         public ArchipelagoSettings? Settings { get; private set; }
 
         public bool ProcessPostMortems { get; set; }
