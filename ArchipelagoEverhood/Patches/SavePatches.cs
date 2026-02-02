@@ -2,6 +2,7 @@
 using System.IO;
 using Fungus;
 using HarmonyLib;
+using MelonLoader;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -68,6 +69,63 @@ namespace ArchipelagoEverhood.Patches
                 return;
 
             Globals.SessionHandler.QuitToMenu();
+        }
+    }
+
+    [HarmonyPatch(typeof(SceneManagerRoot), nameof(SceneManagerRoot.LoadTopdownSceneFromBattleScene), new Type[0])]
+    public static class SceneManagerLoadTopdownSceneFromBattleScenePatch
+    {
+        public static void Postfix()
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return;
+
+            if (Globals.ServicesRoot == null)
+            {
+                Globals.Logging.Warning("Saving", "Tried to save but didn't have services root cached.");
+                return;
+            }
+            
+            Globals.Logging.Warning("Saving", "Saving game after fight. Standard Func, Does this break things?");
+            Globals.SaveRequested = true;
+        }
+    }
+    
+    [HarmonyPatch(typeof(SceneManagerRoot), nameof(SceneManagerRoot.TD_LoadTopdownSceneFromBattleScene))]
+    public static class SceneManagerTD_LoadTopdownSceneFromBattleScenePatch
+    {
+        public static void Postfix()
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return;
+
+            if (Globals.ServicesRoot == null)
+            {
+                Globals.Logging.Warning("Saving", "Tried to save but didn't have services root cached.");
+                return;
+            }
+            
+            Globals.Logging.Warning("Saving", "Saving game after fight. TD Func, Does this break things?");
+            Globals.SaveRequested = true;
+        }
+    }
+
+    [HarmonyPatch(typeof(SceneManagerRoot), nameof(SceneManagerRoot.SLB_LoadTopdownSceneFromBattleScene))]
+    public static class SceneManagerSLB_LoadTopdownSceneFromBattleScenePatch
+    {
+        public static void Postfix()
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return;
+
+            if (Globals.ServicesRoot == null)
+            {
+                Globals.Logging.Warning("Saving", "Tried to save but didn't have services root cached.");
+                return;
+            }
+            
+            Globals.Logging.Warning("Saving", "Saving game after fight. Sld Func, Does this break things?");
+            Globals.SaveRequested = true;
         }
     }
 }

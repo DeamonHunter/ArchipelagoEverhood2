@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[assembly: MelonInfo(typeof(ArchipelagoEverhoodMod), "Archipelago Everhood 2", "0.3.4", "DeamonHunter")]
+[assembly: MelonInfo(typeof(ArchipelagoEverhoodMod), "Archipelago Everhood 2", "0.4.0", "DeamonHunter")]
 [assembly: MelonGame("Foreign Gnomes", "Everhood 2")]
 [assembly: MelonPriority(100)]
 
@@ -59,6 +59,11 @@ namespace ArchipelagoEverhood
 
             Globals.EverhoodChests.ScoutForScene(sceneName);
             Globals.EverhoodOverrides.OnSceneChange(sceneName, SceneManager.GetSceneByName(sceneName));
+            if (Globals.SaveRequested)
+            {
+                Globals.SaveRequested = false;
+                MelonEvents.OnLateUpdate.Subscribe(() => Globals.ServicesRoot!.GameData.Save(), unsubscribeOnFirstInvocation: true);
+            }
         }
     }
 }

@@ -17,7 +17,6 @@ namespace ArchipelagoEverhood.Data
             { 114, new EverhoodItemInfo { Item = Item.TomatoSeed, ItemFlags = ItemFlags.None, ItemName = "Tomato Seed" } },
             { 115, new EverhoodItemInfo { Item = Item.Druffle, ItemFlags = ItemFlags.None, ItemName = "Druffle" } },
             { 117, new EverhoodItemInfo { Item = Item.RoomKeyPinecone, ItemFlags = ItemFlags.Advancement, ItemName = "Pinecone Key" } },
-            { 122, new EverhoodItemInfo { Item = Item.VIPTicket, ItemFlags = ItemFlags.Advancement, ItemName = "V.I.P. Card" } },
             { 123, new EverhoodItemInfo { Item = Item.LongPlank, ItemFlags = ItemFlags.Advancement, ItemName = "Long Plank" } },
 
             { 1, new EverhoodItemInfo { Item = Item.RoomKeyOmega, ItemFlags = ItemFlags.Advancement, ItemName = "Omega Key" } },

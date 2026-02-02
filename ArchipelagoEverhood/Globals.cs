@@ -34,5 +34,6 @@ namespace ArchipelagoEverhood
         public static ArchLogger Logging;
         public static ArchipelagoLogin LoginHandler;
         public static readonly ArchipelagoSessionHandler SessionHandler = new();
+        public static bool SaveRequested { get; set; }
     }
 }
