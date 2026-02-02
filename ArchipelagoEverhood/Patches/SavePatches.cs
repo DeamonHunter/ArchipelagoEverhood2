@@ -16,7 +16,7 @@ namespace ArchipelagoEverhood.Patches
             if (!Directory.Exists(Path.Combine(GameData.STORAGE_DIRECTORY, "Archipelago")))
                 Directory.CreateDirectory(Path.Combine(GameData.STORAGE_DIRECTORY, "Archipelago"));
 
-            __result = Path.Combine("Archipelago", $"{Globals.EverhoodOverrides.Seed}_file1");
+            __result = Path.Combine("Archipelago", $"{Globals.EverhoodOverrides.Settings!.Seed}_file1");
             return false;
         }
     }
