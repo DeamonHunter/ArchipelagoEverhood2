@@ -71,7 +71,21 @@ namespace ArchipelagoEverhood.Patches
                 Globals.Logging.Msg($"Unlocking Item: {___item}");
                 var data = Globals.EverhoodChests.ChestOpened(new Dictionary<Item, int>() { { ___item, 1 } });
                 if (data == null)
+                {
+                    //Banned item give aways
+                    switch (___item)
+                    {
+                        case Item.WeaponToken:
+                        case Item.DeathCoin:
+                            Globals.Logging.Log("Pick Item", $"Preventing default pickup of {___item}.");
+                            
+                            __instance.Continue();
+                            return false;
+                            break;
+                    }
+                    
                     return true;
+                }
 
                 if (!data.Achieved)
                 {
