@@ -105,6 +105,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "Neon_NeonDistrict":
                     OnEnterNeonDistrict(scene);
                     break;
+                case "Neon_NeonJungle":
+                    OnEnterNeonJungle(scene);
+                    break;
                 case "Hometown_Festival":
                     OnEnterHometownFestival(scene);
                     break;
@@ -116,6 +119,9 @@ namespace ArchipelagoEverhood.Archipelago
                     break;
                 case "DarkEverhood_MushroomForest":
                     OnEnterEverhood1();
+                    break;
+                case "Marzian_Part2Return":
+                    OnEnterMarzianHeli();
                     break;
             }
         }
@@ -230,6 +236,15 @@ namespace ArchipelagoEverhood.Archipelago
 
             if (EverhoodHelpers.TryGetChildWithName("X1", infiniteTown, out var x1Minus))
                 x1Minus.gameObject.SetActive(false);
+        }
+        
+        private void OnEnterNeonJungle(Scene scene)
+        {
+            if (EverhoodHelpers.HasFlag("GL_NJ_WeaponCrystalPickedUp"))
+            {
+                Globals.Logging.Warning("Softlock Prevention", "Resetting Weapon Crystal Pickup.");
+                Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_NJ_WeaponCrystalPickedUp"] = false;
+            }
         }
 
         private void OnEnterHometownFestival(Scene scene)
@@ -370,6 +385,15 @@ namespace ArchipelagoEverhood.Archipelago
         {
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_BusSummoned"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_MidnightIntro"] = false;
+        }
+        
+        private void OnEnterMarzianHeli()
+        {
+            if (!EverhoodHelpers.HasFlag("GL_M2_PlayerArrivedPart2") || EverhoodHelpers.HasFlag("GL_PortalBattleFinished"))
+                return;
+            
+            Globals.Logging.Warning("Softlock Prevention", "Resetting Marzian 2 Cutscene.");
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_M2_PlayerArrivedPart2"] = false;
         }
 
 #region Main Menu
