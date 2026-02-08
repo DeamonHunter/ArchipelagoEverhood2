@@ -123,6 +123,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "Marzian_Part2Return":
                     OnEnterMarzianHeli();
                     break;
+                case "Neon_Hillbert_Room2Bobo":
+                    OnEnterNeonHillbertRoom2Bobo();
+                    break;
             }
         }
 
@@ -394,6 +397,17 @@ namespace ArchipelagoEverhood.Archipelago
             
             Globals.Logging.Warning("Softlock Prevention", "Resetting Marzian 2 Cutscene.");
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_M2_PlayerArrivedPart2"] = false;
+        }
+
+        private void OnEnterNeonHillbertRoom2Bobo()
+        {
+            if (!EverhoodHelpers.HasFlag("GL_HH2_BoboDefeated") || EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest"))
+                return;
+                
+            Globals.Logging.Warning("Softlock Prevention", "Resetting Post Bobo Fight Values.");
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_HH2_BoboDefeatedComment"] = false;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_CazokCommentary2"] = false;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_HH2_ToiletFlush"] = false;
         }
 
 #region Main Menu
