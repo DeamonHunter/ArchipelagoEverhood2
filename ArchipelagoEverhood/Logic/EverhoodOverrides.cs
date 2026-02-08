@@ -6,6 +6,7 @@ using ArchipelagoEverhood.Data;
 using ArchipelagoEverhood.Util;
 using Fungus;
 using TMPro;
+using Trisibo;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -125,6 +126,12 @@ namespace ArchipelagoEverhood.Archipelago
                     break;
                 case "Neon_Hillbert_Room2Bobo":
                     OnEnterNeonHillbertRoom2Bobo();
+                    break;
+                case "SMEGA_Motherboard-Hub":
+                    OnEnterSmegaMotherboard();
+                    break;
+                case "HallOfConsciousness":
+                    OnEnterHallOfConsciousness();
                     break;
             }
         }
@@ -408,6 +415,29 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_HH2_BoboDefeatedComment"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_CazokCommentary2"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_HH2_ToiletFlush"] = false;
+        }
+
+        private void OnEnterSmegaMotherboard()
+        {
+            if (!EverhoodHelpers.HasFlag("GL_SM_PlayerIntro") || EverhoodHelpers.HasFlag("GL_1A_SSmb_DataDead"))
+                return;
+            
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_SM_PlayerIntro"] = false;
+        }
+
+        private void OnEnterHallOfConsciousness()
+        {
+            var sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            var spawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            var scene  = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+            foreach (var switchTopDownScene in GameObject.FindObjectsByType<SwitchTopDownScene>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                var sceneFiled = (SceneField)sceneToLoad.GetValue(switchTopDownScene);
+                Globals.Logging.LogDebug("Hall Adjustments", $"{sceneFiled.BuildIndex} {switchTopDownScene.Description}");
+                scene.SetValue(sceneFiled, 10);
+                spawnPosition.SetValue(switchTopDownScene, new Vector2(2.938f, -3.7142f));
+            }
         }
 
 #region Main Menu
