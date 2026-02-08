@@ -42,7 +42,6 @@ namespace ArchipelagoEverhood.Data
             //Green Route - Year 0 Hallway
             new BattleData(_battleStartId + 23, "AntMachine-Battle", "GL_B1_M1Chasers", 50), //50xp 
             new BattleData(_battleStartId + 24, "ChameleonBad-Battle", "GL_B1_M1_EncounterDead", 2), //2xp (Anxious Chase)
-            //Todo: Remove Trigger on Marzian_Part1Hero_MinesHallway/GAMEPLAY/EastGate/EastDoor-Interact/TopDownFlowchartTrigger Or Allow re-entry into this zone.
             new BattleData(_battleStartId + 25, "SharkJailor-Battle", "GL_B2_M1_EncounterDead", 75), //Triple Battle. 75xp (Howler & Razor & Maggot) //Todo: Trash battle? This one is required.
             new BattleData(_battleStartId + 26, "Gorilla-Battle", "GL_M1_GorillaDefeated", 200), //200xp (The Dimension Master)
             //Green Route - Year 1000 

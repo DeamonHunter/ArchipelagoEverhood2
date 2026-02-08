@@ -172,9 +172,31 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnEnterMarzianHallway(Scene scene)
         {
-            if (!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
+            //Prevent soft lock when quitting to hub during ant chase.
+            if (EverhoodHelpers.HasFlag("Marzian_Part1Hero_MinesHallway_Marzian_Alarm") && !EverhoodHelpers.HasFlag("GL_B1_M1Chasers"))
+            {
+                Globals.Logging.Warning("Softlock Prevention", "Triggered Ant Machine Softlock prevention.");
+                if (EverhoodHelpers.TryGetGameObjectAtPath(new List<string>{"GAMEPLAY", "CHASENECOUNTER", "ChaseSquadGroup", "ChaseSquad1"}, scene.GetRootGameObjects(), out var squad))
+                    squad.position = new Vector3(-4.7527f, -3.1964f, 0);
+                else
+                    throw new Exception("Failed to edit Marzian Hallway: Could not find 'CHASESQAUD1'.");
+            }
+            
+            if (EverhoodHelpers.HasFlag("GL_B2_M1_EncounterDead") && !EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
+            {
+                Globals.Logging.Warning("Softlock Prevention", "Triggered Gorilla Door Softlock prevention.");
+                if (EverhoodHelpers.TryGetGameObjectAtPath(new List<string>{"GAMEPLAY", "NorthWest-Gate"}, scene.GetRootGameObjects(), out var door))
+                    door.gameObject.SetActive(false);
+                else
+                    throw new Exception("Failed to edit Marzian Hallway: Could not find 'CHASESQAUD1'.");
+            }
+            
+            
+            if (!EverhoodHelpers.HasFlag("GL_B1_M1_EncounterDead"))
                 return;
-
+            
+            Globals.Logging.Warning("Softlock Prevention", "Triggered Door Open softlock prevention.");
+            
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'GAMEPLAY'.");
 

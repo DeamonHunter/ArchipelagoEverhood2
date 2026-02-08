@@ -91,6 +91,43 @@ namespace ArchipelagoEverhood.Util
             return false;
         }
 
+        public static bool TryGetGameObjectAtPath(List<string> names, IEnumerable<GameObject> rootObjects, [NotNullWhen(returnValue: true)] out Transform? found)
+        {
+            found = null;
+            foreach (var gameObject in rootObjects)
+            {
+                if (gameObject.name != names[0])
+                    continue;
+
+                found = gameObject.transform;
+                break;
+            }
+
+            if (found == null)
+                return false;
+            
+            for (var i = 1; i < names.Count; i++)
+            {
+                var parent = found;
+                found = null;
+                
+                foreach (Transform t in parent)
+                {
+                    if (t.name != names[i])
+                        continue;
+
+                    found = t;
+                    break;
+                }
+                
+                if (found == null)
+                    return false;
+            }
+            
+            
+            return true;
+        }
+
         public static bool HasFlag(string flag)
         {
             if (!Globals.ServicesRoot!.GameData.GeneralData.boolVariables.TryGetValue(flag, out var boolValue))
