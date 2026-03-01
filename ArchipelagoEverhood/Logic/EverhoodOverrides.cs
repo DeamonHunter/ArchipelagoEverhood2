@@ -26,6 +26,10 @@ namespace ArchipelagoEverhood.Archipelago
 
         private int _frameCountdown;
         private Action? _frameCountdownAction;
+        
+        private static FieldInfo _sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        private static FieldInfo _spawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        private static FieldInfo _scene  = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         public void ArchipelagoConnected(ArchipelagoSettings settings)
         {
@@ -132,6 +136,15 @@ namespace ArchipelagoEverhood.Archipelago
                     break;
                 case "HallOfConsciousness":
                     OnEnterHallOfConsciousness();
+                    break;
+                case "DarkEverhood_DanceClub":
+                    OnEnterDanceClub(scene);
+                    break;
+                case "BirdIsland_CaveLevel2":
+                    Globals.EverhoodDoors.OnEnterBirdIslandCave2(scene);
+                    break;
+                case "LostHillbertRoom":
+                    Globals.EverhoodDoors.OnEnterLostHillbertRoom(scene);
                     break;
             }
         }
@@ -427,21 +440,27 @@ namespace ArchipelagoEverhood.Archipelago
 
         private void OnEnterHallOfConsciousness()
         {
-            var sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            var spawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            var scene  = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            
-            
             Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_DefeatedByDragon"] = 5;
 
             foreach (var switchTopDownScene in GameObject.FindObjectsByType<SwitchTopDownScene>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
-                var sceneFiled = (SceneField)sceneToLoad.GetValue(switchTopDownScene);
+                var sceneFiled = (SceneField)_sceneToLoad.GetValue(switchTopDownScene);
                 Globals.Logging.LogDebug("Hall Adjustments", $"{sceneFiled.BuildIndex} {switchTopDownScene.Description}");
-                scene.SetValue(sceneFiled, 10);
-                spawnPosition.SetValue(switchTopDownScene, new Vector2(2.938f, -3.7142f));
+                _scene.SetValue(sceneFiled, 10);
+                _spawnPosition.SetValue(switchTopDownScene, new Vector2(2.938f, -3.7142f));
             }
         }
+
+        private void OnEnterDanceClub(Scene scene)
+        {
+            if (Globals.ServicesRoot!.GameData.GeneralData.collectedItems.TryGetValue("VIPTicket", out var count) && count >= 1)
+                return;
+            
+            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"FLOWCHART", "StoneguardFlowchart"}, scene.GetRootGameObjects(), out var flowchart))
+                throw new Exception("Failed to edit Mushroom Forest: Could not find 'FLOWCHART/StoneguardFlowchart'.");
+            flowchart.gameObject.SetActive(false);
+        }
+
 
 #region Main Menu
 

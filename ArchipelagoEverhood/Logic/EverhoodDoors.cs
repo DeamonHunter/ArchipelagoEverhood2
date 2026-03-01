@@ -577,8 +577,8 @@ namespace ArchipelagoEverhood.Logic
         
         public void OnEnterBirdIsland(Scene scene)
         {
-            //if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
-            //    return;
+            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
+                return;
             
             if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
             {
@@ -596,6 +596,16 @@ namespace ArchipelagoEverhood.Logic
             }
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'LevelLoad-3DDimension'.");
+            
+            if (EverhoodHelpers.TryGetChildWithName("PostTutorialSpaceship-Trigger", triggers, out var tutorialTrigger))
+            {
+                if (!EverhoodHelpers.HasFlag("GL_DE_PostEverhood_Intro"))
+                    tutorialTrigger.gameObject.SetActive(false);
+                else
+                    tutorialTrigger.localScale *= 5;
+            }
+            else
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'PostTutorialSpaceship-Trigger'.");
         }
         
         public void OnEnterTutorialSpaceShipIntermission(Scene scene)
@@ -617,6 +627,32 @@ namespace ArchipelagoEverhood.Logic
                 
                 _sceneValue.SetValue(sceneInstance, 64);
                 _sceneSpawnPosition.SetValue(switchScene, new Vector2(3.6951f, -2.8166f));
+            }
+        }
+        
+        public void OnEnterBirdIslandCave2(Scene scene)
+        {
+            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
+                return;
+            
+            foreach (var switchTopDownScene in GameObject.FindObjectsByType<SwitchTopDownScene>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                var sceneFiled = (SceneField)_sceneToLoad.GetValue(switchTopDownScene);
+                _sceneValue.SetValue(sceneFiled, 64);
+                _sceneSpawnPosition.SetValue(switchTopDownScene, new Vector2(3.6951f, -2.8166f));
+            }
+        }
+        
+        public void OnEnterLostHillbertRoom(Scene scene)
+        {
+            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
+                return;
+            
+            foreach (var switchTopDownScene in GameObject.FindObjectsByType<TopDownSwitchSceneZoneTrigger>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                var sceneFiled = (SceneField)_triggerSceneToLoad.GetValue(switchTopDownScene);
+                _sceneValue.SetValue(sceneFiled, 64);
+                _triggerSpawnPosition.SetValue(switchTopDownScene, new Vector2(3.6951f, -2.8166f));
             }
         }
 

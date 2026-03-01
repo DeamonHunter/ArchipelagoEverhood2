@@ -97,7 +97,7 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 65, "SmellyGasMushroom-Battle", "GL_1B_MBm_SmellyGasDead", 50), // Moon path, required, fight as Cube
             new BattleData(_battleStartId + 66, "BrownSlowMushroom-Battle", "GL_1B_MBm_SlowBrownDead", 50), // Moon path, required, fight as Cube
             new BattleData(_battleStartId + 67, "MB_SunKnight-Battle", "GL_1B_MBm_SunKnightDead", 100), // Moon path, required, fight as Cube
-            new BattleData(_battleStartId + 68, "GL_MB_BureauGone", "GL_MushroomBureauFinished", 100), // Mushroom Bureau Fight after getting an Insignia, Judge Mushroom fight. Does not end normally
+            //new BattleData(_battleStartId + 68, "GL_MB_BureauGone", "GL_MushroomBureauFinished", 100), // Mushroom Bureau Fight after getting an Insignia, Judge Mushroom fight. Does not end normally
             //Lucy's Room, 266 888 (code given after Mushroom Forest)
             new BattleData(_battleStartId + 69, "Lucy-Battle", "GL_HH_LucyEncounter", 1000), // Is a hard fight but not required to beat game, would block Duality... so progression?
             //Irvine's Pocket dimension (unlocked after Mushroom Forest)

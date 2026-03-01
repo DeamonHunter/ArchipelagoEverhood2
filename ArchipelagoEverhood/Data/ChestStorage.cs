@@ -93,8 +93,8 @@ namespace ArchipelagoEverhood.Data
             //Omega Room
             new ChestData(_itemStartId + 62, "Neon_Hillbert_Room5", "WeaponToken", "GL_1A_HH5_ChestOpen", ChestType.Item),
             //Liminal Rooms, death coin door
-            new ChestData(_itemStartId + 63, "DeathCoinDoor_LiminalRooms", "WeaponToken", "GL_1A_LH_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 64, "DeathCoinDoor_LiminalRooms", "WeaponToken", "GL_2A_LH_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 63, "LostHillbertRoom", "WeaponToken", "GL_1A_LH_ChestOpen", ChestType.Item),
+            new ChestData(_itemStartId + 64, "LostHillbertRoom", "WeaponToken", "GL_2A_LH_ChestOpen", ChestType.Item),
             //Smega Station
             new ChestData(_itemStartId + 65, "SMEGA_Motherboard-Hub", "50xp", "GL_1A_SMmb_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 66, "SMEGA_Motherboard-Hub", "50xp", "GL_3A_SSmb_ChestOpen", ChestType.XP),
@@ -123,20 +123,20 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 86, "SMEGA_Processor", "50xp", "GL_5A_SSp_ChestOpen", ChestType.XP),
             new ChestData(_itemStartId + 87, "SMEGA_Processor", "50xp", "GL_6A_SSp_ChestOpen", ChestType.XP),
             //Death Mountain
-            new ChestData(_itemStartId + 88, "DeathMountain", "50xp", "Chest_1A_BI", ChestType.XP),
-            new ChestData(_itemStartId + 89, "DeathMountain", "WeaponToken", "Chest_2A_BI", ChestType.Item),
-            new ChestData(_itemStartId + 90, "DeathMountain", "WeaponToken", "Chest_3A_BI", ChestType.Item),
-            new ChestData(_itemStartId + 91, "DeathMountain", "50xp", "Chest_4A_BI", ChestType.XP),
-            new ChestData(_itemStartId + 92, "DeathMountain", "50xp", "Chest_5A_BI", ChestType.XP),
-            new ChestData(_itemStartId + 93, "DeathMountain", "50xp", "Chest_6A_BI", ChestType.XP),
-            new ChestData(_itemStartId + 94, "DeathMountain", "DeathCoin", "Chest_7A_BI", ChestType.Item), // Secret Village, for the Scholar Puzzle
-            new ChestData(_itemStartId + 95, "DeathMountain", "50xp", "GL_BI_VictoryTrigger", ChestType.XP), // actually a "[Command] Pick 1 DeathCoin" but this may be better?
+            new ChestData(_itemStartId + 88, "BirdIsland_CaveLevel1", "50xp", "BirdIsland_CaveLevel1_Chest_1A_BI", ChestType.XP),
+            new ChestData(_itemStartId + 89, "BirdIsland_CaveLevel1", "WeaponToken", "BirdIsland_CaveLevel1_Chest_2A_BI", ChestType.Item),
+            new ChestData(_itemStartId + 90, "BirdIsland_CaveLevel1", "WeaponToken", "BirdIsland_CaveLevel1_Chest_3A_BI", ChestType.Item),
+            new ChestData(_itemStartId + 91, "BirdIsland_CaveLevel1", "50xp", "BirdIsland_CaveLevel1_Chest_4A_BI", ChestType.XP),
+            new ChestData(_itemStartId + 92, "BirdIsland_CaveLevel1", "50xp", "BirdIsland_CaveLevel1_Chest_5A_BI", ChestType.XP),
+            new ChestData(_itemStartId + 93, "BirdIsland_CaveLevel1", "50xp", "BirdIsland_CaveLevel1_Chest_6A_BI", ChestType.XP),
+            new ChestData(_itemStartId + 94, "BirdIsland_CaveLevel1", "DeathCoin", "BirdIsland_CaveLevel1_Chest_7A_BI", ChestType.Item), // Secret Village, for the Scholar Puzzle
+            new ChestData(_itemStartId + 95, "BirdIsland_Hub", "DeathCoin", "GL_BI_VictoryTrigger", ChestType.XP), // actually a "[Command] Pick 1 DeathCoin" but this may be better?
             //Everhood 1
-            new ChestData(_itemStartId + 96, "Everhood1", "V.I.P.Ticket", "GL_DE_GreenMageBriefingOutside", ChestType.Item), // [Command] Pick 1 VIPTicket
-            new ChestData(_itemStartId + 97, "Everhood1", "LongPlank", "GL_DE_RastaInteracted", ChestType.Item), // [Command] Pick 1 LongPlank
-            new ChestData(_itemStartId + 98, "Everhood1", "YellowMask", "GL_DE_BlueDead", ChestType.Item), // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
-            new ChestData(_itemStartId + 99, "Everhood1", "DeathCoin", "GL_DE_DeathCoin", ChestType.Item),
-            new ChestData(_itemStartId + 100, "Everhood1", "SoulWeaponB", "GL_DE_DeathCoin", ChestType.Item),
+            new ChestData(_itemStartId + 96, "DarkEverhood_MidnightTown", "VIPTicket", "GL_DE_GreenMageBriefingOutside", ChestType.Item), // [Command] Pick 1 VIPTicket
+            new ChestData(_itemStartId + 97, "DarkEverhood_CursedCastle", "LongPlank", "GL_DE_RastaInteracted", ChestType.Item), // [Command] Pick 1 LongPlank
+            new ChestData(_itemStartId + 98, "DarkEverhood_Maze", "YellowMask", "GL_DE_YellowDeadComment", ChestType.Item), // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
+            new ChestData(_itemStartId + 99, "BirdIsland_CaveLevel2", "DeathCoin", "GL_DE_DeathCoin", ChestType.Item),
+            new ChestData(_itemStartId + 100, "DarkEverhood_CartCarnival", "SoulWeaponB", "GL_DE_PinkBattleComment", ChestType.Item),
             //Pandemonium
             //new ChestData(_itemStartId + 100, "Pandemonium", "PandemoniumKey", "GL_Pa_SproutPKey", ChestType.Item), // from speaking to Sprout
             //The Colosseum, without using a code is accessed at Pandemonium
