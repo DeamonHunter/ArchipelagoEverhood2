@@ -430,6 +430,9 @@ namespace ArchipelagoEverhood.Archipelago
             var sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
             var spawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
             var scene  = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            
+            
+            Globals.ServicesRoot!.GameData.GeneralData.intVariables["GL_DefeatedByDragon"] = 5;
 
             foreach (var switchTopDownScene in GameObject.FindObjectsByType<SwitchTopDownScene>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
