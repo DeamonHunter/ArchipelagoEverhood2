@@ -1,5 +1,7 @@
-﻿using Fungus;
+﻿using ArchipelagoEverhood.Util;
+using Fungus;
 using HarmonyLib;
+using UnityEngine.SceneManagement;
 
 namespace ArchipelagoEverhood.Patches
 {
@@ -42,6 +44,26 @@ namespace ArchipelagoEverhood.Patches
                 default:
                     return true;
             }
+        }
+    }
+    
+    [HarmonyPatch(typeof(Jump), "OnEnter")]
+    public static class JumpPatch
+    {
+        private static bool Prefix(Jump __instance)
+        {
+            if (!Globals.SessionHandler.LoggedIn)
+                return true;
+
+            var moonScene = SceneManager.GetSceneByName("MushroomBureau_MoonRoom");
+            if (!moonScene.isLoaded)
+                return true;
+
+            if (!EverhoodHelpers.HasFlag("GL_MB_CurrentlyCube"))
+                return true;
+            
+            __instance.Continue();
+            return false;
         }
     }
 }
