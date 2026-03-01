@@ -276,7 +276,20 @@ namespace ArchipelagoEverhood.Patches
             try
             {
                 Globals.Logging.Msg($"Unlocking Item: {___playerWeapon}");
-                var data = Globals.EverhoodChests.ChestOpened(___playerWeapon);
+
+                ChestData? data;
+                if (___playerWeapon is Weapon.Axe or Weapon.Bow or Weapon.Spear)
+                {
+                    var hubScene = SceneManager.GetSceneByName("TimeHubInfinity");
+                    
+                    if (hubScene.isLoaded)
+                        data = Globals.EverhoodChests.ChestOpened("SoulWeaponA");
+                    else
+                        data = Globals.EverhoodChests.ChestOpened("SoulWeaponB");
+                }
+                else
+                    data = Globals.EverhoodChests.ChestOpened(___playerWeapon);
+                
                 if (data == null)
                     return true;
 
@@ -312,7 +325,7 @@ namespace ArchipelagoEverhood.Patches
             return false;
         }
     }
-
+    
     [HarmonyPatch(typeof(UnlockCosmetic), "OnEnter")]
     public static class UnlockCosmeticPatch
     {

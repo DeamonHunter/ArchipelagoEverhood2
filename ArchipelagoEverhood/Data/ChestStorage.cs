@@ -136,7 +136,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 97, "Everhood1", "LongPlank", "GL_DE_RastaInteracted", ChestType.Item), // [Command] Pick 1 LongPlank
             new ChestData(_itemStartId + 98, "Everhood1", "YellowMask", "GL_DE_BlueDead", ChestType.Item), // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
             new ChestData(_itemStartId + 99, "Everhood1", "DeathCoin", "GL_DE_DeathCoin", ChestType.Item),
-            //new ChestData(_itemStartId + 100, "Everhood1", "SoulWeapon", "GL_DE_DeathCoin", ChestType.Item),
+            new ChestData(_itemStartId + 100, "Everhood1", "SoulWeaponB", "GL_DE_DeathCoin", ChestType.Item),
             //Pandemonium
             //new ChestData(_itemStartId + 100, "Pandemonium", "PandemoniumKey", "GL_Pa_SproutPKey", ChestType.Item), // from speaking to Sprout
             //The Colosseum, without using a code is accessed at Pandemonium
@@ -151,7 +151,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 108, "Pandemonium", "WeaponToken", "GL_1A_SEnd1_ChestOpen", ChestType.Item),
             //Torment Room 222 883
             new ChestData(_itemStartId + 109, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
-            //new ChestData(_itemStartId + 110, "Raven Hub", "SoulWeapon", "GL_DE_DeathCoin", ChestType.Item),
+            new ChestData(_itemStartId + 111, "TimeHubInfinity", "SoulWeaponA", "GL_HOC_PostDragonIntro", ChestType.Item),
             new ChestData(_itemStartId + 112, "Hometown_Festival", "5xp", "GL_OrangeCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 113, "Hometown_Festival", "5xp", "GL_GreyCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 114, "Hometown_Festival", "-2xp", "GL_BlackCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),

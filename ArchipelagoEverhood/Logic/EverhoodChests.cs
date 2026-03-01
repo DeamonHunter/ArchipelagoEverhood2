@@ -260,6 +260,43 @@ namespace ArchipelagoEverhood.Logic
             Globals.Logging.Warning("Chests", $"Did not find any chest for the xp {xpStr}. Missing?");
             return null;
         }
+        
+        public ChestData? ChestOpened(string itemName)
+        {
+            if (_activeChestData == null)
+                return null;
+
+            ChestData? rewardOnVariable = null;
+            foreach (var chestData in _activeChestData.Values)
+            {
+                if (chestData.Type != ChestType.Item)
+                    continue;
+
+                if (chestData.ItemName != itemName)
+                    continue;
+
+                if (chestData.Achieved)
+                    continue;
+
+                if (chestData.RewardConditions.HasFlag(RewardConditions.RewardOnVariable))
+                {
+                    if (rewardOnVariable == null && Globals.SessionHandler.LogicHandler!.IsScouted(chestData.LocationId))
+                        rewardOnVariable = chestData;
+                    continue;
+                }
+
+                if (!CheckIfPasses(chestData, false))
+                    continue;
+
+                CheckLocation(chestData);
+                return chestData;
+            }
+
+            if (rewardOnVariable != null)
+                return rewardOnVariable;
+            Globals.Logging.Warning("Chests", $"Did not find any chest for the Special Item {itemName}. Missing?");
+            return null;
+        }
 
         public ChestData? OnBoolVariableSet(string key, bool value)
         {
