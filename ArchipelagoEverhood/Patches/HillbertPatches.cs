@@ -230,6 +230,29 @@ namespace ArchipelagoEverhood.Patches
                         if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
                             return false;
                         break;
+                    
+                    case 68:
+                        Globals.Logging.LogDebug("If Override", "Doing If Override");
+                        //If this is on, we may be checking the final fight which would soft lock.
+                        if (EverhoodHelpers.HasFlag("GL_MB_GateOpen"))
+                            return true;
+                        
+                        if (___variable.Key == "GL_MB_Sun")
+                        {
+                            Globals.Logging.LogDebug("If Override", "Sun");
+                            
+                            __result = Globals.ServicesRoot!.GameData.GeneralData.collectedItems.ContainsKey("SunInsignia");
+                            return false;
+                        }
+                        
+                        if (___variable.Key == "GL_MB_Moon")
+                        {
+                            Globals.Logging.LogDebug("If Override", "Moon");
+                            __result = Globals.ServicesRoot!.GameData.GeneralData.collectedItems.ContainsKey("MoonInsignia");
+                            return false;
+                        }
+                        
+                        break;
                 }
 
 

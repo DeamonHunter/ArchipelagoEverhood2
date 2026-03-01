@@ -76,8 +76,8 @@ namespace ArchipelagoEverhood.Data
             //Mushroom Forest (accessible after Dragon)
             new ChestData(_itemStartId + 52, "MushroomBureau_SunRoom", "SunInsignia", "GL_MB_Sun", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 53, "MushroomBureau_MoonRoom", "WeaponToken", "GL_1A_MBm_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 54, "MushroomBureau_MoonRoom", "MoonInsignia", "GL_MB_Moon", ChestType.Item),
-            new ChestData(_itemStartId + 55, "MushroomBureau_MoonRoom", "DeathCoin", "GL_MB_DeathCoinPickedUp", ChestType.Item),
+            new ChestData(_itemStartId + 54, "MushroomBureau_MoonRoom", "MoonInsignia", "GL_MB_Moon", ChestType.Item, RewardConditions.DontSetVariableOnGiven | RewardConditions.RewardOnVariable),
+            new ChestData(_itemStartId + 55, "MushroomForest_Entrance", "DeathCoin", "GL_MB_DeathCoinPickedUp", ChestType.Item),
             new ChestData(_itemStartId + 116, "MushroomBureau_MoonRoom", "MushroomHat", null, ChestType.Cosmetic),
             //Lucy Room 266 888
             new ChestData(_itemStartId + 56, "LucyRoom", "Duality", "GL_HH_LucyEncounterOutro", ChestType.Item),
