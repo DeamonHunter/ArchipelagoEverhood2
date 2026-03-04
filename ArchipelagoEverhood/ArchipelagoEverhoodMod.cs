@@ -62,6 +62,9 @@ namespace ArchipelagoEverhood
             if (Globals.SaveRequested)
             {
                 Globals.SaveRequested = false;
+                //Don't save on these scenes.
+                if (buildIndex <= 6 || SceneManager.GetSceneByBuildIndex(1).isLoaded)
+                    return;
                 MelonEvents.OnLateUpdate.Subscribe(() => Globals.ServicesRoot!.GameData.Save(), unsubscribeOnFirstInvocation: true);
             }
         }
