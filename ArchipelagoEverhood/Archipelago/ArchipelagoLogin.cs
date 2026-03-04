@@ -463,7 +463,7 @@ namespace ArchipelagoEverhood.Archipelago
             {
                 //This is a very dumb, and likely to not work forever method to check updates.
                 //Todo: Move to HTTPClient.
-                var request = WebRequest.CreateHttp("https://github.com/DeamonHunter/ArchipelagoMuseDash/releases/latest");
+                var request = WebRequest.CreateHttp("https://github.com/DeamonHunter/ArchipelagoEverhood2/releases/latest");
                 var response = await request.GetResponseAsync();
 
                 var resolvedUrl = response.ResponseUri.ToString();
