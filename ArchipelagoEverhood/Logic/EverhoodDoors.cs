@@ -357,7 +357,10 @@ namespace ArchipelagoEverhood.Logic
         private void ChangeDoorsTimeHub(Scene scene)
         {
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
+            {
+                CreateEverhoodDoor(scene);
                 return;
+            }
 
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
             {
@@ -502,6 +505,49 @@ namespace ArchipelagoEverhood.Logic
                     }
                 }
             }
+        }
+
+        private void CreateEverhoodDoor(Scene scene)
+        {
+            if (!EverhoodHelpers.HasFlag("GL_Everhood1Finished"))
+                return;
+            
+            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"GAMEPLAY", "MushroomDoor"}, scene.GetRootGameObjects(), out var mushroomDoor))
+            {
+                Globals.Logging.Error("EverhoodDoors", "Failed to find 'MushroomDoor'.");
+                return;
+            }
+            
+                var portalEffect = GameObject.Instantiate(mushroomDoor, mushroomDoor.transform.parent);
+                portalEffect.transform.position = new Vector3(4.9f, -3.9f, 0f);
+                portalEffect.transform.localScale = new Vector3(-1, 1, 1);
+                portalEffect.gameObject.SetActive(true);
+                
+                if (EverhoodHelpers.TryGetChildWithName("DoorFrame", portalEffect, out var frame))
+                {
+                    frame.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 1f, 1);
+                    if (EverhoodHelpers.TryGetChildWithName("MushroomDoor_Door", frame, out var interact))
+                        interact.gameObject.SetActive(false);
+                    if (EverhoodHelpers.TryGetChildWithName("LevelLoad-Mushroom-Start", frame, out var lostRoom))
+                    {
+                        lostRoom.gameObject.SetActive(true);
+                        var switchTrigger = lostRoom.GetComponent<TopDownSwitchSceneZoneTrigger>();
+                        var sceneInstance = _triggerSceneToLoad.GetValue(switchTrigger);
+                        _sceneValue.SetValue(sceneInstance, 75);
+                        _triggerSpawnPosition.SetValue(switchTrigger, new Vector2(-131.75f, 9.0559f));
+                    }
+                    if (EverhoodHelpers.TryGetChildWithName("PortalEffect_MushroomForest", frame, out var vfx))
+                    {
+                        vfx.gameObject.SetActive(true);
+                        if (EverhoodHelpers.TryGetChildWithName("PortalSpin (1)", vfx, out var portalSpin))
+                        {
+                            var system = portalSpin.GetComponent<ParticleSystem>().main;
+                            system.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0f, 0.674f, 1f));
+                        }
+                        if (EverhoodHelpers.TryGetChildWithName("PortalSFX", vfx, out var portalSFX))
+                            portalSFX.gameObject.SetActive(false);
+                    }
+                }
         }
 
         private void AdjustTimeHubTriggers(Scene scene)
