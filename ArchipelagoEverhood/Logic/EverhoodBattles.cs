@@ -118,6 +118,8 @@ namespace ArchipelagoEverhood.Logic
             }
         }
 
+        public int GetColorAmountForCurrentBattle() => CurrentBattle?.ActNumber ?? 1;
+
         public BattleData? CompletedBattle()
         {
             if (InVictoryBattle)

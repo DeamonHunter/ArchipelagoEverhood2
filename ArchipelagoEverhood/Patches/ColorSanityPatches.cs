@@ -120,10 +120,11 @@ namespace ArchipelagoEverhood.Patches
                 if (BattleOverrides(__instance, ___projectilPrefab, ___projectilPrefabBlue, ___projectilPrefabGreen, ___projectilPrefabRed))
                     return;
 
-                AdjustPrefab(___projectilPrefab);
-                AdjustPrefab(___projectilPrefabBlue);
-                AdjustPrefab(___projectilPrefabGreen);
-                AdjustPrefab(___projectilPrefabRed);
+                var amount = Globals.EverhoodBattles.GetColorAmountForCurrentBattle();
+                AdjustPrefab(___projectilPrefab, amount);
+                AdjustPrefab(___projectilPrefabBlue, amount);
+                AdjustPrefab(___projectilPrefabGreen, amount);
+                AdjustPrefab(___projectilPrefabRed, amount);
             }
             catch (Exception e)
             {
@@ -178,7 +179,7 @@ namespace ArchipelagoEverhood.Patches
             return false;
         }
 
-        private static void AdjustPrefab(GameObject prefab)
+        private static void AdjustPrefab(GameObject prefab, int colorAmount)
         {
             if (!prefab)
                 return;
@@ -187,8 +188,7 @@ namespace ArchipelagoEverhood.Patches
             if (!projectile || projectile.projectileColor == ProjectileColor.Any || projectile.projectileColor == ProjectileColor.Black)
                 return;
 
-            var flag = 1 << (int)(projectile.projectileColor);
-            if ((Globals.EverhoodOverrides.ColorSanityMask & flag) != 0)
+            if (Globals.EverhoodOverrides.HasColor(projectile.projectileColor, colorAmount))
                 return;
 
             var originalColor = projectile.projectileColor;

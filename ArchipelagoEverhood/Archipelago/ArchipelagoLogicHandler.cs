@@ -35,7 +35,7 @@ namespace ArchipelagoEverhood.Archipelago
             //TODO: CHECK FOR ITEM ACTUALLY EXISTS. ALSO HANDLE DESYNC ERROR
             Globals.SessionHandler.ItemHandler!.ClearBlocks();
             Globals.EverhoodDoors.ResetKeys();
-            Globals.EverhoodOverrides.ResetMask();
+            Globals.EverhoodOverrides.ResetColors();
 
             var originalCount = _itemIndex;
             _itemIndex = _items.AllItemsReceived.Count;
@@ -57,9 +57,7 @@ namespace ArchipelagoEverhood.Archipelago
 
                 if (ItemData.ColorsById.TryGetValue(item.ItemId, out var color))
                 {
-                    Globals.Logging.LogDebug("LogicHandler", $"Color Mask Before: {Globals.EverhoodOverrides.ColorSanityMask}");
                     Globals.EverhoodOverrides.ReceivedColor(color);
-                    Globals.Logging.LogDebug("LogicHandler", $"Color Mask After: {Globals.EverhoodOverrides.ColorSanityMask}");
                     MarkItemAdded(item.ItemId, i);
                     continue;
                 }

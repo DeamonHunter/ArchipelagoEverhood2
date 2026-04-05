@@ -22,7 +22,7 @@ namespace ArchipelagoEverhood.Archipelago
 
         public Dictionary<string, int> OriginalXpLevels = new();
 
-        public int ColorSanityMask { get; set; }
+        private Dictionary<ProjectileColor, int> _colourCount = new();
 
         private int _frameCountdown;
         private Action? _frameCountdownAction;
@@ -149,8 +149,14 @@ namespace ArchipelagoEverhood.Archipelago
             }
         }
 
-        public void ReceivedColor(ItemData.EverhoodItemInfo value) => ColorSanityMask |= 1 << (int)value.Color;
-        public void ResetMask() => ColorSanityMask = (Settings?.ColorSanity ?? false) ? 0 : int.MaxValue;
+        public void ReceivedColor(ItemData.EverhoodItemInfo value)
+        {
+            _colourCount[value.Color] = _colourCount.TryGetValue(value.Color, out var c) ? c + 1 : 1;
+        }
+
+        public bool HasColor(ProjectileColor color, int amount) => _colourCount.TryGetValue(color, out var c) && c >= amount;
+
+        public void ResetColors() => _colourCount.Clear();
 
         public void Update()
         {
