@@ -146,6 +146,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "LostHillbertRoom":
                     Globals.EverhoodDoors.OnEnterLostHillbertRoom(scene);
                     break;
+                case "EternalWar_BriefingRoom":
+                    OnEternalWarBriefingRoom();
+                    break;
             }
         }
 
@@ -225,8 +228,6 @@ namespace ArchipelagoEverhood.Archipelago
                 else
                     throw new Exception("Failed to edit Marzian Hallway: Could not find 'CHASESQAUD1'.");
             }
-            
-            
             
             if (!EverhoodHelpers.HasFlag("GL_B1_M1_EncounterDead"))
                 return;
@@ -476,6 +477,18 @@ namespace ArchipelagoEverhood.Archipelago
             if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"FLOWCHART", "StoneguardFlowchart"}, scene.GetRootGameObjects(), out var flowchart))
                 throw new Exception("Failed to edit Mushroom Forest: Could not find 'FLOWCHART/StoneguardFlowchart'.");
             flowchart.gameObject.SetActive(false);
+        }
+        
+        private void OnEternalWarBriefingRoom()
+        {
+            if (!EverhoodHelpers.HasFlag("GL_EW_BriefingCinematicExperienced"))
+                return;
+            
+            Globals.Logging.Warning("Softlock Prevention", "Reactivated Briefing.");
+            
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EW_BriefingCinematicExperienced"] = false;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EW_BoatIntro"] = false;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EWd_IntroCinematic"] = false;
         }
 
 
