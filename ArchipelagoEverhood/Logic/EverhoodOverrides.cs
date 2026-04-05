@@ -149,6 +149,9 @@ namespace ArchipelagoEverhood.Archipelago
                 case "EternalWar_BriefingRoom":
                     OnEternalWarBriefingRoom();
                     break;
+                case "Tutorial_Spaceship":
+                    OnEnterTutorialSpaceShip();
+                    break;
             }
         }
 
@@ -489,6 +492,14 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EW_BriefingCinematicExperienced"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EW_BoatIntro"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EWd_IntroCinematic"] = false;
+        }
+        
+        public void OnEnterTutorialSpaceShip()
+        {
+            if (!EverhoodHelpers.HasFlag("GL_TS_Active"))
+                return;
+            Globals.Logging.Warning("Softlock Prevention", "Activating boatman again.");
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_TS_Active"] = false;
         }
 
 
