@@ -232,10 +232,19 @@ namespace ArchipelagoEverhood.Patches
                         break;
                     
                     case 68:
-                        //If this is on, we may be checking the final fight which would soft lock.
                         if (EverhoodHelpers.HasFlag("GL_MB_GateOpen"))
-                            return true;
-                        
+                        {
+                            if (___variable.Key != "GL_MB_Sun")
+                                return true;
+
+                            //If this is being checked, it might be the final fight.
+                            if (!EverhoodHelpers.HasFlag("GL_MushroomBureauFinished") || EverhoodHelpers.HasFlag("GL_MB_Sun") || EverhoodHelpers.HasFlag("GL_MB_Moon"))
+                                return true;
+                            
+                            __result = true;
+                            return false;
+                        }
+
                         if (___variable.Key == "GL_MB_Sun")
                         {
                             __result = Globals.ServicesRoot!.GameData.GeneralData.collectedItems.ContainsKey("SunInsignia");
