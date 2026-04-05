@@ -227,6 +227,7 @@ namespace ArchipelagoEverhood.Archipelago
             }
             
             
+            
             if (!EverhoodHelpers.HasFlag("GL_B1_M1_EncounterDead"))
                 return;
             
@@ -238,6 +239,16 @@ namespace ArchipelagoEverhood.Archipelago
             if (!EverhoodHelpers.TryGetChildWithName("West-Gate", gameplay, out var gate))
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'West-Gate'.");
 
+            gate.gameObject.SetActive(false);
+            
+            if (!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
+                return;
+                
+            Globals.Logging.Warning("Softlock Prevention", "Force open East Gate.");
+            
+            if (!EverhoodHelpers.TryGetChildWithName("East-Gate", gameplay, out gate))
+                throw new Exception("Failed to edit Marzian Hallway: Could not find 'West-Gate'.");
+            
             gate.gameObject.SetActive(false);
         }
 
@@ -475,27 +486,10 @@ namespace ArchipelagoEverhood.Archipelago
             var scene = SceneManager.GetSceneByName("ServicesRoot");
             if (!scene.isLoaded)
                 throw new Exception("ServicesRoot not loaded?");
-
-            if (!EverhoodHelpers.TryGetGameObjectWithName("Root", scene.GetRootGameObjects(), out var root))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Root'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("Inventory Global", root, out var invGlobal))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Inventory Global'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("Inventory - Canvas", invGlobal, out var invCanvas))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Inventory - Canvas'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("Rect", invCanvas, out var rect))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Rect'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("Panel", rect, out var panel))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Panel'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("Menu", panel, out var menu))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Menu'.");
-
-            if (!EverhoodHelpers.TryGetChildWithName("Vertical Group", menu, out var verticalGroup))
-                throw new Exception("Failed to edit Esc Menu: Could not find 'Vertical Group'.");
+            
+            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"Root", "Inventory Global", "Inventory - Canvas", "Rect", "Panel", "Menu", "Vertical Group"}, 
+                    scene.GetRootGameObjects(), out var verticalGroup))
+                throw new Exception("Failed to edit Esc Menu: Could not find Main Menu Vertical Group.");
 
             Globals.ExitToHubButton = GameObject.Instantiate(verticalGroup.GetChild(0).gameObject, verticalGroup);
             Globals.ExitToHubButton.GetComponent<TextMeshProUGUI>().text = "Return To Cosmic Hub";
