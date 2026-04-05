@@ -103,7 +103,7 @@ namespace ArchipelagoEverhood.Util
                 break;
             }
 
-            if (found == null)
+            if (!found)
                 return false;
             
             for (var i = 1; i < names.Count; i++)
@@ -120,10 +120,9 @@ namespace ArchipelagoEverhood.Util
                     break;
                 }
                 
-                if (found == null)
+                if (!found)
                     return false;
             }
-            
             
             return true;
         }
