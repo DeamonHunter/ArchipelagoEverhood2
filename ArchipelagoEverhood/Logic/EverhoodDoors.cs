@@ -130,8 +130,13 @@ namespace ArchipelagoEverhood.Logic
         private void ChangeDoorsMainHub(Scene scene)
         {
             Globals.Logging.LogDebug("EverhoodDoors", "Attempting Change to Cosmic hub doors.");
+            bool forceExtrasOn = false;
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
-                return;
+            {
+                if (!EverhoodHelpers.HasFlag("Archipelago_ReachedTime"))
+                    return;
+                forceExtrasOn = true;
+            }
 
             Globals.Logging.Log("EverhoodDoors", "Changing Cosmic hub doors.");
 
@@ -146,17 +151,21 @@ namespace ArchipelagoEverhood.Logic
                 var value = _keysToDoors.FirstOrDefault(x => x.Value == child.name);
                 if (value.Value is null or "Hall Of Con")
                     continue;
+                
+                //Don't muck with standard Marzian door stuff
+                if (value.Value == "MarzianStoryDoor" && forceExtrasOn)
+                    continue;
 
                 child.gameObject.SetActive(_activeDoors.Contains(value.Key));
                 switch (value.Value)
                 {
                     default:
-                        child.gameObject.SetActive(_activeDoors.Contains(value.Key));
+                        child.gameObject.SetActive(forceExtrasOn || _activeDoors.Contains(value.Key));
                         break;
 
                     case "Smega_Door":
                     {
-                        if (_activeDoors.Contains(value.Key))
+                        if (_activeDoors.Contains(value.Key) || forceExtrasOn)
                         {
                             child.transform.position = new Vector3(1.8f, -2.45f, 0f);
                             child.gameObject.SetActive(true);
@@ -168,7 +177,7 @@ namespace ArchipelagoEverhood.Logic
                     }
                     case "TheLab":
                     {
-                        if (_activeDoors.Contains(value.Key))
+                        if (_activeDoors.Contains(value.Key) || forceExtrasOn)
                         {
                             child.transform.position = new Vector3(4.019f, -2.303f, 0);
                             child.gameObject.SetActive(true);
@@ -180,7 +189,7 @@ namespace ArchipelagoEverhood.Logic
                     }
                     case "HomeTown_Door":
                     {
-                        if (_activeDoors.Contains(value.Key))
+                        if (_activeDoors.Contains(value.Key) || forceExtrasOn)
                         {
                             child.transform.position = new Vector3(1.199f, -3.153f, 0f);
                             child.gameObject.SetActive(true);
@@ -345,9 +354,6 @@ namespace ArchipelagoEverhood.Logic
         {
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
                 return;
-
-            _activeDoors.Add(10);
-            _activeDoors.Add(11);
 
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
             {
