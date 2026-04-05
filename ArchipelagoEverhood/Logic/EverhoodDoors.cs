@@ -668,9 +668,6 @@ namespace ArchipelagoEverhood.Logic
         
         public void OnEnterTutorialSpaceShipIntermission(Scene scene)
         {
-            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
-                return;
-            
             if (!EverhoodHelpers.TryGetGameObjectWithName("FLOWCHARTS", scene.GetRootGameObjects(), out var flowcharts))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'FLOWCHARTS'.");
@@ -680,8 +677,12 @@ namespace ArchipelagoEverhood.Logic
             foreach (var switchScene in flowcharts.GetComponentsInChildren<SwitchTopDownScene>())
             {
                 var sceneInstance = (SceneField)_sceneToLoad.GetValue(switchScene);
-                if (sceneInstance.BuildIndex != 75)
-                    continue;
+
+                if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
+                {
+                    if (sceneInstance.BuildIndex == 75)
+                        continue;
+                }
                 
                 _sceneValue.SetValue(sceneInstance, 64);
                 _sceneSpawnPosition.SetValue(switchScene, new Vector2(3.6951f, -2.8166f));
