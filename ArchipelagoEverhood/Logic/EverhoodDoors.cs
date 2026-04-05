@@ -18,16 +18,16 @@ namespace ArchipelagoEverhood.Logic
         private const long marzian_key_id = 1;
         private int _frameCountdown;
         private Hub _loadingHub;
-        
+
         private FieldInfo _sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        private FieldInfo _sceneSpawnPosition  = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        
+        private FieldInfo _sceneSpawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
         private FieldInfo _triggerSceneToLoad = typeof(TopDownSwitchSceneZoneTrigger).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
         private FieldInfo _triggerSpawnPosition = typeof(TopDownSwitchSceneZoneTrigger).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
         private FieldInfo _trigger3D = typeof(TopDownSwitchSceneZoneTrigger).GetField("thirdVectorSpawnPos", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        
+
         private FieldInfo _sceneValue = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        
+
         private static readonly Dictionary<long, string> _keysToDoors = new()
         {
             { 0, "NeonDistrictDoor" }, //Blue Route
@@ -37,14 +37,14 @@ namespace ArchipelagoEverhood.Logic
             { 4, "TheLab" }, //Post Dragon Content
             { 5, "HomeTown_Door" }, //Post Dragon Content
             { 6, "Hall Of Con" }, //Dragon door. Should probably always be available.
-            
+
             { 7, "MushroomDoor" },
             { 8, "3DDoor" },
             { 9, "SmellyDoor" },
             { 10, "BirdIslandDoor" },
             { 11, "Everhood1Door" },
         };
-        
+
         private enum Hub
         {
             CosmicHub,
@@ -126,7 +126,7 @@ namespace ArchipelagoEverhood.Logic
         }
 
 #region CosmicHub
-        
+
         private void ChangeDoorsMainHub(Scene scene)
         {
             Globals.Logging.LogDebug("EverhoodDoors", "Attempting Change to Cosmic hub doors.");
@@ -134,13 +134,13 @@ namespace ArchipelagoEverhood.Logic
             {
                 if (!EverhoodHelpers.HasFlag("Archipelago_ReachedTime"))
                     return;
-                
-                if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"GAMEPLAY", "HomeTown_Door"}, scene.GetRootGameObjects(), out var homeTown))
+
+                if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>() { "GAMEPLAY", "HomeTown_Door" }, scene.GetRootGameObjects(), out var homeTown))
                 {
                     Globals.Logging.Error("EverhoodDoors", "Failed to find 'HomeTown_Door'.");
                     return;
                 }
-                
+
                 homeTown.transform.position = new Vector3(1.199f, -3.153f, 0f);
                 homeTown.gameObject.SetActive(true);
                 return;
@@ -353,7 +353,6 @@ namespace ArchipelagoEverhood.Logic
 
 #region TimeHub
 
-
         private void ChangeDoorsTimeHub(Scene scene)
         {
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
@@ -385,12 +384,12 @@ namespace ArchipelagoEverhood.Logic
                     default:
                         child.gameObject.SetActive(active);
                         break;
-                    
+
                     case "MushroomDoor":
                         mushroomDoor = child.gameObject;
                         child.gameObject.SetActive(active);
                         break;
-                    
+
                     case "SmellyDoor":
                         noseDoor = child.gameObject;
                         child.gameObject.SetActive(active);
@@ -400,7 +399,7 @@ namespace ArchipelagoEverhood.Logic
                     {
                         child.gameObject.SetActive(true);
                         child.position = new Vector3(1.825f, -2.63f, 0.28f);
-                        
+
                         if (EverhoodHelpers.TryGetChildWithName("Locked3D", child, out var locked))
                             locked.gameObject.SetActive(!active);
 
@@ -424,12 +423,12 @@ namespace ArchipelagoEverhood.Logic
                             child.gameObject.SetActive(false);
                         */
 
-                        
+
                         break;
                     }
                 }
             }
-                
+
             if (mushroomDoor != null && noseDoor != null)
                 CreateNewDoors(mushroomDoor, noseDoor);
             else
@@ -457,6 +456,7 @@ namespace ArchipelagoEverhood.Logic
                         }
                     }
                 }
+
                 if (EverhoodHelpers.TryGetChildWithName("Colliders_MushroomDoor", portalEffect, out var colliders))
                 {
                     if (EverhoodHelpers.TryGetChildWithName("Interact", colliders, out var interact))
@@ -471,14 +471,14 @@ namespace ArchipelagoEverhood.Logic
                     }
                 }
             }
-            
+
             if (_activeDoors.Contains(11))
             {
                 var portalEffect = GameObject.Instantiate(mushroomDoor, mushroomDoor.transform.parent);
                 portalEffect.transform.position = new Vector3(4.9f, -3.9f, 0f);
                 portalEffect.transform.localScale = new Vector3(-1, 1, 1);
                 portalEffect.gameObject.SetActive(true);
-                
+
                 if (EverhoodHelpers.TryGetChildWithName("DoorFrame", portalEffect, out var frame))
                 {
                     frame.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 1f, 1);
@@ -492,6 +492,7 @@ namespace ArchipelagoEverhood.Logic
                         _sceneValue.SetValue(sceneInstance, 75);
                         _triggerSpawnPosition.SetValue(switchTrigger, new Vector2(-131.75f, 9.0559f));
                     }
+
                     if (EverhoodHelpers.TryGetChildWithName("PortalEffect_MushroomForest", frame, out var vfx))
                     {
                         vfx.gameObject.SetActive(true);
@@ -500,6 +501,7 @@ namespace ArchipelagoEverhood.Logic
                             var system = portalSpin.GetComponent<ParticleSystem>().main;
                             system.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0f, 0.674f, 1f));
                         }
+
                         if (EverhoodHelpers.TryGetChildWithName("PortalSFX", vfx, out var portalSFX))
                             portalSFX.gameObject.SetActive(false);
                     }
@@ -511,43 +513,45 @@ namespace ArchipelagoEverhood.Logic
         {
             if (!EverhoodHelpers.HasFlag("GL_Everhood1Finished"))
                 return;
-            
-            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"GAMEPLAY", "MushroomDoor"}, scene.GetRootGameObjects(), out var mushroomDoor))
+
+            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>() { "GAMEPLAY", "MushroomDoor" }, scene.GetRootGameObjects(), out var mushroomDoor))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'MushroomDoor'.");
                 return;
             }
-            
-                var portalEffect = GameObject.Instantiate(mushroomDoor, mushroomDoor.transform.parent);
-                portalEffect.transform.position = new Vector3(4.9f, -3.9f, 0f);
-                portalEffect.transform.localScale = new Vector3(-1, 1, 1);
-                portalEffect.gameObject.SetActive(true);
-                
-                if (EverhoodHelpers.TryGetChildWithName("DoorFrame", portalEffect, out var frame))
+
+            var portalEffect = GameObject.Instantiate(mushroomDoor, mushroomDoor.transform.parent);
+            portalEffect.transform.position = new Vector3(4.9f, -3.9f, 0f);
+            portalEffect.transform.localScale = new Vector3(-1, 1, 1);
+            portalEffect.gameObject.SetActive(true);
+
+            if (EverhoodHelpers.TryGetChildWithName("DoorFrame", portalEffect, out var frame))
+            {
+                frame.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 1f, 1);
+                if (EverhoodHelpers.TryGetChildWithName("MushroomDoor_Door", frame, out var interact))
+                    interact.gameObject.SetActive(false);
+                if (EverhoodHelpers.TryGetChildWithName("LevelLoad-Mushroom-Start", frame, out var lostRoom))
                 {
-                    frame.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 1f, 1);
-                    if (EverhoodHelpers.TryGetChildWithName("MushroomDoor_Door", frame, out var interact))
-                        interact.gameObject.SetActive(false);
-                    if (EverhoodHelpers.TryGetChildWithName("LevelLoad-Mushroom-Start", frame, out var lostRoom))
-                    {
-                        lostRoom.gameObject.SetActive(true);
-                        var switchTrigger = lostRoom.GetComponent<TopDownSwitchSceneZoneTrigger>();
-                        var sceneInstance = _triggerSceneToLoad.GetValue(switchTrigger);
-                        _sceneValue.SetValue(sceneInstance, 75);
-                        _triggerSpawnPosition.SetValue(switchTrigger, new Vector2(-131.75f, 9.0559f));
-                    }
-                    if (EverhoodHelpers.TryGetChildWithName("PortalEffect_MushroomForest", frame, out var vfx))
-                    {
-                        vfx.gameObject.SetActive(true);
-                        if (EverhoodHelpers.TryGetChildWithName("PortalSpin (1)", vfx, out var portalSpin))
-                        {
-                            var system = portalSpin.GetComponent<ParticleSystem>().main;
-                            system.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0f, 0.674f, 1f));
-                        }
-                        if (EverhoodHelpers.TryGetChildWithName("PortalSFX", vfx, out var portalSFX))
-                            portalSFX.gameObject.SetActive(false);
-                    }
+                    lostRoom.gameObject.SetActive(true);
+                    var switchTrigger = lostRoom.GetComponent<TopDownSwitchSceneZoneTrigger>();
+                    var sceneInstance = _triggerSceneToLoad.GetValue(switchTrigger);
+                    _sceneValue.SetValue(sceneInstance, 75);
+                    _triggerSpawnPosition.SetValue(switchTrigger, new Vector2(-131.75f, 9.0559f));
                 }
+
+                if (EverhoodHelpers.TryGetChildWithName("PortalEffect_MushroomForest", frame, out var vfx))
+                {
+                    vfx.gameObject.SetActive(true);
+                    if (EverhoodHelpers.TryGetChildWithName("PortalSpin (1)", vfx, out var portalSpin))
+                    {
+                        var system = portalSpin.GetComponent<ParticleSystem>().main;
+                        system.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0f, 0.674f, 1f));
+                    }
+
+                    if (EverhoodHelpers.TryGetChildWithName("PortalSFX", vfx, out var portalSFX))
+                        portalSFX.gameObject.SetActive(false);
+                }
+            }
         }
 
         private void AdjustTimeHubTriggers(Scene scene)
@@ -557,17 +561,17 @@ namespace ArchipelagoEverhood.Logic
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'TRIGGERBOX'.");
                 return;
             }
-            
+
             if (EverhoodHelpers.TryGetChildWithName("Intro-RavenLockingGate", triggers, out var ravenLock))
                 ravenLock.gameObject.SetActive(false);
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'Intro-RavenLockingGate'.");
-            
+
             if (EverhoodHelpers.TryGetChildWithName("LevelLoad-3DDimension", triggers, out var threeDLoad))
                 threeDLoad.gameObject.SetActive(_activeDoors.Contains(8));
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'LevelLoad-3DDimension'.");
-            
+
             if (EverhoodHelpers.TryGetChildWithName("GotCoinsTrigger", triggers, out var gotcoins))
                 gotcoins.gameObject.SetActive(false);
             else
@@ -578,63 +582,66 @@ namespace ArchipelagoEverhood.Logic
         {
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
                 return;
-            
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'TRIGGERBOX'.");
                 return;
             }
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'GAMEPLAY'.");
                 return;
             }
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("WORLD", scene.GetRootGameObjects(), out var world))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'WORLD'.");
                 return;
             }
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("FLOWCHARTS", scene.GetRootGameObjects(), out var flowcharts))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'FLOWCHARTS'.");
                 return;
             }
-            
+
             if (EverhoodHelpers.TryGetChildWithName("Levelload-TheLabTriggerBox", triggers, out var labTrigger))
                 labTrigger.gameObject.SetActive(false);
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'Levelload-TheLabTriggerBox'.");
-            
+
             if (EverhoodHelpers.TryGetChildWithName("Levelload-SmegaTriggerBox", triggers, out var smegaTrigger))
                 smegaTrigger.gameObject.SetActive(false);
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'Levelload-SmegaTriggerBox'.");
-            
+
             if (EverhoodHelpers.TryGetChildWithName("EvrensHead", gameplay, out var labPortal))
                 labPortal.gameObject.SetActive(false);
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'EvrensHead'.");
-            
+
             if (EverhoodHelpers.TryGetChildWithName("SMEGA-Portal", world, out var smegaPortal))
                 smegaPortal.gameObject.SetActive(false);
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'SMEGA-Portal'.");
-            
+
             foreach (var switchScene in flowcharts.GetComponentsInChildren<SwitchTopDownScene>())
             {
                 var sceneInstance = (SceneField)_sceneToLoad.GetValue(switchScene);
                 if (sceneInstance.BuildIndex != 84)
                     continue;
-                
+
                 _sceneValue.SetValue(sceneInstance, 64);
                 _sceneSpawnPosition.SetValue(switchScene, new Vector2(3.6951f, -2.8166f));
             }
         }
-        
+
         public void OnEnterBirdIsland(Scene scene)
         {
             var doorKeysOn = Globals.EverhoodOverrides.Settings != null && Globals.EverhoodOverrides.Settings.DoorKeys;
-            
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
             {
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'TRIGGERBOX'.");
@@ -654,7 +661,7 @@ namespace ArchipelagoEverhood.Logic
                 else
                     Globals.Logging.Error("EverhoodDoors", "Failed to find 'LevelLoad-3DDimension'.");
             }
-            
+
             if (EverhoodHelpers.TryGetChildWithName("PostTutorialSpaceship-Trigger", triggers, out var tutorialTrigger))
             {
                 if (!EverhoodHelpers.HasFlag("GL_DE_PostEverhood_Intro"))
@@ -665,7 +672,7 @@ namespace ArchipelagoEverhood.Logic
             else
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'PostTutorialSpaceship-Trigger'.");
         }
-        
+
         public void OnEnterTutorialSpaceShipIntermission(Scene scene)
         {
             if (!EverhoodHelpers.TryGetGameObjectWithName("FLOWCHARTS", scene.GetRootGameObjects(), out var flowcharts))
@@ -673,7 +680,7 @@ namespace ArchipelagoEverhood.Logic
                 Globals.Logging.Error("EverhoodDoors", "Failed to find 'FLOWCHARTS'.");
                 return;
             }
-            
+
             foreach (var switchScene in flowcharts.GetComponentsInChildren<SwitchTopDownScene>())
             {
                 var sceneInstance = (SceneField)_sceneToLoad.GetValue(switchScene);
@@ -683,17 +690,17 @@ namespace ArchipelagoEverhood.Logic
                     if (sceneInstance.BuildIndex == 75)
                         continue;
                 }
-                
+
                 _sceneValue.SetValue(sceneInstance, 64);
                 _sceneSpawnPosition.SetValue(switchScene, new Vector2(3.6951f, -2.8166f));
             }
         }
-        
+
         public void OnEnterBirdIslandCave2(Scene scene)
         {
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
                 return;
-            
+
             foreach (var switchTopDownScene in GameObject.FindObjectsByType<SwitchTopDownScene>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
                 var sceneFiled = (SceneField)_sceneToLoad.GetValue(switchTopDownScene);
@@ -701,12 +708,12 @@ namespace ArchipelagoEverhood.Logic
                 _sceneSpawnPosition.SetValue(switchTopDownScene, new Vector2(3.6951f, -2.8166f));
             }
         }
-        
+
         public void OnEnterLostHillbertRoom(Scene scene)
         {
             if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
                 return;
-            
+
             foreach (var switchTopDownScene in GameObject.FindObjectsByType<TopDownSwitchSceneZoneTrigger>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
                 var sceneFiled = (SceneField)_triggerSceneToLoad.GetValue(switchTopDownScene);

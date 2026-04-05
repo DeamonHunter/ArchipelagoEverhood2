@@ -26,10 +26,10 @@ namespace ArchipelagoEverhood.Archipelago
 
         private int _frameCountdown;
         private Action? _frameCountdownAction;
-        
+
         private static FieldInfo _sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
         private static FieldInfo _spawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        private static FieldInfo _scene  = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        private static FieldInfo _scene = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         public void ArchipelagoConnected(ArchipelagoSettings settings)
         {
@@ -217,26 +217,26 @@ namespace ArchipelagoEverhood.Archipelago
             if (EverhoodHelpers.HasFlag("Marzian_Part1Hero_MinesHallway_Marzian_Alarm") && !EverhoodHelpers.HasFlag("GL_B1_M1Chasers"))
             {
                 Globals.Logging.Warning("Softlock Prevention", "Triggered Ant Machine Softlock prevention.");
-                if (EverhoodHelpers.TryGetGameObjectAtPath(new List<string>{"GAMEPLAY", "CHASENECOUNTER", "ChaseSquadGroup", "ChaseSquad1"}, scene.GetRootGameObjects(), out var squad))
+                if (EverhoodHelpers.TryGetGameObjectAtPath(new List<string> { "GAMEPLAY", "CHASENECOUNTER", "ChaseSquadGroup", "ChaseSquad1" }, scene.GetRootGameObjects(), out var squad))
                     squad.position = new Vector3(-4.7527f, -3.1964f, 0);
                 else
                     throw new Exception("Failed to edit Marzian Hallway: Could not find 'CHASESQAUD1'.");
             }
-            
+
             if (EverhoodHelpers.HasFlag("GL_B2_M1_EncounterDead") && !EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
             {
                 Globals.Logging.Warning("Softlock Prevention", "Triggered Gorilla Door Softlock prevention.");
-                if (EverhoodHelpers.TryGetGameObjectAtPath(new List<string>{"GAMEPLAY", "NorthWest-Gate"}, scene.GetRootGameObjects(), out var door))
+                if (EverhoodHelpers.TryGetGameObjectAtPath(new List<string> { "GAMEPLAY", "NorthWest-Gate" }, scene.GetRootGameObjects(), out var door))
                     door.gameObject.SetActive(false);
                 else
                     throw new Exception("Failed to edit Marzian Hallway: Could not find 'CHASESQAUD1'.");
             }
-            
+
             if (!EverhoodHelpers.HasFlag("GL_B1_M1_EncounterDead"))
                 return;
-            
+
             Globals.Logging.Warning("Softlock Prevention", "Triggered Door Open softlock prevention.");
-            
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("GAMEPLAY", scene.GetRootGameObjects(), out var gameplay))
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'GAMEPLAY'.");
 
@@ -244,15 +244,15 @@ namespace ArchipelagoEverhood.Archipelago
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'West-Gate'.");
 
             gate.gameObject.SetActive(false);
-            
+
             if (!EverhoodHelpers.HasFlag("GL_M1_GorillaDefeated"))
                 return;
-                
+
             Globals.Logging.Warning("Softlock Prevention", "Force open East Gate.");
-            
+
             if (!EverhoodHelpers.TryGetChildWithName("East-Gate", gameplay, out gate))
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'West-Gate'.");
-            
+
             gate.gameObject.SetActive(false);
         }
 
@@ -281,7 +281,7 @@ namespace ArchipelagoEverhood.Archipelago
             if (EverhoodHelpers.TryGetChildWithName("X1", infiniteTown, out var x1Minus))
                 x1Minus.gameObject.SetActive(false);
         }
-        
+
         private void OnEnterNeonJungle(Scene scene)
         {
             if (EverhoodHelpers.HasFlag("GL_NJ_WeaponCrystalPickedUp"))
@@ -399,8 +399,7 @@ namespace ArchipelagoEverhood.Archipelago
                     flowchart.ExecuteBlock("Quest4Next");
             }
         }
-        
-        
+
         private void OnEnterMushroomForest()
         {
             _frameCountdown = 5;
@@ -414,7 +413,7 @@ namespace ArchipelagoEverhood.Archipelago
             var scene = SceneManager.GetSceneByName("MushroomForest_Entrance");
             if (!scene.isLoaded)
                 return;
-            
+
             if (!EverhoodHelpers.TryGetGameObjectWithName("WORLD", scene.GetRootGameObjects(), out var world))
                 throw new Exception("Failed to edit Mushroom Forest: Could not find 'WORLD'.");
             if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
@@ -430,12 +429,12 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_BusSummoned"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_MidnightIntro"] = false;
         }
-        
+
         private void OnEnterMarzianHeli()
         {
             if (!EverhoodHelpers.HasFlag("GL_M2_PlayerArrivedPart2") || EverhoodHelpers.HasFlag("GL_PortalBattleFinished"))
                 return;
-            
+
             Globals.Logging.Warning("Softlock Prevention", "Resetting Marzian 2 Cutscene.");
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_M2_PlayerArrivedPart2"] = false;
         }
@@ -444,7 +443,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (!EverhoodHelpers.HasFlag("GL_HH2_BoboDefeated") || EverhoodHelpers.HasFlag("GL_2FinishedHillbertQuest"))
                 return;
-                
+
             Globals.Logging.Warning("Softlock Prevention", "Resetting Post Bobo Fight Values.");
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_HH2_BoboDefeatedComment"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_CazokCommentary2"] = false;
@@ -455,7 +454,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (!EverhoodHelpers.HasFlag("GL_SM_PlayerIntro") || EverhoodHelpers.HasFlag("GL_1A_SSmb_DataDead"))
                 return;
-            
+
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_SM_PlayerIntro"] = false;
         }
 
@@ -476,24 +475,24 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (Globals.ServicesRoot!.GameData.GeneralData.collectedItems.TryGetValue("VIPTicket", out var count) && count >= 1)
                 return;
-            
-            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"FLOWCHART", "StoneguardFlowchart"}, scene.GetRootGameObjects(), out var flowchart))
+
+            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>() { "FLOWCHART", "StoneguardFlowchart" }, scene.GetRootGameObjects(), out var flowchart))
                 throw new Exception("Failed to edit Mushroom Forest: Could not find 'FLOWCHART/StoneguardFlowchart'.");
             flowchart.gameObject.SetActive(false);
         }
-        
+
         private void OnEternalWarBriefingRoom()
         {
             if (!EverhoodHelpers.HasFlag("GL_EW_BriefingCinematicExperienced"))
                 return;
-            
+
             Globals.Logging.Warning("Softlock Prevention", "Reactivated Briefing.");
-            
+
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EW_BriefingCinematicExperienced"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EW_BoatIntro"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_EWd_IntroCinematic"] = false;
         }
-        
+
         public void OnEnterTutorialSpaceShip()
         {
             if (!EverhoodHelpers.HasFlag("GL_TS_Active"))
@@ -502,7 +501,6 @@ namespace ArchipelagoEverhood.Archipelago
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_TS_Active"] = false;
         }
 
-
 #region Main Menu
 
         private void AddExitToHubButton()
@@ -510,8 +508,8 @@ namespace ArchipelagoEverhood.Archipelago
             var scene = SceneManager.GetSceneByName("ServicesRoot");
             if (!scene.isLoaded)
                 throw new Exception("ServicesRoot not loaded?");
-            
-            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>(){"Root", "Inventory Global", "Inventory - Canvas", "Rect", "Panel", "Menu", "Vertical Group"}, 
+
+            if (!EverhoodHelpers.TryGetGameObjectAtPath(new List<string>() { "Root", "Inventory Global", "Inventory - Canvas", "Rect", "Panel", "Menu", "Vertical Group" },
                     scene.GetRootGameObjects(), out var verticalGroup))
                 throw new Exception("Failed to edit Esc Menu: Could not find Main Menu Vertical Group.");
 

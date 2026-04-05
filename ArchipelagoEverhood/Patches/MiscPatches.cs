@@ -46,7 +46,7 @@ namespace ArchipelagoEverhood.Patches
             }
         }
     }
-    
+
     [HarmonyPatch(typeof(Jump), "OnEnter")]
     public static class JumpPatch
     {
@@ -61,7 +61,7 @@ namespace ArchipelagoEverhood.Patches
 
             if (!EverhoodHelpers.HasFlag("GL_MB_CurrentlyCube"))
                 return true;
-            
+
             __instance.Continue();
             return false;
         }

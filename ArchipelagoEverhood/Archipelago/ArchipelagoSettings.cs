@@ -8,32 +8,32 @@ namespace ArchipelagoEverhood.Archipelago
         public string Seed { get; }
 
         public EverhoodGoal Goal { get; } = EverhoodGoal.Dragon;
-        
+
         public SoulColor SoulColor { get; } = SoulColor.None;
         public bool DoorKeys { get; }
         public long PowerGemAmount { get; } = 3;
         public ColorSoulPieces ColorSanity { get; }
         public bool PreventDragon { get; }
         public float HealthMultiplier { get; } = 1f;
-        
+
         public ArchipelagoSettings(string seed, Dictionary<string, object> slotData)
         {
             Seed = seed;
             if (slotData.TryGetValue("SoulColor", out var colorObj))
                 SoulColor = (SoulColor)((long)colorObj);
-            
+
             if (slotData.TryGetValue("DoorKeys", out var doorKeys))
                 DoorKeys = (bool)doorKeys;
-            
+
             if (slotData.TryGetValue("DragonGems", out var powerGemObj))
                 PowerGemAmount = (long)powerGemObj;
-            
+
             if (slotData.TryGetValue("PreventDragon", out var dragon))
                 PreventDragon = (bool)dragon;
-            
+
             if (slotData.TryGetValue("HealthMultiplier", out var healthMultiplier))
                 HealthMultiplier = ((long)healthMultiplier / 100f);
-            
+
             if (slotData.TryGetValue("Goal", out var goal))
                 Goal = (EverhoodGoal)((long)goal);
 

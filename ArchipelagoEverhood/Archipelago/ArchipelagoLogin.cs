@@ -96,7 +96,7 @@ namespace ArchipelagoEverhood.Archipelago
             Cursor.visible = false;
             _mainMenuObject.gameObject.SetActive(true);
             EditUndertitle();
-            
+
             GameObject.FindFirstObjectByType<HomeUI>().Open();
         }
 
@@ -105,29 +105,32 @@ namespace ArchipelagoEverhood.Archipelago
             _waiting = true;
             AttemptLoginAsync().ConfigureAwait(false);
         }
-        
+
         private async Task AttemptLoginAsync()
         {
             try
             {
                 var ipAddress = _ipAddress?.Trim();
-                if (string.IsNullOrEmpty(ipAddress)) {
-                    _error = "IP Address is empty! Ensure you put the correct ip address in.";
-                    _waiting = false;
-                    return;
-                }
-                
-                if (ipAddress.StartsWith("/connect"))
-                    ipAddress = ipAddress.Remove(0, 8).Trim();
-            
-                //Just double check in case of "/connect"
-                if (string.IsNullOrEmpty(ipAddress)) {
+                if (string.IsNullOrEmpty(ipAddress))
+                {
                     _error = "IP Address is empty! Ensure you put the correct ip address in.";
                     _waiting = false;
                     return;
                 }
 
-                if (string.IsNullOrEmpty(_username)) {
+                if (ipAddress.StartsWith("/connect"))
+                    ipAddress = ipAddress.Remove(0, 8).Trim();
+
+                //Just double check in case of "/connect"
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    _error = "IP Address is empty! Ensure you put the correct ip address in.";
+                    _waiting = false;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(_username))
+                {
                     _error = "Slot Name is empty! Ensure you put the correct slot name in.";
                     _waiting = false;
                     return;
@@ -174,7 +177,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (e != null)
                 Globals.Logging.Error("Login", e);
-            
+
             _error = e?.Message;
             _waiting = false;
         }
@@ -197,13 +200,13 @@ namespace ArchipelagoEverhood.Archipelago
                     //    BackupSaveData();
                     return;
                 }
-                
-                
+
+
                 if (Globals.SessionHandler.LoggedIn)
                     GUI.ModalWindow(0, new Rect(Screen.width / 2.0f - 175, Screen.height / 2.0f - 90, 350, 180), (GUI.WindowFunction)DrawDisconnectWindow, "Disconnect from Archipelago", _windowStyle);
                 else
                     GUI.ModalWindow(0, new Rect(Screen.width / 2.0f - 250, Screen.height / 2.0f - 215, 500, 430), (GUI.WindowFunction)DrawMainWindow, "Connect to an Archipelago Server", _windowStyle);
-                
+
                 GUI.enabled = true;
             }
             catch (Exception e)
@@ -217,7 +220,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             if (_waiting)
                 GUI.enabled = false;
-            
+
             GUILayout.Label("", _labelStyle, GUILayout.Height(40f));
 
             GUILayout.Label("IP Address And Port:", _labelStyle);
@@ -279,14 +282,14 @@ namespace ArchipelagoEverhood.Archipelago
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
         }
-        
+
         private void DrawDisconnectWindow(int windowID)
         {
             if (_waiting)
                 GUI.enabled = false;
-            
+
             GUILayout.Label("", _labelStyle, GUILayout.Height(10f));
-            
+
             GUILayout.Label("Are you sure you want to disconnect from Archipelago?", _labelCenterStyle, GUILayout.Height(40f));
             GUILayout.Label(!string.IsNullOrEmpty(_error) ? _error : "", _labelCenterStyle, GUILayout.Height(40f));
 
@@ -404,7 +407,7 @@ namespace ArchipelagoEverhood.Archipelago
                 "Islands of Possibilities",
                 "BK Mode Activated"
             };
-            
+
             var scene = SceneManager.GetSceneByName("MenuRoot");
             if (!EverhoodHelpers.TryGetGameObjectWithName("Base", scene.GetRootGameObjects(), out var baseObj))
                 throw new Exception("Failed to edit Main Menu: Could not find 'Base'.");
@@ -451,7 +454,7 @@ namespace ArchipelagoEverhood.Archipelago
             var button = archipelagoButton.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnArchipelagoClick);
-            
+
             //They disabled the group
             actualMenu.GetComponent<VerticalLayoutGroup>().enabled = true;
         }

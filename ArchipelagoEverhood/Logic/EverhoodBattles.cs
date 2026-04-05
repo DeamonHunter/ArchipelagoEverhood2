@@ -81,6 +81,7 @@ namespace ArchipelagoEverhood.Logic
                             InVictoryBattle = true;
                             return;
                         }
+
                         break;
                     case EverhoodGoal.JudgeCreation:
                         if (battleSceneName == "JudgeCreation-Battle")
@@ -89,6 +90,7 @@ namespace ArchipelagoEverhood.Logic
                             InVictoryBattle = true;
                             return;
                         }
+
                         break;
                     // new BattleData(_battleStartId + X, "ShadePostCredits-Battle", "GL_PostCredits_ShadeBattleDefeated", 0),
                     // CatGodHairball-Battle //777xp

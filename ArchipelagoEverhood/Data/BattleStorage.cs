@@ -185,7 +185,7 @@ namespace ArchipelagoEverhood.Data
             new BattleData(_battleStartId + 132, "VoidRaven-RileyFortress-Battle", "GL_RSEnd_Harpy5ADefeated", 0, ConnectedHub.CosmicHub),
             new BattleData(_battleStartId + 133, "Evren2-Battle", "GL_RESend_EvrenBattle", 700, ConnectedHub.CosmicHub),
             new BattleData(_battleStartId + 134, "GL_SEnd_CreditsHasBeenViewed", "GL_RileyBattle", 0, ConnectedHub.CosmicHub), // Fight doesn't end normally, wasn't good markers for this. Mainly saw [Command] StartRileyBattle : Stop
-            
+
             //Dragon
             new BattleData(_battleStartId + 135, "DragonPart2-Battle", "GL_DragonDead", 0, ConnectedHub.InfinityHub), // First Goal. Add if not goaling here.
             new BattleData(_battleStartId + 136, "PostCreditsShade-Battle", "GL_GameFinished", 0, ConnectedHub.CosmicHub), // Second Goal. Add if not goaling here. Todo: Fix variable

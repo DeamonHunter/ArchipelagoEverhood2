@@ -162,7 +162,7 @@ namespace ArchipelagoEverhood.Patches
             }
         }
     }
-    
+
     [HarmonyPatch(typeof(Call), "OnEnter")]
     public static class CallOnEnterPatch
     {
@@ -191,11 +191,11 @@ namespace ArchipelagoEverhood.Patches
                         if (!EverhoodHelpers.HasFlag("GL_5KeyShown"))
                             return true;
                         break;
-                    
+
                     default:
                         return true;
                 }
-                
+
                 Globals.TopdownRoot!.Player.SetTopDownPlayerMovementState(true);
                 __instance.Continue();
                 return false;
@@ -230,7 +230,7 @@ namespace ArchipelagoEverhood.Patches
                         if (MenuDialogAddOptionPatch.ElevatorItem.HasValue && Elevator(___variable, out __result))
                             return false;
                         break;
-                    
+
                     case 68:
                         if (EverhoodHelpers.HasFlag("GL_MB_GateOpen"))
                         {
@@ -240,7 +240,7 @@ namespace ArchipelagoEverhood.Patches
                             //If this is being checked, it might be the final fight.
                             if (!EverhoodHelpers.HasFlag("GL_MushroomBureauFinished") || EverhoodHelpers.HasFlag("GL_MB_Sun") || EverhoodHelpers.HasFlag("GL_MB_Moon"))
                                 return true;
-                            
+
                             __result = true;
                             return false;
                         }
@@ -250,13 +250,13 @@ namespace ArchipelagoEverhood.Patches
                             __result = Globals.ServicesRoot!.GameData.GeneralData.collectedItems.ContainsKey("SunInsignia");
                             return false;
                         }
-                        
+
                         if (___variable.Key == "GL_MB_Moon")
                         {
                             __result = Globals.ServicesRoot!.GameData.GeneralData.collectedItems.ContainsKey("MoonInsignia");
                             return false;
                         }
-                        
+
                         break;
                 }
 

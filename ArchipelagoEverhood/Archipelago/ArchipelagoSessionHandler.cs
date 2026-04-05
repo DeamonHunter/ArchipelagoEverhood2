@@ -78,7 +78,7 @@ namespace ArchipelagoEverhood.Archipelago
 
             if (!_slotData!.ContainsKey("Colorsanity"))
                 return;
-            
+
             //These are newly created keys that should have been in an old version.
             Globals.EverhoodDoors.OnReceiveDoorKey(10);
             Globals.EverhoodDoors.OnReceiveDoorKey(11);
