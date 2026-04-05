@@ -633,8 +633,7 @@ namespace ArchipelagoEverhood.Logic
         
         public void OnEnterBirdIsland(Scene scene)
         {
-            if (Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.DoorKeys)
-                return;
+            var doorKeysOn = Globals.EverhoodOverrides.Settings != null && Globals.EverhoodOverrides.Settings.DoorKeys;
             
             if (!EverhoodHelpers.TryGetGameObjectWithName("TRIGGERBOX", scene.GetRootGameObjects(), out var triggers))
             {
@@ -642,16 +641,19 @@ namespace ArchipelagoEverhood.Logic
                 return;
             }
 
-            if (EverhoodHelpers.TryGetChildWithName("LevelLoad-3DDimension", triggers, out var threeDPortal))
+            if (doorKeysOn)
             {
-                var trigger = threeDPortal.GetComponent<TopDownSwitchSceneZoneTrigger>();
-                var sceneInstance = _triggerSceneToLoad.GetValue(trigger);
-                _sceneValue.SetValue(sceneInstance, 64);
-                _triggerSpawnPosition.SetValue(trigger, new Vector2(3.6951f, -2.8166f));
-                _trigger3D.SetValue(trigger, false);
+                if (EverhoodHelpers.TryGetChildWithName("LevelLoad-3DDimension", triggers, out var threeDPortal))
+                {
+                    var trigger = threeDPortal.GetComponent<TopDownSwitchSceneZoneTrigger>();
+                    var sceneInstance = _triggerSceneToLoad.GetValue(trigger);
+                    _sceneValue.SetValue(sceneInstance, 64);
+                    _triggerSpawnPosition.SetValue(trigger, new Vector2(3.6951f, -2.8166f));
+                    _trigger3D.SetValue(trigger, false);
+                }
+                else
+                    Globals.Logging.Error("EverhoodDoors", "Failed to find 'LevelLoad-3DDimension'.");
             }
-            else
-                Globals.Logging.Error("EverhoodDoors", "Failed to find 'LevelLoad-3DDimension'.");
             
             if (EverhoodHelpers.TryGetChildWithName("PostTutorialSpaceship-Trigger", triggers, out var tutorialTrigger))
             {
