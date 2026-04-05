@@ -130,17 +130,19 @@ namespace ArchipelagoEverhood.Data
             { 306, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Mushroom Door Key", DoorId = 7} },
             { 307, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "3 Dimensional Key", DoorId = 8} },
             { 308, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Smelly Key", DoorId = 9} },
+            { 309, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Bird Island Key", DoorId = 10} },
+            { 310, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Everhood Key", DoorId = 11} },
         };
 
         public static Dictionary<long, EverhoodItemInfo> ColorsById = new()
         {
-            { 350, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Blue", Color = ProjectileColor.Blue } },
-            { 351, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Red", Color = ProjectileColor.Red } },
-            { 352, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Green", Color = ProjectileColor.Green } },
-            { 353, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Yellow", Color = ProjectileColor.Yellow } },
-            { 354, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Brown", Color = ProjectileColor.Brown } },
-            { 355, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Purple", Color = ProjectileColor.Purple } },
-            { 356, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Orange", Color = ProjectileColor.Orange } },
+            { 350, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Blue Soul Piece", Color = ProjectileColor.Blue } },
+            { 351, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Red Soul Piece", Color = ProjectileColor.Red } },
+            { 352, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Green Soul Piece", Color = ProjectileColor.Green } },
+            { 353, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Yellow Soul Piece", Color = ProjectileColor.Yellow } },
+            { 354, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Brown Soul Piece", Color = ProjectileColor.Brown } },
+            { 355, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Purple Soul Piece", Color = ProjectileColor.Purple } },
+            { 356, new EverhoodItemInfo { ItemFlags = ItemFlags.Advancement, ItemName = "Orange Soul Piece", Color = ProjectileColor.Orange } },
         };
 
         public static Dictionary<long, EverhoodItemInfo> CosmeticsById = new()
