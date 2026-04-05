@@ -96,6 +96,8 @@ namespace ArchipelagoEverhood.Archipelago
             Cursor.visible = false;
             _mainMenuObject.gameObject.SetActive(true);
             EditUndertitle();
+            
+            GameObject.FindFirstObjectByType<HomeUI>().Open();
         }
 
         private void AttemptLogin()
@@ -449,6 +451,9 @@ namespace ArchipelagoEverhood.Archipelago
             var button = archipelagoButton.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnArchipelagoClick);
+            
+            //They disabled the group
+            actualMenu.GetComponent<VerticalLayoutGroup>().enabled = true;
         }
 
 #endregion
