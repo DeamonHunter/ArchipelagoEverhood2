@@ -7,21 +7,21 @@
         public readonly string VariableName;
         public readonly int DefaultXp;
         public readonly int? IntegerCount;
-        public readonly int ActNumber;
+        public readonly ConnectedHub Hub;
 
         public bool InLogic = true; //Todo: Set when connecting.
         public bool Achieved;
 
-        public BattleData(int locationId, string sceneName, string variableName, int defaultXp, int? integerCount = null, int actNumber = 1)
+        public BattleData(int locationId, string sceneName, string variableName, int defaultXp, ConnectedHub hub, int? integerCount = null)
         {
             LocationId = locationId;
             SceneName = sceneName;
             VariableName = variableName;
             IntegerCount = integerCount;
             DefaultXp = defaultXp;
-            ActNumber = actNumber;
+            Hub = hub;
         }
 
-        public BattleData Clone() => new BattleData(LocationId, SceneName, VariableName, DefaultXp, IntegerCount, ActNumber);
+        public BattleData Clone() => new BattleData(LocationId, SceneName, VariableName, DefaultXp, Hub, IntegerCount);
     }
 }

@@ -118,7 +118,7 @@ namespace ArchipelagoEverhood.Logic
             }
         }
 
-        public int GetColorAmountForCurrentBattle() => CurrentBattle?.ActNumber ?? 1;
+        public ConnectedHub GetColorAmountForCurrentBattle() => CurrentBattle?.Hub ?? ConnectedHub.InfinityHub;
 
         public BattleData? CompletedBattle()
         {

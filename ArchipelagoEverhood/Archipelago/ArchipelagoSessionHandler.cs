@@ -68,6 +68,20 @@ namespace ArchipelagoEverhood.Archipelago
             LogicHandler = new ArchipelagoLogicHandler(_currentSession!);
             ItemHandler = new ArchipelagoItemHandler(_currentSession!.ConnectionInfo.Slot, _currentSession!.ConnectionInfo.Team);
             Globals.EverhoodOverrides.ArchipelagoConnected(new ArchipelagoSettings(_currentSession!.RoomState.Seed, _slotData!));
+            FixOldSaves();
+        }
+
+        private void FixOldSaves()
+        {
+            if (!Globals.EverhoodOverrides.Settings!.DoorKeys)
+                return;
+
+            if (!_slotData!.ContainsKey("Colorsanity"))
+                return;
+            
+            //These are newly created keys that should have been in an old version.
+            Globals.EverhoodDoors.OnReceiveDoorKey(10);
+            Globals.EverhoodDoors.OnReceiveDoorKey(11);
         }
 
         private void FindObjects()

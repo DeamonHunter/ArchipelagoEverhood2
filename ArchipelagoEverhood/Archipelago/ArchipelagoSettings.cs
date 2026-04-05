@@ -12,7 +12,7 @@ namespace ArchipelagoEverhood.Archipelago
         public SoulColor SoulColor { get; } = SoulColor.None;
         public bool DoorKeys { get; }
         public long PowerGemAmount { get; } = 3;
-        public bool ColorSanity { get; }
+        public ColorSoulPieces ColorSanity { get; }
         public bool PreventDragon { get; }
         public float HealthMultiplier { get; } = 1f;
         
@@ -27,9 +27,6 @@ namespace ArchipelagoEverhood.Archipelago
             
             if (slotData.TryGetValue("DragonGems", out var powerGemObj))
                 PowerGemAmount = (long)powerGemObj;
-
-            if (slotData.TryGetValue("Colorsanity", out var color))
-                ColorSanity = (bool)color;
             
             if (slotData.TryGetValue("PreventDragon", out var dragon))
                 PreventDragon = (bool)dragon;
@@ -39,6 +36,11 @@ namespace ArchipelagoEverhood.Archipelago
             
             if (slotData.TryGetValue("Goal", out var goal))
                 Goal = (EverhoodGoal)((long)goal);
+
+            if (slotData.TryGetValue("ColorSoulPieces", out var soulPieces))
+                ColorSanity = (ColorSoulPieces)((long)soulPieces);
+            else if (slotData.TryGetValue("Colorsanity", out var color))
+                ColorSanity = (bool)color ? ColorSoulPieces.Single : ColorSoulPieces.Off;
         }
 
         public override string ToString()

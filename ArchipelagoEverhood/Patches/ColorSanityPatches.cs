@@ -85,7 +85,7 @@ namespace ArchipelagoEverhood.Patches
             ref GameObject ___projectilPrefabGreen, ref GameObject ___projectilPrefabRed, out GameObject[]? __state)
         {
             __state = null;
-            if (!Globals.SessionHandler.LoggedIn || Globals.EverhoodOverrides.Settings == null || !Globals.EverhoodOverrides.Settings.ColorSanity)
+            if (!Globals.SessionHandler.LoggedIn || Globals.EverhoodOverrides.Settings == null || Globals.EverhoodOverrides.Settings.ColorSanity == ColorSoulPieces.Off)
                 return;
             try
             {
@@ -120,7 +120,9 @@ namespace ArchipelagoEverhood.Patches
                 if (BattleOverrides(__instance, ___projectilPrefab, ___projectilPrefabBlue, ___projectilPrefabGreen, ___projectilPrefabRed))
                     return;
 
-                var amount = Globals.EverhoodBattles.GetColorAmountForCurrentBattle();
+                var amount = Globals.EverhoodOverrides.Settings.ColorSanity == ColorSoulPieces.Multiple
+                    ? (int)Globals.EverhoodBattles.GetColorAmountForCurrentBattle()
+                    : 1;
                 AdjustPrefab(___projectilPrefab, amount);
                 AdjustPrefab(___projectilPrefabBlue, amount);
                 AdjustPrefab(___projectilPrefabGreen, amount);
