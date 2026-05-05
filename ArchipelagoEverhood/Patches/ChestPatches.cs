@@ -77,6 +77,8 @@ namespace ArchipelagoEverhood.Patches
                     {
                         case Item.WeaponToken:
                         case Item.DeathCoin:
+                        case Item.VIPTicket:
+                        case Item.YellowMask:
                             Globals.Logging.Log("Pick Item", $"Preventing default pickup of {___item}.");
                             
                             __instance.Continue();

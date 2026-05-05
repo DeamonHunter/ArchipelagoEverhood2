@@ -125,6 +125,12 @@ namespace ArchipelagoEverhood.Archipelago
                 case "DarkEverhood_MushroomForest":
                     OnEnterEverhood1();
                     break;
+                case "DarkEverhood_MidnightTown":
+                    OnEnterMidnightTown();
+                    break;
+                case "DarkEverhood_Maze":
+                    OnEnterCastleMaze();
+                    break;
                 case "Marzian_Part2Return":
                     OnEnterMarzianHeli();
                     break;
@@ -428,6 +434,26 @@ namespace ArchipelagoEverhood.Archipelago
         {
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_BusSummoned"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_MidnightIntro"] = false;
+        }
+
+        private void OnEnterMidnightTown()
+        {
+            //This is a backwards compatibility bug fix. Previous versions accidentally set this value when they should not have.
+            if (!EverhoodHelpers.HasFlag("GL_DE_GreenMageBriefingOutside") || EverhoodHelpers.HasFlag("DarkEverhood_MidnightTown_QuestDoorUnlocked")) 
+                return;
+            
+            Globals.Logging.Warning("Softlock Prevention", "Resetting Green Mage Briefing Dialogue.");
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_GreenMageBriefingOutside"] = false;
+        }
+
+        private void OnEnterCastleMaze()
+        {
+            //This is a backwards compatibility bug fix. Previous versions accidentally set this value when they should not have.
+            if (!EverhoodHelpers.HasFlag("GL_DE_YellowDeadComment") || EverhoodHelpers.HasFlag("GL_DE_CursedCastleRage")) 
+                return;
+            
+            Globals.Logging.Warning("Softlock Prevention", "Resetting Yellow Dead Comment.");
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_YellowDeadComment"] = false;
         }
 
         private void OnEnterMarzianHeli()

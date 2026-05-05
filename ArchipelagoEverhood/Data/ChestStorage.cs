@@ -130,13 +130,13 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 92, "BirdIsland_CaveLevel1", "50xp", "BirdIsland_CaveLevel1_Chest_5A_BI", ChestType.XP),
             new ChestData(_itemStartId + 93, "BirdIsland_CaveLevel1", "50xp", "BirdIsland_CaveLevel1_Chest_6A_BI", ChestType.XP),
             new ChestData(_itemStartId + 94, "BirdIsland_CaveLevel1", "DeathCoin", "BirdIsland_CaveLevel1_Chest_7A_BI", ChestType.Item), // Secret Village, for the Scholar Puzzle
-            new ChestData(_itemStartId + 95, "BirdIsland_Hub", "DeathCoin", "GL_BI_VictoryTrigger", ChestType.Item), // actually a "[Command] Pick 1 DeathCoin" but this may be better?
+            new ChestData(_itemStartId + 95, "BirdIsland_Hub", "DeathCoin", "GL_BI_VictoryTrigger", ChestType.Item, RewardConditions.DontSetVariableOnGiven), // actually a "[Command] Pick 1 DeathCoin" but this may be better?
             //Everhood 1
-            new ChestData(_itemStartId + 96, "DarkEverhood_MidnightTown", "VIPTicket", "GL_DE_GreenMageBriefingOutside", ChestType.Item), // [Command] Pick 1 VIPTicket
+            new ChestData(_itemStartId + 96, "DarkEverhood_MidnightTown", "VIPTicket", "GL_DE_GreenMageBriefingOutside", ChestType.Item, RewardConditions.DontSetVariableOnGiven), // [Command] Pick 1 VIPTicket
             new ChestData(_itemStartId + 97, "DarkEverhood_CursedCastle", "LongPlank", "GL_DE_RastaInteracted", ChestType.Item), // [Command] Pick 1 LongPlank
-            new ChestData(_itemStartId + 98, "DarkEverhood_Maze", "YellowMask", "GL_DE_YellowDeadComment", ChestType.Item), // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
+            new ChestData(_itemStartId + 98, "DarkEverhood_Maze", "YellowMask", "GL_DE_YellowDeadComment", ChestType.Item, RewardConditions.DontSetVariableOnGiven), // Not sure what to do for YellowMask. [Command] YellowMask = False, and GL_DE_BlueDead == True
             new ChestData(_itemStartId + 99, "BirdIsland_CaveLevel2", "DeathCoin", "GL_DE_DeathCoin", ChestType.Item),
-            new ChestData(_itemStartId + 100, "DarkEverhood_CartCarnival", "SoulWeaponB", "GL_DE_PinkBattleComment", ChestType.Item),
+            new ChestData(_itemStartId + 100, "DarkEverhood_CartCarnival", "SoulWeaponB", "GL_DE_PinkBattleComment", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
             //Pandemonium
             //new ChestData(_itemStartId + 100, "Pandemonium", "PandemoniumKey", "GL_Pa_SproutPKey", ChestType.Item), // from speaking to Sprout
             //The Colosseum, without using a code is accessed at Pandemonium
@@ -151,7 +151,7 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 108, "Pandemonium", "WeaponToken", "GL_1A_SEnd1_ChestOpen", ChestType.Item),
             //Torment Room 222 883
             new ChestData(_itemStartId + 109, "TormentRoom", "WeaponToken", "GL_1A_SEnd6_ChestOpen", ChestType.Item),
-            new ChestData(_itemStartId + 111, "TimeHubInfinity", "SoulWeaponA", "GL_HOC_PostDragonIntro", ChestType.Item),
+            new ChestData(_itemStartId + 111, "TimeHubInfinity", "SoulWeaponA", "GL_HOC_PostDragonIntro", ChestType.Item, RewardConditions.DontSetVariableOnGiven),
             new ChestData(_itemStartId + 112, "Hometown_Festival", "5xp", "GL_OrangeCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 113, "Hometown_Festival", "5xp", "GL_GreyCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 114, "Hometown_Festival", "-2xp", "GL_BlackCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
