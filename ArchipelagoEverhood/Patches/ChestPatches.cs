@@ -283,7 +283,6 @@ namespace ArchipelagoEverhood.Patches
                 if (___playerWeapon is Weapon.Axe or Weapon.Bow or Weapon.Spear)
                 {
                     var hubScene = SceneManager.GetSceneByName("TimeHubInfinity");
-                    
                     if (hubScene.isLoaded)
                         data = Globals.EverhoodChests.ChestOpened("SoulWeaponA");
                     else
@@ -292,8 +291,12 @@ namespace ArchipelagoEverhood.Patches
                 else
                     data = Globals.EverhoodChests.ChestOpened(___playerWeapon);
                 
+                //Prevent giving weapons by default for doing a location a second time.
                 if (data == null)
-                    return true;
+                {
+                    __instance.Continue();
+                    return false;
+                }
 
                 if (!data.Achieved)
                 {
