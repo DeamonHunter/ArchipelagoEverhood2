@@ -156,6 +156,8 @@ namespace ArchipelagoEverhood.Data
             new ChestData(_itemStartId + 113, "Hometown_Festival", "5xp", "GL_GreyCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 114, "Hometown_Festival", "-2xp", "GL_BlackCatPetted", ChestType.XP, RewardConditions.RewardOnVariable),
             new ChestData(_itemStartId + 115, "Hometown_Festival", "Braclet", "GL_HT_SoulDetermined", ChestType.Item),
+            
+            new ChestData(_itemStartId + 117, "TimeHubInfinity", "Catnip", "GL_TH_IrvineMailbox_Open", ChestType.Item),
         };
     }
 }

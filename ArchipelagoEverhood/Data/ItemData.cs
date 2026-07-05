@@ -27,6 +27,7 @@ namespace ArchipelagoEverhood.Data
             
             { 120, new EverhoodItemInfo { Item = Item.VIPTicket, ItemFlags = ItemFlags.None, ItemName = "V.I.P. Card" } },
             { 121, new EverhoodItemInfo { Item = Item.YellowMask, ItemFlags = ItemFlags.None, ItemName = "Yellow Mask" } },
+            { 124, new EverhoodItemInfo { Item = Item.Catnip, ItemFlags = ItemFlags.None, ItemName = "Catnip" } },
 
 
             /*
