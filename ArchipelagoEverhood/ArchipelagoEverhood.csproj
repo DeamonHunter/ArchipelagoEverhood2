@@ -9,52 +9,55 @@
 
     <ItemGroup>
         <Reference Include="0Harmony">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\MelonLoader\net35\0Harmony.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\MelonLoader\net35\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Assembly-CSharp.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\MelonLoader\net35\MelonLoader.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\MelonLoader\net35\MelonLoader.dll</HintPath>
         </Reference>
         <Reference Include="Sirenix.Serialization">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Sirenix.Serialization.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\Sirenix.Serialization.dll</HintPath>
         </Reference>
         <Reference Include="Unity.2D.PixelPerfect">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Unity.2D.PixelPerfect.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\Unity.2D.PixelPerfect.dll</HintPath>
         </Reference>
         <Reference Include="Unity.TextMeshPro">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+          <HintPath>..\..\..\.steam\debian-installation\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AudioModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.ImageConversionModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.ParticleSystemModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.UI.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Everhood2\Everhood2\Everhood 2_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>/home/deamonhunter/.steam/debian-installation/steamapps/common/Everhood2/Everhood2\Everhood 2_Data\Managed\UnityEngine.UIModule.dll</HintPath>
         </Reference>
     </ItemGroup>
 

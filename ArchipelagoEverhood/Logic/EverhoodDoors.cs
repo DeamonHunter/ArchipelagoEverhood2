@@ -76,6 +76,9 @@ namespace ArchipelagoEverhood.Logic
             if (_frameCountdown > 0)
                 return;
 
+            if (Globals.TopdownRoot)
+                Globals.TopdownRoot!.PlayerAnimator.SetTrigger("Normal_Trigger");
+            
             switch (_loadingHub)
             {
                 case Hub.CosmicHub:
