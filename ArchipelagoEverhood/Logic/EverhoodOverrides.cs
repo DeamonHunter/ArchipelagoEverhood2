@@ -30,6 +30,9 @@ namespace ArchipelagoEverhood.Archipelago
         private static FieldInfo _sceneToLoad = typeof(SwitchTopDownScene).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
         private static FieldInfo _spawnPosition = typeof(SwitchTopDownScene).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
         private static FieldInfo _scene = typeof(SceneField).GetField("buildIndex", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        
+        private FieldInfo _triggerSceneToLoad = typeof(TopDownSwitchSceneZoneTrigger).GetField("sceneToLoad", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        private FieldInfo _triggerSpawnPosition = typeof(TopDownSwitchSceneZoneTrigger).GetField("spawnPosition", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         public void ArchipelagoConnected(ArchipelagoSettings settings)
         {
@@ -258,7 +261,29 @@ namespace ArchipelagoEverhood.Archipelago
 
             if (!EverhoodHelpers.TryGetChildWithName("East-Gate", gameplay, out gate))
                 throw new Exception("Failed to edit Marzian Hallway: Could not find 'West-Gate'.");
-
+            
+            foreach (var switchTopDownScene in GameObject.FindObjectsByType<SwitchTopDownScene>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                var sceneFiled = (SceneField)_sceneToLoad.GetValue(switchTopDownScene);
+                if (sceneFiled.BuildIndex != 48)
+                    continue;
+                
+                Globals.Logging.Warning("Softlock Prevention", $"Changing Dialogue teleport: {sceneFiled.BuildIndex} {switchTopDownScene.Description}");
+                _scene.SetValue(sceneFiled, 10);
+                _spawnPosition.SetValue(switchTopDownScene, new Vector2(2.938f, -3.7142f));
+            }
+            
+            foreach (var switchTrigger in GameObject.FindObjectsByType<TopDownSwitchSceneZoneTrigger>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
+                var sceneInstance = (SceneField)_triggerSceneToLoad.GetValue(switchTrigger);
+                if (sceneInstance.BuildIndex != 48)
+                    continue;
+                
+                Globals.Logging.Warning("Softlock Prevention", $"Changing Trigger teleport: {sceneInstance.BuildIndex}");
+                _scene.SetValue(sceneInstance, 10);
+                _triggerSpawnPosition.SetValue(switchTrigger, new Vector2(2.938f, -3.7142f));
+            }
+            
             gate.gameObject.SetActive(false);
         }
 
@@ -434,6 +459,7 @@ namespace ArchipelagoEverhood.Archipelago
         {
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_BusSummoned"] = false;
             Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_DE_MidnightIntro"] = false;
+            Globals.ServicesRoot!.GameData.GeneralData.boolVariables["GL_BrownMageExperiment"] = false;
         }
 
         private void OnEnterMidnightTown()
